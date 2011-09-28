@@ -90,7 +90,7 @@ public final class R {
         public static final int bar=0x7f050003;
     }
     public static final class style {
-        public static final int Hubroid=0x7f060000;
+        public static final int Old=0x7f060000;
         public static final int addedText=0x7f060002;
         public static final int code=0x7f060001;
         public static final int removedText=0x7f060003;
