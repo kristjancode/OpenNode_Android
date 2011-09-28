@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+	<LinearLayout
+		android:id="@+id/ll_dashboard_buttons"
+		android:gravity="center" android:orientation="vertical" 
+		android:layout_gravity="center|bottom" android:weightSum="1"
+		xmlns:android="http://schemas.android.com/apk/res/android" 
+		android:layout_width="match_parent" android:layout_height="match_parent">
+		<FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1.03">
+			<ImageButton android:layout_height="46dp" android:src="@drawable/ic_action_search" android:onClick="btnSearchClicked" android:layout_gravity="right" android:id="@+id/btn_Search" android:layout_width="48dp" android:clickable="true" android:background="@color/actionbar_background_end"></ImageButton>
+			<ImageView android:layout_height="51dp" android:layout_gravity="left|top" android:src="@drawable/opennode_" android:id="@+id/imageView1" android:layout_width="168dp"></ImageView>
+		</FrameLayout>
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" >
+			<Button android:text="Compute" 
+				android:id="@+id/btn_Compute" 
+				android:layout_width="120dip" 
+				android:background="#00ffffff" android:drawableTop="@drawable/executable" android:layout_height="115dp"></Button>
+			<Button android:id="@+id/btn_Network"
+				android:layout_width="120dip"
+				android:background="#00ffffff" android:text="Network" android:drawableTop="@drawable/utilities_network_manager" android:layout_height="115dp"/>
+		</LinearLayout>
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
+			<Button android:id="@+id/btn_Template"
+				android:layout_width="120dip"
+				android:background="#00ffffff" android:text="Storage" android:drawableTop="@drawable/archive" android:layout_height="115dp"/>
+			<Button android:id="@+id/btn_Storage"
+				android:layout_width="120dip"
+				android:background="#00ffffff" android:text="Template" android:drawableTop="@drawable/cdbo_list_icone" android:layout_height="115dp"/>
+		</LinearLayout>
+		<LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button android:id="@+id/btn_Activity_Stream"
+            	android:layout_width="120dip"
+            	android:background="#00ffffff"
+            	android:text="Activity stream" android:drawableTop="@drawable/activity_streams_icon" android:layout_height="115dp"/>
+
+        </LinearLayout>
+	</LinearLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Application -->
+    <string name="app_name">OpenNode</string>
+    <string name="app_version">2.2+</string>
+
+    <!-- Action bar strings -->
+    <string name="action_home_label">Home</string>
+
+	<!-- Compute Activity -->
+
+	<!-- Network Activity -->
+
+	<!-- Storage Activity -->
+
+    <!-- Template Activity -->
+
+	<!-- Search Activity -->
+
+	<!-- Issues Activity -->
+
+    <!-- Miscellaneous -->
+    <string name="bar">|</string>
+
+
+	<!-- Preferences -->
+
+
+</resources>

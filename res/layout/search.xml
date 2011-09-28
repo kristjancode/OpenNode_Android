@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/rl_search_root"
+	android:background="#FFF"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="51dp">
+        <ImageButton android:layout_height="46dp" android:src="@drawable/ic_action_search" android:onClick="btnSearchClicked" android:layout_gravity="right" android:id="@+id/btn_Search" android:layout_width="48dp" android:clickable="true" android:background="@color/actionbar_background_end"></ImageButton>
+        <ImageView android:layout_height="51dp" android:layout_gravity="left|top" android:src="@drawable/opennode_" android:id="@+id/imageView1" android:layout_width="168dp"></ImageView>
+
+    </FrameLayout>
+    <LinearLayout 	
+    	android:orientation="vertical"
+    	android:layout_height="wrap_content" android:layout_width="match_parent">
+  		<EditText android:id="@+id/editText1"  android:layout_width="match_parent" android:imeOptions="actionSearch" android:singleLine="true" android:layout_gravity="top" android:layout_height="wrap_content">	
+   		</EditText>
+	</LinearLayout>
+</LinearLayout>
