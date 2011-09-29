@@ -5,9 +5,10 @@
       android:versionName="1.0">
     <uses-sdk android:minSdkVersion="8" />
 
-    <application android:icon="@drawable/icon" android:label="@string/app_name">
+    <application android:icon="@drawable/icon" 
+    	android:label="@string/app_name" 
+    	android:theme="@android:style/Theme.Light.NoTitleBar">
         <activity android:name=".OpenActivity"
-        		  android:theme="@android:style/Theme.Light.NoTitleBar"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />    
@@ -15,21 +16,15 @@
             </intent-filter>
         </activity>  
         <activity android:name=".Search" 
-        android:theme="@android:style/Theme.Light.NoTitleBar"
         android:configChanges="orientation|keyboard|keyboardHidden" />
         <activity android:name=".Activity_Stream" 
-        android:theme="@android:style/Theme.Light.NoTitleBar"
         android:configChanges="orientation|keyboard|keyboardHidden" />
-        <activity android:name=".Network" 
-        android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity android:name=".Network" />
         <activity android:name=".Template" 
-        android:theme="@android:style/Theme.Light.NoTitleBar"
         android:configChanges="orientation|keyboard|keyboardHidden" />
         <activity android:name=".Storage" 
-        android:theme="@android:style/Theme.Light.NoTitleBar"
         android:configChanges="orientation|keyboard|keyboardHidden" />
         <activity android:name=".Compute" 
-        android:theme="@android:style/Theme.Light.NoTitleBar"
         android:configChanges="orientation|keyboard|keyboardHidden" />
      
   </application>
