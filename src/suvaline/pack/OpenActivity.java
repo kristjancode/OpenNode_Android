@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -18,15 +19,50 @@ public class OpenActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        ImageButton next = (ImageButton) findViewById(R.id.btn_Search);
-        next.setOnClickListener(new View.OnClickListener() {
+        ImageButton search = (ImageButton) findViewById(R.id.btn_Search);
+        search.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent myIntent = new Intent(view.getContext(), Search.class);
                 startActivityForResult(myIntent, 0);
             }
 
         });
-    }
+        Button activity = (Button) findViewById(R.id.btn_Activity_Stream);
+        activity.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent myIntent = new Intent(view.getContext(), Activity_Stream.class);
+                startActivityForResult(myIntent, 0);
+            }
+        });
+	    Button network = (Button) findViewById(R.id.btn_Network);
+	    network.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View view) {
+	            Intent myIntent = new Intent(view.getContext(), Network.class);
+	            startActivityForResult(myIntent, 0);
+	        }
+	    });
+	    Button template = (Button) findViewById(R.id.btn_Template);
+	    template.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View view) {
+	            Intent myIntent = new Intent(view.getContext(), Template.class);
+	            startActivityForResult(myIntent, 0);
+	        }
+	    });
+	    Button storage = (Button) findViewById(R.id.btn_Storage);
+	    storage.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View view) {
+	            Intent myIntent = new Intent(view.getContext(), Storage.class);
+	            startActivityForResult(myIntent, 0);
+	        }
+	    });
+	    Button compute = (Button) findViewById(R.id.btn_Compute);
+	    compute.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View view) {
+	            Intent myIntent = new Intent(view.getContext(), Compute.class);
+	            startActivityForResult(myIntent, 0);
+	        }
+	    });
+}
            
    
     public boolean onCreateOptionsMenu(Menu menu2){ 

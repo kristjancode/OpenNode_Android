@@ -50,23 +50,46 @@ public final class R {
         public static final int utilities_network_manager=0x7f02000b;
     }
     public static final class id {
-        public static final int actionbar_item_create=0x7f08000b;
-        public static final int actionbar_item_home=0x7f08000a;
-        public static final int actionbar_item_search=0x7f08000c;
-        public static final int btn_Activity_Stream=0x7f080007;
-        public static final int btn_Compute=0x7f080003;
-        public static final int btn_Network=0x7f080004;
-        public static final int btn_Search=0x7f080001;
-        public static final int btn_Storage=0x7f080006;
-        public static final int btn_Template=0x7f080005;
-        public static final int editText1=0x7f080009;
-        public static final int imageView1=0x7f080002;
-        public static final int ll_dashboard_buttons=0x7f080000;
-        public static final int rl_search_root=0x7f080008;
+        public static final int actionbar_item_create=0x7f08001d;
+        public static final int actionbar_item_home=0x7f08001c;
+        public static final int actionbar_item_search=0x7f08001e;
+        public static final int activity_label=0x7f080001;
+        public static final int btn_Activity_Stream=0x7f08000e;
+        public static final int btn_Compute=0x7f08000a;
+        public static final int btn_Network=0x7f08000b;
+        public static final int btn_Search=0x7f080008;
+        public static final int btn_Storage=0x7f08000c;
+        public static final int btn_Template=0x7f08000d;
+        public static final int editText1=0x7f080014;
+        public static final int imageView1=0x7f080009;
+        public static final int list_activity=0x7f080003;
+        public static final int list_compute=0x7f080006;
+        public static final int list_network=0x7f080011;
+        public static final int list_storage=0x7f080018;
+        public static final int list_templates=0x7f08001b;
+        public static final int ll_dashboard_buttons=0x7f080007;
+        public static final int rl_search_root=0x7f080012;
+        public static final int scroll_activity=0x7f080002;
+        public static final int scroll_compute=0x7f080005;
+        public static final int scroll_network=0x7f080010;
+        public static final int scroll_storage=0x7f080017;
+        public static final int scroll_templates=0x7f08001a;
+        public static final int search_list=0x7f080016;
+        public static final int search_scroll=0x7f080015;
+        public static final int widget103=0x7f080000;
+        public static final int widget104=0x7f08000f;
+        public static final int widget105=0x7f080019;
+        public static final int widget106=0x7f080004;
+        public static final int widget44=0x7f080013;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
-        public static final int search=0x7f030001;
+        public static final int activity_stream=0x7f030000;
+        public static final int compute=0x7f030001;
+        public static final int main=0x7f030002;
+        public static final int network=0x7f030003;
+        public static final int search=0x7f030004;
+        public static final int storage=0x7f030005;
+        public static final int template=0x7f030006;
     }
     public static final class menu {
         public static final int actionbar=0x7f070000;

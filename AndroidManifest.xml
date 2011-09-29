@@ -17,6 +17,20 @@
         <activity android:name=".Search" 
         android:theme="@android:style/Theme.Light.NoTitleBar"
         android:configChanges="orientation|keyboard|keyboardHidden" />
-    
+        <activity android:name=".Activity_Stream" 
+        android:theme="@android:style/Theme.Light.NoTitleBar"
+        android:configChanges="orientation|keyboard|keyboardHidden" />
+        <activity android:name=".Network" 
+        android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity android:name=".Template" 
+        android:theme="@android:style/Theme.Light.NoTitleBar"
+        android:configChanges="orientation|keyboard|keyboardHidden" />
+        <activity android:name=".Storage" 
+        android:theme="@android:style/Theme.Light.NoTitleBar"
+        android:configChanges="orientation|keyboard|keyboardHidden" />
+        <activity android:name=".Compute" 
+        android:theme="@android:style/Theme.Light.NoTitleBar"
+        android:configChanges="orientation|keyboard|keyboardHidden" />
+     
   </application>
 </manifest>
