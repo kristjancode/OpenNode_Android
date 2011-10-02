@@ -1,7 +1,6 @@
 package core.interfaces;
 
 import org.json.JSONObject;
-
 import core.Core;
 import core.models.Network;
 

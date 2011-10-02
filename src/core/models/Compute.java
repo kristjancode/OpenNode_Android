@@ -9,7 +9,7 @@ public final class Compute extends Item
 		super();
 	}
 	
-	public void assign(Compute compute)
+	private void assign(Compute compute)
 	{
 		super.assign(compute);
 		m_arch = compute.m_arch;
@@ -18,6 +18,11 @@ public final class Compute extends Item
 		m_memory = compute.m_memory;
 		m_state = compute.m_state;
 		m_template = compute.m_template;
+	}
+	
+	public String hostname()
+	{
+		return m_name;
 	}
 	
 	public String arch()

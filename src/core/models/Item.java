@@ -9,7 +9,7 @@ public abstract class Item
 		m_full = false;
 	}
 	
-	public void assign(Item item)
+	protected void assign(Item item)
 	{
 		m_id = item.m_id;
 		m_name = item.m_name;

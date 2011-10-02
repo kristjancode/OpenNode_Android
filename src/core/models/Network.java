@@ -12,7 +12,7 @@ public class Network extends Item
 		m_gateway = null;
 	}
 	
-	public void assign(Network network)
+	private void assign(Network network)
 	{
 		super.assign(network);
 		m_ip = network.m_ip;

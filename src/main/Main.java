@@ -2,10 +2,8 @@ package main;
 
 import core.Core;
 import core.config.Config;
-import core.interfaces.ComputeManager;
-import core.interfaces.NetworkManager;
-import core.models.Compute;
-import core.models.Network;
+import core.interfaces.*;
+import core.models.*;
 
 public class Main 
 {
@@ -15,11 +13,47 @@ public class Main
 		Config.SERVER_PORT = 8080;
 		Core core = new Core();
 		
-		ComputeManager computeManager = core.computeManager();
-		testComputeManager(computeManager);
-		
+		ComputeManager computeManager = core.computeManager();	
 		NetworkManager networkManager = core.networkManager();
-		testNetworkManager(networkManager);
+		StorageManager storageManager = core.storageManager();
+		TemplateManager templateManager = core.templateManager();
+		NewsManager newsManager = core.newsManager();
+		testManager((AbstractManager) computeManager);
+		testManager((AbstractManager) networkManager);
+		testManager((AbstractManager) storageManager);
+		testManager((AbstractManager) templateManager);
+		testManager((AbstractManager) newsManager);
+	}
+	
+	private static void testManager(AbstractManager<Item> manager)
+	{
+		if (manager.loadItems())
+		{
+			int itemCount = manager.itemCount();
+			System.out.println("Successfully loaded items. Count: " + itemCount + ".");
+			System.out.println("Obtaining details for " + itemCount + " items.");
+			
+			for (int i = 0; i < itemCount; i++)
+			{
+				Item item = manager.item(i);
+				System.out.print("Requesting details for " + item.toString());
+				
+				if (manager.loadItemDetails(item))
+				{
+					System.out.println(" -> " + item.toString());
+				}
+				else
+				{
+					System.out.println(" -> failed");
+				}
+			}
+		}
+		else
+		{
+			System.out.println("Failed to load items.");
+		}
+		
+		System.out.println("");
 	}
 	
 	private static void testComputeManager(ComputeManager computeManager)
