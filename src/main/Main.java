@@ -31,9 +31,9 @@ public class Main
 		{
 			int itemCount = manager.itemCount();
 			System.out.println("Successfully loaded items. Count: " + itemCount + ".");
-			System.out.println("Obtaining details for " + itemCount + " items.");
+			System.out.println("Obtaining details for first 10 items.");
 			
-			for (int i = 0; i < itemCount; i++)
+			for (int i = 0; i < itemCount && i < 10; i++)
 			{
 				Item item = manager.item(i);
 				System.out.print("Requesting details for " + item.toString());

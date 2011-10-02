@@ -29,7 +29,7 @@ public class Template extends Item
 	@Override
 	public String toString()
 	{
-		String stringRepresentation = "Storage(";
+		String stringRepresentation = "Template(";
 		stringRepresentation += m_id + ", ";
 		stringRepresentation += m_name;
 		
