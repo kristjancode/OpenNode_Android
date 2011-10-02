@@ -40,10 +40,10 @@
 			android:layout_height="wrap_content">
 			<Button android:id="@+id/btn_Storage"
 				android:layout_width="120dip"
-				android:background="#00ffffff" android:text="Storage" android:drawableTop="@drawable/archive" android:layout_height="115dp"/>
+				android:background="#00ffffff" android:text="Storage" android:layout_height="115dp" android:drawableTop="@drawable/storage"/>
 			<Button android:id="@+id/btn_Template"
 				android:layout_width="120dip"
-				android:background="#00ffffff" android:text="Template" android:drawableTop="@drawable/cdbo_list_icone" android:layout_height="115dp"/>
+				android:background="#00ffffff" android:text="Template" android:layout_height="115dp" android:drawableTop="@drawable/template"/>
 		</LinearLayout>
 		<LinearLayout
             android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
             <Button android:id="@+id/btn_Activity_Stream"
             	android:layout_width="120dip"
             	android:background="#00ffffff"
-            	android:text="Activity stream" android:drawableTop="@drawable/activity_streams_icon" android:layout_height="115dp" android:clickable="true"/>
+            	android:text="Activity stream" android:layout_height="115dp" android:clickable="true" android:drawableTop="@drawable/activity_stream"/>
 
         </LinearLayout>
 	</LinearLayout>
