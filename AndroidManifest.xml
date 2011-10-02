@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="suvaline.pack"
+      package="activity.pack"
       android:versionCode="1"
       android:versionName="1.0">
     <uses-sdk android:minSdkVersion="8" />
@@ -9,7 +9,7 @@
     	android:label="@string/app_name" 
     	android:theme="@android:style/Theme.Light.NoTitleBar">
     	
-        <activity android:name=".Login"
+        <activity android:name=".LoginActivity"
         android:configChanges="orientation|keyboard|keyboardHidden"
                   android:label="@string/app_name">
             <intent-filter>
@@ -19,16 +19,16 @@
         </activity> 
         <activity android:name=".OpenActivity" 
          />
-        <activity android:name=".Search" 
+        <activity android:name=".SearchActivity" 
         android:configChanges="orientation|keyboard|keyboardHidden" />
         <activity android:name=".Activity_Stream" 
         android:configChanges="orientation|keyboard|keyboardHidden" />
-        <activity android:name=".Network" />
-        <activity android:name=".Template" 
+        <activity android:name=".NetworkActivity" />
+        <activity android:name=".TemplateActivity" 
         android:configChanges="orientation|keyboard|keyboardHidden" />
-        <activity android:name=".Storage" 
+        <activity android:name=".StorageActivity" 
         android:configChanges="orientation|keyboard|keyboardHidden" />
-        <activity android:name=".Compute" 
+        <activity android:name=".ComputeActivity" 
         android:configChanges="orientation|keyboard|keyboardHidden" />
      
   </application>

@@ -1,31 +1,22 @@
-package suvaline.pack;
+package activity.pack;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-public class Login extends Activity {
+public class Activity_StreamActivity extends Activity {
 
     @Override
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.login);        
-        
-        Button login = (Button) findViewById(R.id.btn_login_login);
-        login.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), OpenActivity.class);
-                startActivityForResult(myIntent, 0);
-            }
-        });
+        setContentView(R.layout.activity_stream);
+
     }
+    
     public boolean onCreateOptionsMenu(Menu menu2){ 
 
     	MenuInflater inflater = getMenuInflater(); 
@@ -52,5 +43,3 @@ public class Login extends Activity {
 
 
 }
-
-

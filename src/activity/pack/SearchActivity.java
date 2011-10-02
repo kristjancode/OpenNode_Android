@@ -1,4 +1,4 @@
-package suvaline.pack;
+package activity.pack;
 
 
 import android.app.Activity;
@@ -9,7 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class Search extends Activity {
+public class SearchActivity extends Activity {
 
     @Override
     public void onCreate(final Bundle icicle) {

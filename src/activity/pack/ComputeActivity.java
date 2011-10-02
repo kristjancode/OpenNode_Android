@@ -1,4 +1,4 @@
-package suvaline.pack;
+package activity.pack;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,12 +8,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class Storage extends Activity {
+public class ComputeActivity extends Activity {
 
     @Override
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.storage);
+        setContentView(R.layout.compute);
 
     }
     

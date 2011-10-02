@@ -1,4 +1,4 @@
-package suvaline.pack;
+package activity.pack;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,12 +8,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class Activity_Stream extends Activity {
+public class NetworkActivity extends Activity {
 
     @Override
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.activity_stream);
+        setContentView(R.layout.network);
 
     }
     
@@ -43,3 +43,5 @@ public class Activity_Stream extends Activity {
 
 
 }
+
+
