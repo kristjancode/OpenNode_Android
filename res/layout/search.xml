@@ -17,14 +17,12 @@ android:layout_width="48dp"
 android:layout_height="46dp"
 android:layout_gravity="right"
 android:src="@drawable/ic_action_search"
->
+android:background="@color/actionbar_background_end">
 </ImageButton>
 <ImageView
 android:id="@+id/imageView1"
 android:layout_width="168dp"
-android:layout_height="51dp"
-android:src="@drawable/opennode_"
->
+android:layout_height="51dp" android:src="@drawable/logo_opennode_lowres">
 </ImageView>
 </FrameLayout>
 <EditText
