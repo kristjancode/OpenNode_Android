@@ -1,6 +1,5 @@
 package core.network;
 
-
 public class ServerConnector 
 {
 	public ServerConnector(String server, int port)

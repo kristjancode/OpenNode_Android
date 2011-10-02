@@ -1,6 +1,7 @@
 package main;
 
 import core.Core;
+import core.config.Config;
 import core.interfaces.ComputeManager;
 import core.interfaces.NetworkManager;
 import core.models.Compute;
@@ -10,6 +11,8 @@ public class Main
 {
 	public static void main(String[] args)
 	{
+		Config.SERVER_HOSTNAME = "127.0.0.1";
+		Config.SERVER_PORT = 8080;
 		Core core = new Core();
 		
 		ComputeManager computeManager = core.computeManager();
@@ -73,7 +76,7 @@ public class Main
 		}
 		else
 		{
-			System.out.println("Failed to load computes.");
+			System.out.println("Failed to load networks.");
 		}
 	}
 }
