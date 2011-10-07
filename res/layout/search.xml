@@ -31,14 +31,8 @@ android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 >
 </EditText>
-<ScrollView
-android:id="@+id/search_scroll"
-android:layout_width="fill_parent"
-android:layout_height="match_parent"
->
 <ListView
 android:id="@+id/search_list"
 android:layout_width="fill_parent" android:layout_height="450dp">
 </ListView>
-</ScrollView>
 </LinearLayout>

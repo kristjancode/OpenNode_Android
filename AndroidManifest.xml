@@ -20,7 +20,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".SearchActivity" 
         android:configChanges="orientation|keyboard|keyboardHidden" />
-        <activity android:name=".Activity_Stream" 
+        <activity android:name=".Activity_StreamActivity" 
         android:configChanges="orientation|keyboard|keyboardHidden" />
         <activity android:name=".NetworkActivity" />
         <activity android:name=".TemplateActivity" 
