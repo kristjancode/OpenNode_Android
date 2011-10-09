@@ -4,7 +4,6 @@
       android:versionCode="1"
       android:versionName="0.1">
     <uses-sdk android:minSdkVersion="8" />
-
     <application android:icon="@drawable/icon" 
     	android:label="@string/app_name" 
     	android:theme="@android:style/Theme.Light.NoTitleBar">
@@ -31,4 +30,5 @@
         android:configChanges="orientation|keyboard|keyboardHidden" />
      
   </application>
+  <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>
