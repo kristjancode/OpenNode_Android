@@ -7,7 +7,7 @@ public class UI_Core {
 
 	private static Core core;
 	
-	public Core getCore(){
+	public static Core getCore(){
 		return core;
 	}
 	static{

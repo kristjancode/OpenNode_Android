@@ -1,31 +1,44 @@
 package activity.pack;
 
+import core.interfaces.ComputeManager;
 import android.app.Activity;
-import android.app.LauncherActivity.ListItem;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class ComputeActivity extends Activity {
 	//Example how to add items into list.
-	private ListView computeList;
-	private String listItems[]={"Item1","Item2","Item3","Item4","Item5","Item6","Item7","Item8"};
+	private ListView computeListView;
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.compute);
-		computeList = (ListView) findViewById(R.id.list_compute);
-		computeList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , listItems));
+		ComputeManager computeManager = UI_Core.getCore().computeManager();
+		boolean itemsLoaded = computeManager.loadItems();	
+		int elementsInComputeList = computeManager.itemCount();	
+		core.models.Compute computeList[] = new core.models.Compute[elementsInComputeList];
+		String listItems[] = new String[elementsInComputeList];
+		for (int counter=0; counter<elementsInComputeList; counter++){
+			computeList[counter]=computeManager.item(counter);
+			listItems[counter] = computeList[counter].name();
+		}
+		computeListView = (ListView) findViewById(R.id.list_compute);
+		computeListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , listItems));
+		computeListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  
+				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					Intent intent = new Intent(arg1.getContext(), MainActivity.class);  //No menu yet!
+					startActivity(intent);
+				}  
+		      });  
 	}
+
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
 

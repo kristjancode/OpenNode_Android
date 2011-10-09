@@ -1,19 +1,41 @@
 package activity.pack;
 
+import core.interfaces.NetworkManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class NetworkActivity extends Activity {
-
+	private ListView networkListView;
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.network);
+		NetworkManager networkManager = UI_Core.getCore().networkManager();
+		boolean itemsLoaded = networkManager.loadItems();	//It seems to be unused, but it´s really for getting new data.
+		int elementsInnetworkList = networkManager.itemCount();	
+		core.models.Network networkList[] = new core.models.Network[elementsInnetworkList];
+		String listItems[] = new String[elementsInnetworkList];
+		for (int counter=0; counter<elementsInnetworkList; counter++){
+			networkList[counter]=networkManager.item(counter);
+			listItems[counter] = networkList[counter].name();
+		}
+		networkListView = (ListView) findViewById(R.id.list_network);
+		networkListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , listItems));
+		networkListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  
+				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					Intent intent = new Intent(arg1.getContext(), MainActivity.class);  //No menu yet!
+					startActivity(intent);
+				}  
+		      });  
 
 	}
 
