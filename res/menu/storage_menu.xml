@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/extra_info_storage" android:title="Extra info"></item>
+	<item android:title="Update" android:id="@+id/update_storage"></item>
+	<item android:id="@+id/delete_storage" android:title="Delete"></item>
+
+</menu>

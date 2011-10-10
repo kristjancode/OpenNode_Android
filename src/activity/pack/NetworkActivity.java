@@ -4,10 +4,12 @@ import core.interfaces.NetworkManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 public class NetworkActivity extends Activity {
 	private ListView networkListView;
+	private String[] listItems;
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
@@ -23,20 +26,37 @@ public class NetworkActivity extends Activity {
 		boolean itemsLoaded = networkManager.loadItems();	//It seems to be unused, but it´s really for getting new data.
 		int elementsInnetworkList = networkManager.itemCount();	
 		core.models.Network networkList[] = new core.models.Network[elementsInnetworkList];
-		String listItems[] = new String[elementsInnetworkList];
+		listItems = new String[elementsInnetworkList];
 		for (int counter=0; counter<elementsInnetworkList; counter++){
 			networkList[counter]=networkManager.item(counter);
 			listItems[counter] = networkList[counter].name();
 		}
 		networkListView = (ListView) findViewById(R.id.list_network);
 		networkListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , listItems));
-		networkListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  
+		registerForContextMenu(networkListView);
+		networkListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-					Intent intent = new Intent(arg1.getContext(), MainActivity.class);  //No menu yet!
-					startActivity(intent);
-				}  
+		              registerForContextMenu(arg0);
+		              arg1.showContextMenu();
+				}  		
 		      });  
+	}
+	
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.network_menu, menu);
 
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+        long itemID = info.position;
+        menu.setHeaderTitle(listItems[(int) itemID]);
+      }
+    public boolean onContextItemSelected(MenuItem item)  {
+		switch (item.getItemId()) {
+		case R.id.extra_info_network:
+			break;
+		}
+		return true;
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu2) {

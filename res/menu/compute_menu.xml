@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<item android:title="Extra info"
+		android:menuCategory="container" android:visible="true"
+		android:enabled="true" android:id="@+id/extra_info_compute"></item>
+	<item android:id="@+id/start_machine" 
+		android:title="Start machine"
+		android:menuCategory="container" 
+		android:visible="true"
+		android:enabled="true"></item>
+	<item android:id="@+id/stop_machine" android:title="Stop machine"
+		android:menuCategory="container" android:visible="true"
+		android:enabled="true"></item>
+	<item android:id="@+id/suspend_machine" android:title="Suspend machine"
+		android:menuCategory="container" android:visible="true"
+		android:enabled="true"></item>
+	<item android:id="@+id/migrate_machine" android:title="Migrate machine"
+		android:menuCategory="container" android:enabled="true"
+		android:visible="true"></item>
+
+</menu>

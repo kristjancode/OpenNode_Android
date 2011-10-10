@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/extra_info_template" android:title="Extra info"></item>
+	<item android:id="@+id/update_template" android:title="Update"></item>
+	<item android:id="@+id/delete_template" android:title="Delete"></item>
+	<item android:id="@+id/create_vm" android:title="Create virtual machine"></item>
+
+</menu>
