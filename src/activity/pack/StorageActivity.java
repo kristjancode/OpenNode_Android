@@ -1,5 +1,6 @@
 package activity.pack;
 
+import core.interfaces.NetworkManager;
 import core.interfaces.StorageManager;
 import android.app.Activity;
 import android.content.Intent;
@@ -13,19 +14,25 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class StorageActivity extends Activity {
 	private ListView storageListView;
 	private String[] listItems;
+	private ListView storageExtraListView;
+	private String[] extraListItems;
+	private long selectedItemID;
+	private StorageManager storageManager;
+	private core.models.Storage storageList[];
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.storage);
-		StorageManager storageManager = UI_Core.getCore().storageManager();
+		storageManager = UI_Core.getCore().storageManager();
 		boolean itemsLoaded = storageManager.loadItems();
 		int elementsInstorageList = storageManager.itemCount();	
-		core.models.Storage storageList[] = new core.models.Storage[elementsInstorageList];
+		storageList = new core.models.Storage[elementsInstorageList];
 		listItems = new String[elementsInstorageList];
 		for (int counter=0; counter<elementsInstorageList; counter++){
 			storageList[counter]=storageManager.item(counter);
@@ -48,12 +55,28 @@ public class StorageActivity extends Activity {
         inflater.inflate(R.menu.storage_menu, menu);
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-        long itemID = info.position;
-        menu.setHeaderTitle(listItems[(int) itemID]);
+        selectedItemID = info.position;    
+        menu.setHeaderTitle(listItems[(int) selectedItemID]);
       }
     public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_storage:
+			setContentView(R.layout.extra);
+			TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
+			core.models.Storage selectedItem = storageList[(int) selectedItemID];
+			storageManager.loadItemDetails(selectedItem);
+			computeExtraLabel.setText(selectedItem.name());
+			
+			extraListItems = new String[3];
+			extraListItems[0] = ("ID : " + selectedItem.id());
+			extraListItems[1] = ("Size : " + selectedItem.size());
+			extraListItems[2] = ("Type : " + selectedItem.type());
+
+
+			
+			storageExtraListView = (ListView) findViewById(R.id.list_extra);
+			storageExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
+			
 			break;
 		case R.id.update_storage:
 			break;

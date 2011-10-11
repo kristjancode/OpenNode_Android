@@ -1,6 +1,7 @@
 package activity.pack;
 
 import core.interfaces.ComputeManager;
+import core.models.Item;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,25 +21,30 @@ import android.widget.Toast;
 
 public class ComputeActivity extends Activity {
 	private ListView computeListView;
+	private ListView computeExtraListView;
 	private String[] listItems;
+	private String[] extraListItems;
+	private long selectedItemID;
+	private ComputeManager computeManager;
+	private core.models.Compute computeList[];
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.compute);
-		ComputeManager computeManager = UI_Core.getCore().computeManager();
+		computeManager = UI_Core.getCore().computeManager();
 		boolean itemsLoaded = computeManager.loadItems();	
-		int elementsInComputeList = computeManager.itemCount();	
-		core.models.Compute computeList[] = new core.models.Compute[elementsInComputeList];
-		listItems = new String[elementsInComputeList];
+		int ItemsInComputeList = computeManager.itemCount();	
+		computeList = new core.models.Compute[ItemsInComputeList];
+		listItems = new String[ItemsInComputeList];
 		
-		for (int counter=0; counter<elementsInComputeList; counter++){
+		for (int counter=0; counter<ItemsInComputeList; counter++){
 			computeList[counter]=computeManager.item(counter);
 			listItems[counter] = computeList[counter].name();
 		}
 		
 		computeListView = (ListView) findViewById(R.id.list_compute);
 		computeListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems));
-		registerForContextMenu(computeListView);
+		//registerForContextMenu(computeListView);
 		computeListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		              registerForContextMenu(arg0);
@@ -51,14 +57,31 @@ public class ComputeActivity extends Activity {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.compute_menu, menu);
-
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-        long itemID = info.position;
-        menu.setHeaderTitle(listItems[(int) itemID]);
+        selectedItemID = info.position;    
+        menu.setHeaderTitle(listItems[(int) selectedItemID]);
       }
     public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_compute:
+			setContentView(R.layout.extra);
+			TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
+			core.models.Compute selectedItem = computeList[(int) selectedItemID];
+			computeManager.loadItemDetails(selectedItem);
+			computeExtraLabel.setText(selectedItem.name());
+			
+			extraListItems = new String[7];
+			extraListItems[0] = ("Hostname : " + selectedItem.hostname());
+			extraListItems[1] = ("Arch : " + selectedItem.arch());
+			extraListItems[2] = ("Memory : " + selectedItem.memory());
+			extraListItems[3] = ("Cpu : " + selectedItem.cpu());
+			extraListItems[4] = ("Cores : " + selectedItem.cores());
+			extraListItems[5] = ("Template : " + selectedItem.template());
+			extraListItems[6] = ("State : " + selectedItem.state());
+			
+			computeExtraListView = (ListView) findViewById(R.id.list_extra);
+			computeExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
+			
 			break;
 		case R.id.start_machine:
 			break;

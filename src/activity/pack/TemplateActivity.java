@@ -1,5 +1,6 @@
 package activity.pack;
 
+import core.interfaces.NetworkManager;
 import core.interfaces.TemplateManager;
 import android.app.Activity;
 import android.content.Intent;
@@ -13,19 +14,25 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class TemplateActivity extends Activity {
 	private ListView templateListView;
+	private ListView templateExtraListView;
 	private String[] listItems;
+	private String[] extraListItems;
+	private long selectedItemID;
+	private TemplateManager templateManager;
+	private core.models.Template templateList[];
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.template);
-		TemplateManager templateManager = UI_Core.getCore().templateManager();
+		templateManager = UI_Core.getCore().templateManager();
 		boolean itemsLoaded = templateManager.loadItems();	//It seems to be unused, but it´s really for getting new data.
 		int elementsIntemplateList = templateManager.itemCount();	
-		core.models.Template templateList[] = new core.models.Template[elementsIntemplateList];
+		templateList = new core.models.Template[elementsIntemplateList];
 		listItems = new String[elementsIntemplateList];
 		for (int counter=0; counter<elementsIntemplateList; counter++){
 			templateList[counter]=templateManager.item(counter);
@@ -48,12 +55,27 @@ public class TemplateActivity extends Activity {
         inflater.inflate(R.menu.template_menu, menu);
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-        long itemID = info.position;
-        menu.setHeaderTitle(listItems[(int) itemID]);
+        selectedItemID = info.position;    
+        menu.setHeaderTitle(listItems[(int) selectedItemID]);
       }
     public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_template:
+			setContentView(R.layout.extra);
+			TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
+			core.models.Template selectedItem = templateList[(int) selectedItemID];
+			templateManager.loadItemDetails(selectedItem);
+			computeExtraLabel.setText(selectedItem.name());
+			
+			extraListItems = new String[3];
+			extraListItems[0] = ("ID : " + selectedItem.id());
+			extraListItems[1] = ("Min disk size : " + selectedItem.minDiskSize());
+			extraListItems[2] = ("Min memory size : " + selectedItem.minMemorySize());
+
+			
+			templateExtraListView = (ListView) findViewById(R.id.list_extra);
+			templateExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
+			
 			break;
 		case R.id.update_template:
 			break;

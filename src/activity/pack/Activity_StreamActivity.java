@@ -1,5 +1,6 @@
 package activity.pack;
 
+import core.interfaces.NetworkManager;
 import core.interfaces.NewsManager;
 import android.app.Activity;
 import android.content.Intent;
@@ -13,19 +14,25 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Activity_StreamActivity extends Activity {
 	private ListView newsListView;
+	private ListView newsExtraListView;
 	private String[] listItems;
+	private String[] extraListItems;
+	private long selectedItemID;
+	private NewsManager newsManager;
+	private core.models.News newsList[];
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.activity_stream);
-		NewsManager newsManager = UI_Core.getCore().newsManager();
+		newsManager = UI_Core.getCore().newsManager();
 		boolean itemsLoaded = newsManager.loadItems();	//It seems to be unused, but it´s really for getting new data.
 		int elementsInnewsList = newsManager.itemCount();	
-		core.models.News newsList[] = new core.models.News[elementsInnewsList];
+		newsList = new core.models.News[elementsInnewsList];
 		listItems = new String[elementsInnewsList];
 		for (int counter=0; counter<elementsInnewsList; counter++){
 			newsList[counter]=newsManager.item(counter);
@@ -48,12 +55,27 @@ public class Activity_StreamActivity extends Activity {
         inflater.inflate(R.menu.news_menu, menu);
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-        long itemID = info.position;
-        menu.setHeaderTitle(listItems[(int) itemID]);
+        selectedItemID = info.position;    
+        menu.setHeaderTitle(listItems[(int) selectedItemID]);
       }
     public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_news:
+			setContentView(R.layout.extra);
+			TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
+			core.models.News selectedItem = newsList[(int) selectedItemID];
+			newsManager.loadItemDetails(selectedItem);
+			computeExtraLabel.setText(selectedItem.name());
+			
+			extraListItems = new String[4];
+			extraListItems[0] = ("ID : " + selectedItem.id());
+			extraListItems[1] = ("Type : " + selectedItem.type());
+			extraListItems[2] = ("Title : " + selectedItem.title());
+			extraListItems[3] = ("Content : " + selectedItem.content());
+			
+			newsExtraListView = (ListView) findViewById(R.id.list_extra);
+			newsExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
+			
 			break;
 		case R.id.make_comment:
 			break;
