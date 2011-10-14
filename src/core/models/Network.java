@@ -4,21 +4,12 @@ import org.json.JSONObject;
 
 public class Network extends Item
 {
-	private Network()
+	public Network()
 	{
 		m_ip = null;
 		m_mask = null;
 		m_addressAllocation = null;
 		m_gateway = null;
-	}
-	
-	private void assign(Network network)
-	{
-		super.assign(network);
-		m_ip = network.m_ip;
-		m_mask = network.m_mask;
-		m_addressAllocation = network.m_addressAllocation;
-		m_gateway = network.m_gateway;
 	}
 	
 	public String ip()
@@ -41,6 +32,59 @@ public class Network extends Item
 		return m_gateway;
 	}
 	
+	public boolean assign(Item item)
+	{
+		boolean success = false;
+		
+		try
+		{
+			assignNetwork((Network) item);
+			success = true;
+		}
+		catch (Exception exception)
+		{
+			
+		}
+		
+		return success;
+	}
+	
+	public boolean assign(JSONObject jsonObject, boolean full)
+	{
+		boolean success = false;
+		
+		try
+		{
+			Network temp = new Network();
+			temp.assignNetwork(jsonObject, full);
+			assignNetwork(temp);
+			success = true;
+		}
+		catch (Exception exception)
+		{
+			
+		}
+		
+		return success;
+	}
+	
+	@Override
+	public String toJSON()
+	{
+		String jsonString = null;
+		
+		try
+		{
+			
+		}
+		catch (Exception exception)
+		{
+			
+		}
+		
+		return jsonString;
+	}
+	
 	@Override
 	public String toString()
 	{
@@ -61,53 +105,26 @@ public class Network extends Item
 		return stringRepresentation;
 	}
 	
-	public static Network parse(JSONObject jsonObject, boolean full)
+	private void assignNetwork(Network network)
 	{
-		Network network = null;
-		Network temp = new Network();
-		
-		if (parse(temp, jsonObject, full))
-		{
-			network = temp;
-		}
-		
-		return network;
+		assignItem(network);
+		m_ip = network.m_ip;
+		m_mask = network.m_mask;
+		m_addressAllocation = network.m_addressAllocation;
+		m_gateway = network.m_gateway;
 	}
 	
-	public static boolean parse(Network network, JSONObject jsonObject, boolean full)
+	private void assignNetwork(JSONObject jsonObject, boolean full) throws Exception
 	{
-		boolean success = false;
+		assignItem(jsonObject, full);
 		
-		try
+		if (m_full)
 		{
-			Network temp = new Network();
-			temp.m_full = full;
-			
-			if (full)
-			{
-				temp.m_id = jsonObject.getInt("id");
-				temp.m_name = jsonObject.getString("name");
-				temp.m_ip = jsonObject.getString("ip");
-				temp.m_mask = jsonObject.getString("mask");
-				temp.m_addressAllocation = jsonObject.getString("address_allocation");
-				temp.m_gateway = jsonObject.getString("gateway");
-			}
-			else
-			{
-				String key = (String) jsonObject.keys().next();
-				temp.m_id = Integer.parseInt(key);
-				temp.m_name = jsonObject.getString(key);
-			}
-			
-			network.assign(temp);
-			success = true;
+			m_ip = jsonObject.getString("ip");
+			m_mask = jsonObject.getString("mask");
+			m_addressAllocation = jsonObject.getString("address_allocation");
+			m_gateway = jsonObject.getString("gateway");
 		}
-		catch (Exception exception)
-		{
-			
-		}
-		
-		return success;
 	}
 	
 	private String m_ip;

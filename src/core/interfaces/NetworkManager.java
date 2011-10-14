@@ -1,6 +1,5 @@
 package core.interfaces;
 
-import org.json.JSONObject;
 import core.Core;
 import core.models.Network;
 
@@ -12,14 +11,8 @@ public class NetworkManager extends AbstractManager<Network>
 	}
 	
 	@Override
-	protected Network parseItem(JSONObject jsonObject, boolean full)
+	protected Network itemInstance()
 	{
-		return Network.parse(jsonObject, full);
-	}
-	
-	@Override
-	protected boolean parseItem(Network compute, JSONObject jsonObject, boolean full)
-	{
-		return Network.parse(compute, jsonObject, full);
+		return new Network();
 	}
 }

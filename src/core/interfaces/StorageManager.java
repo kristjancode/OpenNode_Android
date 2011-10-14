@@ -1,6 +1,5 @@
 package core.interfaces;
 
-import org.json.JSONObject;
 import core.Core;
 import core.models.Storage;
 
@@ -12,14 +11,8 @@ public class StorageManager extends AbstractManager<Storage>
 	}
 	
 	@Override
-	protected Storage parseItem(JSONObject jsonObject, boolean full)
+	protected Storage itemInstance()
 	{
-		return Storage.parse(jsonObject, full);
-	}
-	
-	@Override
-	protected boolean parseItem(Storage storage, JSONObject jsonObject, boolean full)
-	{
-		return Storage.parse(storage, jsonObject, full);
+		return new Storage();
 	}
 }

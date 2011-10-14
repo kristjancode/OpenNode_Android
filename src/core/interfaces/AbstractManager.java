@@ -18,7 +18,7 @@ public abstract class AbstractManager<T extends Item>
 		m_request = request;
 	}
 	
-	public int itemCount()
+	public int count()
 	{
 		return m_items.size();
 	}
@@ -35,14 +35,29 @@ public abstract class AbstractManager<T extends Item>
 		return item;
 	}
 	
-	public boolean loadItems()
+	public boolean load()
 	{
 		return requestItems();
 	}
 	
-	public boolean loadItemDetails(T item)
+	public boolean details(T item)
 	{
 		return requestItemDetails(item);
+	}
+	
+	public boolean create(T item)
+	{
+		return requestCreateItem(item);
+	}
+	
+	public boolean update(T item, T newItem)
+	{
+		return requestUpdateItem(item, newItem);
+	}
+	
+	public boolean delete(T item)
+	{
+		return requestDeleteItem(item);
 	}
 	
 	private boolean requestItems()
@@ -52,16 +67,16 @@ public abstract class AbstractManager<T extends Item>
 		try
 		{
 			m_items.removeAll(m_items);
-			String response = m_serverConnector.request(m_request);
+			String response = m_serverConnector.httpGET(m_request + "/");
 			JSONArray jsonArray = new JSONArray(response);
 			int length = jsonArray.length();
 			
 			for (int i = 0; i < length; i++)
 			{
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
-				T item = parseItem(jsonObject, false);
+				T item = itemInstance();
 				
-				if (item != null)
+				if (item.assign(jsonObject, false))
 				{
 					m_items.add(item);
 				}
@@ -83,9 +98,12 @@ public abstract class AbstractManager<T extends Item>
 		
 		try
 		{
-			String response = m_serverConnector.request(m_request + "/" + item.id());
-			JSONObject jsonObject = new JSONObject(response);
-			success = parseItem(item, jsonObject, true);
+			if (m_items.contains(item))
+			{
+				String response = m_serverConnector.httpGET(m_request + "/" + item.id());
+				JSONObject jsonObject = new JSONObject(response);
+				success = item.assign(jsonObject, true);
+			}
 		}
 		catch (Exception exception)
 		{
@@ -95,8 +113,73 @@ public abstract class AbstractManager<T extends Item>
 		return success;
 	}
 	
-	protected abstract T parseItem(JSONObject jsonObject, boolean full);
-	protected abstract boolean parseItem(T item, JSONObject jsonObject, boolean full);
+	private boolean requestCreateItem(T item)
+	{
+		boolean success = false;
+		
+		try
+		{
+			String response = m_serverConnector.httpPOST(m_request + "/", item.toJSON());
+			JSONObject jsonObject = new JSONObject(response);
+			
+			if (item.assign(jsonObject, true))
+			{
+				m_items.add(item);
+				success = true;
+			}
+		}
+		catch (Exception exception)
+		{
+			
+		}
+		
+		return success;
+	}
+	
+	private boolean requestUpdateItem(T item, T newItem)
+	{
+		boolean success = false;
+		
+		try
+		{
+			if (m_items.contains(item))
+			{
+				String response = m_serverConnector.httpPUT(m_request + "/" + item.id(), newItem.toJSON());
+				JSONObject jsonObject = new JSONObject(response);
+				success = item.assign(jsonObject, true);
+			}
+		}
+		catch (Exception exception)
+		{
+			
+		}
+		
+		return success;
+	}
+	
+	private boolean requestDeleteItem(T item)
+	{
+		boolean success = false;
+		
+		/*try
+		{
+			if (m_items.contains(item))
+			{
+				//String response = m_serverConnector.httpDELETE(m_request + "/" + m_items.);
+				System.out.println(m_items.indexOf(item));
+				m_items.remove(item);
+				//success = response != null;
+			}
+		}
+		catch (Exception exception)
+		{
+			
+		}*/
+		
+		return success;
+	}
+	
+	protected abstract T itemInstance();
 	
 	protected Core m_core;
 	protected ServerConnector m_serverConnector;

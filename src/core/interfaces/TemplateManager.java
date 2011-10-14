@@ -1,6 +1,5 @@
 package core.interfaces;
 
-import org.json.JSONObject;
 import core.Core;
 import core.models.Template;
 
@@ -12,14 +11,8 @@ public class TemplateManager extends AbstractManager<Template>
 	}
 	
 	@Override
-	protected Template parseItem(JSONObject jsonObject, boolean full)
+	protected Template itemInstance()
 	{
-		return Template.parse(jsonObject, full);
-	}
-	
-	@Override
-	protected boolean parseItem(Template template, JSONObject jsonObject, boolean full)
-	{
-		return Template.parse(template, jsonObject, full);
+		return new Template();
 	}
 }
