@@ -18,7 +18,11 @@
         </activity> 
         <activity android:name=".MainActivity" />
         <activity android:name=".SearchActivity" 
-        android:configChanges="orientation|keyboard|keyboardHidden" />
+        android:configChanges="orientation|keyboard|keyboardHidden">
+                <intent-filter>
+            		<action android:name="android.intent.action.SEARCH" />
+        		</intent-filter>
+        </activity>
         <activity android:name=".Activity_StreamActivity" 
         android:configChanges="orientation|keyboard|keyboardHidden" />
         <activity android:name=".NetworkActivity" />

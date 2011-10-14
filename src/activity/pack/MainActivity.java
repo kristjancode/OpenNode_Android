@@ -4,6 +4,7 @@ import activity.pack.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -98,4 +99,13 @@ public class MainActivity extends Activity {
 		}
 		return true;
 	}
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_SEARCH){
+			Intent intent = new Intent(this, SearchActivity.class);
+			this.startActivity(intent);
+                return false;
+        }else{
+                return super.onKeyUp(keyCode, event); 
+        }
+}
 }

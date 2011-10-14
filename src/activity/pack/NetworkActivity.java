@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,8 +44,8 @@ public class NetworkActivity extends Activity {
 		registerForContextMenu(networkListView);
 		networkListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		              registerForContextMenu(arg0);
-		              arg1.showContextMenu();
+			    	selectedItemID = arg2;
+			    	extra_info();
 				}  		
 		      });  
 	}
@@ -61,26 +62,31 @@ public class NetworkActivity extends Activity {
     public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_network:
-			setContentView(R.layout.extra);
-			TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
-			core.models.Network selectedItem = networkList[(int) selectedItemID];
-			networkManager.loadItemDetails(selectedItem);
-			computeExtraLabel.setText(selectedItem.name());
-			
-			extraListItems = new String[5];
-			extraListItems[0] = ("ID : " + selectedItem.id());
-			extraListItems[1] = ("IP : " + selectedItem.ip());
-			extraListItems[2] = ("Mask : " + selectedItem.mask());
-			extraListItems[3] = ("Address allocation : " + selectedItem.addressAllocation());
-			extraListItems[4] = ("Gateway : " + selectedItem.gateway());
-
-			
-			networkExtraListView = (ListView) findViewById(R.id.list_extra);
-			networkExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
-			
+			extra_info();
 			break;
 		}
 		return true;
+	}
+
+	private void extra_info() {
+		setContentView(R.layout.extra);
+		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
+		core.models.Network selectedItem = networkList[(int) selectedItemID];
+		networkManager.loadItemDetails(selectedItem);
+		computeExtraLabel.setText(selectedItem.name());
+		
+		extraListItems = new String[5];
+		extraListItems[0] = ("ID : " + selectedItem.id());
+		extraListItems[1] = ("IP : " + selectedItem.ip());
+		extraListItems[2] = ("Mask : " + selectedItem.mask());
+		extraListItems[3] = ("Address allocation : " + selectedItem.addressAllocation());
+		extraListItems[4] = ("Gateway : " + selectedItem.gateway());
+
+		
+		networkExtraListView = (ListView) findViewById(R.id.list_extra);
+		networkExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
+		
+		
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
@@ -110,5 +116,13 @@ public class NetworkActivity extends Activity {
 		}
 		return true;
 	}
-
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_SEARCH){
+			Intent intent = new Intent(this, SearchActivity.class);
+			this.startActivity(intent);
+                return false;
+        }else{
+                return super.onKeyUp(keyCode, event); 
+        }
+}
 }

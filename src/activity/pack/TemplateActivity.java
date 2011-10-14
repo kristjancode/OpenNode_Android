@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,8 +44,8 @@ public class TemplateActivity extends Activity {
 		registerForContextMenu(templateListView);
 		templateListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		              registerForContextMenu(arg0);
-		              arg1.showContextMenu();
+			    	selectedItemID = arg2;
+			    	extra_info();
 				}  		
 		      });  
 	}
@@ -61,21 +62,7 @@ public class TemplateActivity extends Activity {
     public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_template:
-			setContentView(R.layout.extra);
-			TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
-			core.models.Template selectedItem = templateList[(int) selectedItemID];
-			templateManager.loadItemDetails(selectedItem);
-			computeExtraLabel.setText(selectedItem.name());
-			
-			extraListItems = new String[3];
-			extraListItems[0] = ("ID : " + selectedItem.id());
-			extraListItems[1] = ("Min disk size : " + selectedItem.minDiskSize());
-			extraListItems[2] = ("Min memory size : " + selectedItem.minMemorySize());
-
-			
-			templateExtraListView = (ListView) findViewById(R.id.list_extra);
-			templateExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
-			
+			extra_info();
 			break;
 		case R.id.update_template:
 			break;
@@ -86,6 +73,24 @@ public class TemplateActivity extends Activity {
 
 		}
 		return true;
+	}
+
+	private void extra_info() {
+		setContentView(R.layout.extra);
+		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
+		core.models.Template selectedItem = templateList[(int) selectedItemID];
+		templateManager.loadItemDetails(selectedItem);
+		computeExtraLabel.setText(selectedItem.name());
+		
+		extraListItems = new String[3];
+		extraListItems[0] = ("ID : " + selectedItem.id());
+		extraListItems[1] = ("Min disk size : " + selectedItem.minDiskSize());
+		extraListItems[2] = ("Min memory size : " + selectedItem.minMemorySize());
+
+		
+		templateExtraListView = (ListView) findViewById(R.id.list_extra);
+		templateExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
+		
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
@@ -115,5 +120,13 @@ public class TemplateActivity extends Activity {
 		}
 		return true;
 	}
-
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_SEARCH){
+			Intent intent = new Intent(this, SearchActivity.class);
+			this.startActivity(intent);
+                return false;
+        }else{
+                return super.onKeyUp(keyCode, event); 
+        }
+}
 }

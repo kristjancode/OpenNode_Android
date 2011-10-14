@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,10 +15,12 @@ import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 public class ComputeActivity extends Activity {
 	private ListView computeListView;
@@ -36,23 +39,25 @@ public class ComputeActivity extends Activity {
 		int ItemsInComputeList = computeManager.itemCount();	
 		computeList = new core.models.Compute[ItemsInComputeList];
 		listItems = new String[ItemsInComputeList];
-		
+
 		for (int counter=0; counter<ItemsInComputeList; counter++){
 			computeList[counter]=computeManager.item(counter);
 			listItems[counter] = computeList[counter].name();
 		}
-		
+
 		computeListView = (ListView) findViewById(R.id.list_compute);
+		computeListView.setLongClickable(true);
 		computeListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems));
-		//registerForContextMenu(computeListView);
-		computeListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
-				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		              registerForContextMenu(arg0);
-		              arg1.showContextMenu();
-				}  		
-		      });  
+		registerForContextMenu(computeListView);
+		computeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {  				
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		    	selectedItemID = arg2;
+		    	extra_info();
+			}  		
+	      });  
 	}
-	
+
+
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
@@ -61,27 +66,11 @@ public class ComputeActivity extends Activity {
         selectedItemID = info.position;    
         menu.setHeaderTitle(listItems[(int) selectedItemID]);
       }
+    
     public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_compute:
-			setContentView(R.layout.extra);
-			TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
-			core.models.Compute selectedItem = computeList[(int) selectedItemID];
-			computeManager.loadItemDetails(selectedItem);
-			computeExtraLabel.setText(selectedItem.name());
-			
-			extraListItems = new String[7];
-			extraListItems[0] = ("Hostname : " + selectedItem.hostname());
-			extraListItems[1] = ("Arch : " + selectedItem.arch());
-			extraListItems[2] = ("Memory : " + selectedItem.memory());
-			extraListItems[3] = ("Cpu : " + selectedItem.cpu());
-			extraListItems[4] = ("Cores : " + selectedItem.cores());
-			extraListItems[5] = ("Template : " + selectedItem.template());
-			extraListItems[6] = ("State : " + selectedItem.state());
-			
-			computeExtraListView = (ListView) findViewById(R.id.list_extra);
-			computeExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
-			
+			extra_info();
 			break;
 		case R.id.start_machine:
 			break;
@@ -94,7 +83,28 @@ public class ComputeActivity extends Activity {
 		}
 		return true;
 	}
+	private void extra_info() {
+		setContentView(R.layout.extra);
+		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
+		core.models.Compute selectedItem = computeList[(int) selectedItemID];
+		computeManager.loadItemDetails(selectedItem);
+		computeExtraLabel.setText(selectedItem.name());
+		
+		extraListItems = new String[7];
+		extraListItems[0] = ("Hostname : " + selectedItem.hostname());
+		extraListItems[1] = ("Arch : " + selectedItem.arch());
+		extraListItems[2] = ("Memory : " + selectedItem.memory());
+		extraListItems[3] = ("Cpu : " + selectedItem.cpu());
+		extraListItems[4] = ("Cores : " + selectedItem.cores());
+		extraListItems[5] = ("Template : " + selectedItem.template());
+		extraListItems[6] = ("State : " + selectedItem.state());
+		
+		computeExtraListView = (ListView) findViewById(R.id.list_extra);
+		computeExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
 
+		
+	}
+    
 	public boolean onCreateOptionsMenu(Menu menu2) {
 
 		MenuInflater inflater = getMenuInflater();
@@ -120,5 +130,14 @@ public class ComputeActivity extends Activity {
 		}
 		return true;
 	}
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_SEARCH){
+			Intent intent = new Intent(this, SearchActivity.class);
+			this.startActivity(intent);
+                return false;
+        }else{
+                return super.onKeyUp(keyCode, event); 
+        }
+}
 
 }

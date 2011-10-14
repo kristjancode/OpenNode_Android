@@ -1,11 +1,11 @@
 package activity.pack;
 
-import core.interfaces.NetworkManager;
 import core.interfaces.NewsManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,8 +43,8 @@ public class Activity_StreamActivity extends Activity {
 		registerForContextMenu(newsListView);
 		newsListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		              registerForContextMenu(arg0);
-		              arg1.showContextMenu();
+			    	selectedItemID = arg2;
+			    	extra_info();
 				}  		
 		      });  
 	}
@@ -61,27 +61,31 @@ public class Activity_StreamActivity extends Activity {
     public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_news:
-			setContentView(R.layout.extra);
-			TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
-			core.models.News selectedItem = newsList[(int) selectedItemID];
-			newsManager.loadItemDetails(selectedItem);
-			computeExtraLabel.setText(selectedItem.name());
-			
-			extraListItems = new String[4];
-			extraListItems[0] = ("ID : " + selectedItem.id());
-			extraListItems[1] = ("Type : " + selectedItem.type());
-			extraListItems[2] = ("Title : " + selectedItem.title());
-			extraListItems[3] = ("Content : " + selectedItem.content());
-			
-			newsExtraListView = (ListView) findViewById(R.id.list_extra);
-			newsExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
-			
+			extra_info();
 			break;
 		case R.id.make_comment:
 			break;
 		}
 		return true;
 	}
+	private void extra_info() {
+		setContentView(R.layout.extra);
+		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
+		core.models.News selectedItem = newsList[(int) selectedItemID];
+		newsManager.loadItemDetails(selectedItem);
+		computeExtraLabel.setText(selectedItem.name());
+		
+		extraListItems = new String[4];
+		extraListItems[0] = ("ID : " + selectedItem.id());
+		extraListItems[1] = ("Type : " + selectedItem.type());
+		extraListItems[2] = ("Title : " + selectedItem.title());
+		extraListItems[3] = ("Content : " + selectedItem.content());
+		
+		newsExtraListView = (ListView) findViewById(R.id.list_extra);
+		newsExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
+		
+	}
+
 	public boolean onCreateOptionsMenu(Menu menu2) {
 
 		MenuInflater inflater = getMenuInflater();
@@ -109,5 +113,14 @@ public class Activity_StreamActivity extends Activity {
 		}
 		return true;
 	}
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_SEARCH){
+			Intent intent = new Intent(this, SearchActivity.class);
+			this.startActivity(intent);
+                return false;
+        }else{
+                return super.onKeyUp(keyCode, event); 
+        }
+}
 
 }

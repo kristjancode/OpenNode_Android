@@ -24,21 +24,17 @@
 			android:id="@+id/imageView1" 
 			android:layout_width="168dp" android:src="@drawable/logo_opennode_lowres"></ImageView>
 		</FrameLayout>
-		<LinearLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" >
-			<Button android:text="Compute" 
-				android:id="@+id/btn_Compute" 
-				android:layout_width="120dip" 
-				android:background="#00ffffff" android:drawableTop="@drawable/executable" android:layout_height="115dp"></Button>
-			<Button android:id="@+id/btn_Network"
-				android:layout_width="120dip"
-				android:background="#00ffffff" android:text="Network" android:drawableTop="@drawable/utilities_network_manager" android:layout_height="115dp"/>
+	<LinearLayout android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+		<Button android:layout_height="115dp" android:layout_width="120dip" android:background="#00ffffff" android:text="Compute" android:id="@+id/btn_Compute" android:drawableTop="@drawable/compute48"></Button>
+		<Button android:id="@+id/btn_Network" android:layout_width="120dip"
+			android:background="#00ffffff" android:text="Network"
+			android:layout_height="115dp" android:drawableTop="@drawable/network48"/>
 
-			<Button android:id="@+id/btn_Template"
-				android:layout_width="120dip"
-				android:background="#00ffffff" android:text="Storage" android:layout_height="115dp" android:drawableTop="@drawable/storage"/>
-		</LinearLayout>
+		<Button android:id="@+id/btn_Template" android:layout_width="120dip"
+			android:background="#00ffffff" android:text="Storage"
+			android:layout_height="115dp" android:drawableTop="@drawable/storage48"/>
+	</LinearLayout>
 		<LinearLayout 			
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content">
@@ -49,7 +45,7 @@
             <Button android:id="@+id/btn_Activity_Stream"
             	android:layout_width="120dip"
             	android:background="#00ffffff"
-            	android:text="Activity stream" android:layout_height="115dp" android:drawableTop="@drawable/activity_stream"/>
+            	android:text="Activity stream" android:layout_height="115dp" android:drawableTop="@drawable/logs48"/>
 
         </LinearLayout>
 	</LinearLayout>
