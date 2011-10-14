@@ -4,16 +4,9 @@ import org.json.JSONObject;
 
 public class Template extends Item
 {
-	private Template()
+	public Template()
 	{
 		
-	}
-	
-	private void assign(Template template)
-	{
-		super.assign(template);
-		m_minDiskSize = template.m_minDiskSize;
-		m_minMemorySize = template.m_minMemorySize;
 	}
 	
 	public int minDiskSize()
@@ -24,6 +17,59 @@ public class Template extends Item
 	public int minMemorySize()
 	{
 		return m_minMemorySize;
+	}
+	
+	public boolean assign(Item item)
+	{
+		boolean success = false;
+		
+		try
+		{
+			assignTemplate((Template) item);
+			success = true;
+		}
+		catch (Exception exception)
+		{
+			
+		}
+		
+		return success;
+	}
+	
+	public boolean assign(JSONObject jsonObject, boolean full)
+	{
+		boolean success = false;
+		
+		try
+		{
+			Template temp = new Template();
+			temp.assignTemplate(jsonObject, full);
+			assignTemplate(temp);
+			success = true;
+		}
+		catch (Exception exception)
+		{
+			
+		}
+		
+		return success;
+	}
+	
+	@Override
+	public String toJSON()
+	{
+		String jsonString = null;
+		
+		try
+		{
+			
+		}
+		catch (Exception exception)
+		{
+			
+		}
+		
+		return jsonString;
 	}
 	
 	@Override
@@ -44,51 +90,24 @@ public class Template extends Item
 		return stringRepresentation;
 	}
 	
-	public static Template parse(JSONObject jsonObject, boolean full)
+	private void assignTemplate(Template template)
 	{
-		Template template = null;
-		Template temp = new Template();
-		
-		if (parse(temp, jsonObject, full))
-		{
-			template = temp;
-		}
-		
-		return template;
+		assignItem(template);
+		m_minDiskSize = template.m_minDiskSize;
+		m_minMemorySize = template.m_minMemorySize;
 	}
 	
-	public static boolean parse(Template template, JSONObject jsonObject, boolean full)
+	private void assignTemplate(JSONObject jsonObject, boolean full) throws Exception
 	{
-		boolean success = false;
+		assignItem(jsonObject, full);
 		
-		try
+		if (m_full)
 		{
-			Template temp = new Template();
-			temp.m_full = full;
-			
-			if (full)
-			{
-				temp.m_id = jsonObject.getInt("id");
-				temp.m_name = jsonObject.getString("name");
-				temp.m_minDiskSize = jsonObject.getInt("min_disk_size");
-				temp.m_minMemorySize = jsonObject.getInt("min_memory_size");
-			}
-			else
-			{
-				String key = (String) jsonObject.keys().next();
-				temp.m_id = Integer.parseInt(key);
-				temp.m_name = jsonObject.getString(key);
-			}
-			
-			template.assign(temp);
-			success = true;
+			m_id = jsonObject.getInt("id");
+			m_name = jsonObject.getString("name");
+			m_minDiskSize = jsonObject.getInt("min_disk_size");
+			m_minMemorySize = jsonObject.getInt("min_memory_size");
 		}
-		catch (Exception exception)
-		{
-			
-		}
-		
-		return success;
 	}
 	
 	private int m_minDiskSize;

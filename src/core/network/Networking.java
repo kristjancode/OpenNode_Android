@@ -12,17 +12,24 @@ public class Networking
 		
 	}
 	
-	public String httpRequest(String server, int port, String destination)
+	public String httpRequest(String server, int port, String method, String destination, String data)
 	{
 		String response = null;
-		String urlString = "http://" + server + ":" + port + "/" + destination;
 		
 		try
 		{
-			URL url = new URL(urlString);
+			String urlString = "http://" + server + ":" + port + "/" + destination;
+			URL url = new URL(urlString);			
 			HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
-			httpUrlConnection.setRequestMethod("GET");
+			httpUrlConnection.setRequestMethod(method);		
 			httpUrlConnection.setConnectTimeout(10000);
+			
+			if (data.length() > 0)
+			{
+				httpUrlConnection.setDoOutput(true);
+				httpUrlConnection.getOutputStream().write(data.getBytes());
+			}
+			
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpUrlConnection.getInputStream()));
 			StringBuffer stringBuffer = new StringBuffer();
 			
