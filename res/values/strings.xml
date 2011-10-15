@@ -8,7 +8,7 @@
     <string name="action_home_label">Home</string>
 
 	<!-- Compute Activity -->
-
+    <string name="action_new_compute" >New Compute</string>
 	<!-- Network Activity -->
 
 	<!-- Storage Activity -->

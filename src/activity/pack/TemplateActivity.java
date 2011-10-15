@@ -26,10 +26,12 @@ public class TemplateActivity extends Activity {
 	private long selectedItemID;
 	private TemplateManager templateManager;
 	private core.models.Template templateList[];
+	private Menu menu;
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.template);
+		selectedItemID = -1;
 		templateManager = UI_Core.getCore().templateManager();
 		boolean itemsLoaded = templateManager.load();	//It seems to be unused, but it´s really for getting new data.
 		int elementsIntemplateList = templateManager.count();	
@@ -77,6 +79,7 @@ public class TemplateActivity extends Activity {
 
 	private void extra_info() {
 		setContentView(R.layout.extra);
+		invalidateOptionsMenu ();
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.Template selectedItem = templateList[(int) selectedItemID];
 		templateManager.details(selectedItem);
@@ -94,13 +97,34 @@ public class TemplateActivity extends Activity {
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
+		menu = menu2;
+		if (selectedItemID == -1){
 
 		MenuInflater inflater = getMenuInflater();
 
-		inflater.inflate(R.menu.actionbar, menu2);
+		inflater.inflate(R.menu.template_list_actionbar, menu2);
+		}
+		else{
+			MenuInflater inflater = getMenuInflater();
 
+			inflater.inflate(R.menu.detail_actionbar, menu2);
+		}
 		return true;
 
+	}
+	public void invalidateOptionsMenu (){
+		menu.clear();
+		if (selectedItemID == -1){
+
+		MenuInflater inflater = getMenuInflater();
+
+		inflater.inflate(R.menu.template_list_actionbar, menu);
+		}
+		else{
+			MenuInflater inflater = getMenuInflater();
+
+			inflater.inflate(R.menu.detail_actionbar, menu);
+		}
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {

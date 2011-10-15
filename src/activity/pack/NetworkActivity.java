@@ -26,10 +26,12 @@ public class NetworkActivity extends Activity {
 	private long selectedItemID;
 	private NetworkManager networkManager;
 	private core.models.Network networkList[];
+	private Menu menu;
 	
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.network);
+		selectedItemID = -1;
 		networkManager = UI_Core.getCore().networkManager();
 		boolean itemsLoaded = networkManager.load();	//It seems to be unused, but it´s really for getting new data.
 		int elementsInnetworkList = networkManager.count();	
@@ -48,6 +50,36 @@ public class NetworkActivity extends Activity {
 			    	extra_info();
 				}  		
 		      });  
+	}
+	public boolean onCreateOptionsMenu(Menu menu2) {
+		menu = menu2;
+		if (selectedItemID == -1){
+
+		MenuInflater inflater = getMenuInflater();
+
+		inflater.inflate(R.menu.network_list_actionbar, menu2);
+		}
+		else{
+			MenuInflater inflater = getMenuInflater();
+
+			inflater.inflate(R.menu.detail_actionbar, menu2);
+		}
+		return true;
+
+	}
+	public void invalidateOptionsMenu (){
+		menu.clear();
+		if (selectedItemID == -1){
+
+		MenuInflater inflater = getMenuInflater();
+
+		inflater.inflate(R.menu.network_list_actionbar, menu);
+		}
+		else{
+			MenuInflater inflater = getMenuInflater();
+
+			inflater.inflate(R.menu.detail_actionbar, menu);
+		}
 	}
 	
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
@@ -70,6 +102,7 @@ public class NetworkActivity extends Activity {
 
 	private void extra_info() {
 		setContentView(R.layout.extra);
+		invalidateOptionsMenu ();
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.Network selectedItem = networkList[(int) selectedItemID];
 		networkManager.details(selectedItem);
@@ -89,15 +122,6 @@ public class NetworkActivity extends Activity {
 		
 	}
 
-	public boolean onCreateOptionsMenu(Menu menu2) {
-
-		MenuInflater inflater = getMenuInflater();
-
-		inflater.inflate(R.menu.actionbar, menu2);
-
-		return true;
-
-	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {

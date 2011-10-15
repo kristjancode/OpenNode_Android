@@ -25,10 +25,12 @@ public class Activity_StreamActivity extends Activity {
 	private long selectedItemID;
 	private NewsManager newsManager;
 	private core.models.News newsList[];
+	private Menu menu;
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.activity_stream);
+		selectedItemID = -1;
 		newsManager = UI_Core.getCore().newsManager();
 		boolean itemsLoaded = newsManager.load();	//It seems to be unused, but it´s really for getting new data.
 		int elementsInnewsList = newsManager.count();	
@@ -70,6 +72,7 @@ public class Activity_StreamActivity extends Activity {
 	}
 	private void extra_info() {
 		setContentView(R.layout.extra);
+		invalidateOptionsMenu ();
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.News selectedItem = newsList[(int) selectedItemID];
 		newsManager.details(selectedItem);
@@ -87,13 +90,34 @@ public class Activity_StreamActivity extends Activity {
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
+		menu = menu2;
+		if (selectedItemID == -1){
 
 		MenuInflater inflater = getMenuInflater();
 
-		inflater.inflate(R.menu.actionbar, menu2);
+		inflater.inflate(R.menu.news_list_actionbar, menu2);
+		}
+		else{
+			MenuInflater inflater = getMenuInflater();
 
+			inflater.inflate(R.menu.news_detail_actionbar, menu2);
+		}
 		return true;
 
+	}
+	public void invalidateOptionsMenu (){
+		menu.clear();
+		if (selectedItemID == -1){
+
+		MenuInflater inflater = getMenuInflater();
+
+		inflater.inflate(R.menu.news_list_actionbar, menu);
+		}
+		else{
+			MenuInflater inflater = getMenuInflater();
+
+			inflater.inflate(R.menu.news_detail_actionbar, menu);
+		}
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {

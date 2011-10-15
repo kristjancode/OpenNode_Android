@@ -1,7 +1,6 @@
 package activity.pack;
 
 import core.interfaces.ComputeManager;
-import core.models.Item;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,15 +11,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemLongClickListener;
+
 
 public class ComputeActivity extends Activity {
 	private ListView computeListView;
@@ -30,10 +26,13 @@ public class ComputeActivity extends Activity {
 	private long selectedItemID;
 	private ComputeManager computeManager;
 	private core.models.Compute computeList[];
+	private Menu menu;
+
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.compute);
+		selectedItemID = -1;
 		computeManager = UI_Core.getCore().computeManager();
 		boolean itemsLoaded = computeManager.load();	
 		int ItemsInComputeList = computeManager.count();	
@@ -85,6 +84,7 @@ public class ComputeActivity extends Activity {
 	}
 	private void extra_info() {
 		setContentView(R.layout.extra);
+		invalidateOptionsMenu ();
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.Compute selectedItem = computeList[(int) selectedItemID];
 		computeManager.details(selectedItem);
@@ -106,15 +106,36 @@ public class ComputeActivity extends Activity {
 	}
     
 	public boolean onCreateOptionsMenu(Menu menu2) {
+		menu = menu2;
+		if (selectedItemID == -1){
 
 		MenuInflater inflater = getMenuInflater();
 
-		inflater.inflate(R.menu.actionbar, menu2);
+		inflater.inflate(R.menu.compute_list_actionbar, menu2);
+		}
+		else{
+			MenuInflater inflater = getMenuInflater();
 
+			inflater.inflate(R.menu.compute_detail_actionbar, menu2);
+		}
 		return true;
 
 	}
+	public void invalidateOptionsMenu (){
+		menu.clear();
+		if (selectedItemID == -1){
 
+		MenuInflater inflater = getMenuInflater();
+
+		inflater.inflate(R.menu.compute_list_actionbar, menu);
+		}
+		else{
+			MenuInflater inflater = getMenuInflater();
+
+			inflater.inflate(R.menu.compute_detail_actionbar, menu);
+		}
+
+	}
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.actionbar_item_home:

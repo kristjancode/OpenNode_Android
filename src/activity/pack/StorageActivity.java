@@ -26,10 +26,12 @@ public class StorageActivity extends Activity {
 	private long selectedItemID;
 	private StorageManager storageManager;
 	private core.models.Storage storageList[];
+	private Menu menu;
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.storage);
+		selectedItemID = -1;
 		storageManager = UI_Core.getCore().storageManager();
 		boolean itemsLoaded = storageManager.load();;
 		int elementsInstorageList = storageManager.count();;	
@@ -75,10 +77,12 @@ public class StorageActivity extends Activity {
 
 	private void extra_info() {
 		setContentView(R.layout.extra);
+		invalidateOptionsMenu ();
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.Storage selectedItem = storageList[(int) selectedItemID];
 		storageManager.details(selectedItem);
 		computeExtraLabel.setText(selectedItem.name());
+
 		
 		extraListItems = new String[3];
 		extraListItems[0] = ("ID : " + selectedItem.id());
@@ -94,13 +98,34 @@ public class StorageActivity extends Activity {
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
+		menu = menu2;
+		if (selectedItemID == -1){
 
 		MenuInflater inflater = getMenuInflater();
 
-		inflater.inflate(R.menu.actionbar, menu2);
+		inflater.inflate(R.menu.storage_list_actionbar, menu2);
+		}
+		else{
+			MenuInflater inflater = getMenuInflater();
 
+			inflater.inflate(R.menu.detail_actionbar, menu2);
+		}
 		return true;
 
+	}
+	public void invalidateOptionsMenu (){
+		menu.clear();
+		if (selectedItemID == -1){
+
+		MenuInflater inflater = getMenuInflater();
+
+		inflater.inflate(R.menu.storage_list_actionbar, menu);
+		}
+		else{
+			MenuInflater inflater = getMenuInflater();
+
+			inflater.inflate(R.menu.detail_actionbar, menu);
+		}
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  	<item android:id="@+id/migrate_machine" android:title="Comment"
+		android:menuCategory="container" android:enabled="true"
+		android:visible="true" android:icon="@drawable/comment48"></item>
+	<item android:id="@+id/delete_machine" android:title="Delete"
+		android:menuCategory="container" android:enabled="true"
+		android:visible="true" android:icon="@drawable/suspend48"></item>  
+</menu>
