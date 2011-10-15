@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  	<item android:id="@+id/create_vm" android:title="Create Virtual Machine"
+		android:menuCategory="container" android:enabled="true"
+		android:visible="true" android:icon="@drawable/new48"></item>
+	<item android:id="@+id/update" android:title="Update"
+		android:menuCategory="container" android:enabled="true"
+		android:visible="true" android:icon="@drawable/update48"></item>
+	<item android:id="@+id/delete" android:title="Delete"
+		android:menuCategory="container" android:enabled="true"
+		android:visible="true" android:icon="@drawable/suspend48"></item>
+    
+</menu>

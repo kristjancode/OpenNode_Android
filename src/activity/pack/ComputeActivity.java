@@ -140,15 +140,25 @@ public class ComputeActivity extends Activity {
 	}
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.actionbar_item_home:
+		case R.id.home:
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
 			break;
-		case R.id.actionbar_item_create:
+		case R.id.new_element:
 			Toast.makeText(this, "You pressed the text!", Toast.LENGTH_LONG).show();
 			break;
-		case R.id.actionbar_item_search:
+		case R.id.settings:
 			Toast.makeText(this, "You pressed the icon and text!", Toast.LENGTH_LONG).show();
+			break;
+		case R.id.start_machine:
+			break;
+		case R.id.stop_machine:
+			break;
+		case R.id.migrate_machine:
+			break;
+		case R.id.suspend_machine:
+			break;
+		case R.id.delete_machine:
 			break;
 		}
 		return true;

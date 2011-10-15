@@ -2,6 +2,7 @@ package activity.pack;
 
 import core.interfaces.NetworkManager;
 import core.interfaces.StorageManager;
+import core.models.Storage;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,12 +70,64 @@ public class StorageActivity extends Activity {
 			extra_info();
 			break;
 		case R.id.update_storage:
+			update_storage();
+			break;
+		case R.id.new_element:
+			create_storage();
 			break;
 		case R.id.delete_storage:
+			delete_storage();
 			break;
 
 		}
 		return true;
+	}
+
+	private void delete_storage() {
+		setContentView(R.layout.update_storage);
+		if (menu != null){
+			invalidateOptionsMenu ();
+		}
+		final core.models.Storage selectedItem = storageList[(int) selectedItemID];
+		storageManager.details(selectedItem);
+		storageManager.delete(selectedItem);
+		Intent intent = new Intent(this, StorageActivity.class);
+		this.startActivity(intent);
+		setContentView(R.layout.storage);
+		
+	}
+
+	private void update_storage() {
+		setContentView(R.layout.update_storage);
+		if (menu != null){
+			invalidateOptionsMenu ();
+		}
+		final core.models.Storage selectedItem = storageList[(int) selectedItemID];
+		storageManager.details(selectedItem);
+
+		TextView idText = (TextView) findViewById(R.id.textView1);
+		final EditText sizeEdit = (EditText) findViewById(R.id.editText2);
+		final EditText typeEdit = (EditText) findViewById(R.id.editText3);
+		final EditText nameEdit = (EditText) findViewById(R.id.editText4);
+		
+		idText.setText("ID : " + selectedItem.id());
+		sizeEdit.setText("" + selectedItem.size());
+		typeEdit.setText("" + selectedItem.type());
+		nameEdit.setText("" + selectedItem.name());
+		
+		Button updateStorage = (Button) findViewById(R.id.btn_update_storage);
+		updateStorage.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				sizeEdit.getText();
+				typeEdit.getText();
+				nameEdit.getText();
+				Storage newStorage = new Storage(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(sizeEdit.getText().toString()), typeEdit.getText().toString());
+				storageManager.update(selectedItem, newStorage);
+				Intent myIntent = new Intent(view.getContext(), StorageActivity.class);
+				startActivityForResult(myIntent, 0);
+			}
+		});			
+		
 	}
 
 	private void extra_info() {
@@ -132,21 +187,57 @@ public class StorageActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.actionbar_item_home:
+		case R.id.new_element:
+			create_storage();
+			break;
+		case R.id.home:
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
 			break;
-		case R.id.actionbar_item_create:
-			Toast.makeText(this, "You pressed the text!", Toast.LENGTH_LONG)
-					.show();
+		case R.id.update:
+			update_storage();
 			break;
-		case R.id.actionbar_item_search:
-			Toast.makeText(this, "You pressed the icon and text!",
-					Toast.LENGTH_LONG).show();
+		case R.id.delete:
+			delete_storage();
 			break;
 		}
 		return true;
 	}
+	private void create_storage() {
+		setContentView(R.layout.update_storage);
+		if (menu != null){
+			invalidateOptionsMenu ();
+		}
+		int i=0;
+		while (i<storageManager.count()){
+			if (storageManager.item(i)==null){
+				break;
+			}
+			i++;
+		}
+		TextView nameText = (TextView) findViewById(R.id.update_storage_label);
+		nameText.setText("Create Storage");
+		final EditText sizeEdit = (EditText) findViewById(R.id.editText2);
+		final EditText typeEdit = (EditText) findViewById(R.id.editText3);
+		final EditText nameEdit = (EditText) findViewById(R.id.editText4);
+		final int storageId = i;
+		
+		Button updateStorage = (Button) findViewById(R.id.btn_update_storage);
+		updateStorage.setText("Create");
+		updateStorage.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				sizeEdit.getText();
+				typeEdit.getText();
+				nameEdit.getText();
+				Storage newStorage = new Storage(storageId,nameEdit.getText().toString(), Integer.parseInt(sizeEdit.getText().toString()), typeEdit.getText().toString());
+				storageManager.create(newStorage);
+				Intent myIntent = new Intent(view.getContext(), StorageActivity.class);
+				startActivityForResult(myIntent, 0);
+			}
+		});			
+		
+	}
+
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_SEARCH){
 			Intent intent = new Intent(this, SearchActivity.class);

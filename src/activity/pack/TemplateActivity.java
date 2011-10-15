@@ -109,7 +109,7 @@ public class TemplateActivity extends Activity {
 		else{
 			MenuInflater inflater = getMenuInflater();
 
-			inflater.inflate(R.menu.detail_actionbar, menu2);
+			inflater.inflate(R.menu.template_detail_actionbar, menu2);
 		}
 		return true;
 
@@ -125,7 +125,7 @@ public class TemplateActivity extends Activity {
 		else{
 			MenuInflater inflater = getMenuInflater();
 
-			inflater.inflate(R.menu.detail_actionbar, menu);
+			inflater.inflate(R.menu.template_detail_actionbar, menu);
 		}
 	}
 
