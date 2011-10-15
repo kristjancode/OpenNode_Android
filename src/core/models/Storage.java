@@ -6,8 +6,16 @@ public class Storage extends Item
 {
 	public Storage()
 	{
+		super();
 		m_size = 0;
 		m_type = null;
+	}
+	
+	public Storage(int id, String name, int size, String type)
+	{
+		super(id, name);
+		m_size = size;
+		m_type = type;
 	}
 	
 	public int size()
@@ -59,18 +67,20 @@ public class Storage extends Item
 	@Override
 	public String toJSON()
 	{
-		String jsonString = null;
+		String jsonRepresentation = null;
 		
 		try
 		{
-			
+			JSONObject jsonObject = new JSONObject();
+			jsonStorage(jsonObject);
+			jsonRepresentation = jsonObject.toString();
 		}
 		catch (Exception exception)
 		{
 			
 		}
 		
-		return jsonString;
+		return jsonRepresentation;
 	}
 	
 	@Override
@@ -107,6 +117,13 @@ public class Storage extends Item
 			m_size = jsonObject.getInt("size");
 			m_type = jsonObject.getString("type");
 		}
+	}
+	
+	private void jsonStorage(JSONObject jsonObject) throws Exception
+	{
+		jsonItem(jsonObject);
+		jsonObject.put("size", m_size);
+		jsonObject.put("type", m_type);
 	}
 	
 	private int m_size;

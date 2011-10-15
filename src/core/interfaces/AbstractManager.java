@@ -18,11 +18,13 @@ public abstract class AbstractManager<T extends Item>
 		m_request = request;
 	}
 	
+	//Returns the item count.
 	public int count()
 	{
 		return m_items.size();
 	}
 	
+	//Returns an item at a specified index, if item doesn't exist null is returned.
 	public T item(int index)
 	{
 		T item = null;
@@ -35,32 +37,8 @@ public abstract class AbstractManager<T extends Item>
 		return item;
 	}
 	
+	//Clears current item list and loads new items from the server.
 	public boolean load()
-	{
-		return requestItems();
-	}
-	
-	public boolean details(T item)
-	{
-		return requestItemDetails(item);
-	}
-	
-	public boolean create(T item)
-	{
-		return requestCreateItem(item);
-	}
-	
-	public boolean update(T item, T newItem)
-	{
-		return requestUpdateItem(item, newItem);
-	}
-	
-	public boolean delete(T item)
-	{
-		return requestDeleteItem(item);
-	}
-	
-	private boolean requestItems()
 	{
 		boolean success = false;
 		
@@ -92,7 +70,8 @@ public abstract class AbstractManager<T extends Item>
 		return success;
 	}
 	
-	private boolean requestItemDetails(T item)
+	//Gets item details from the server.
+	public boolean details(T item)
 	{
 		boolean success = false;
 		
@@ -113,7 +92,8 @@ public abstract class AbstractManager<T extends Item>
 		return success;
 	}
 	
-	private boolean requestCreateItem(T item)
+	//Creates a new item, automatically adds it to the item list.
+	public boolean create(T item)
 	{
 		boolean success = false;
 		
@@ -136,7 +116,8 @@ public abstract class AbstractManager<T extends Item>
 		return success;
 	}
 	
-	private boolean requestUpdateItem(T item, T newItem)
+	//Updates an item.
+	public boolean update(T item, T newItem)
 	{
 		boolean success = false;
 		
@@ -157,24 +138,24 @@ public abstract class AbstractManager<T extends Item>
 		return success;
 	}
 	
-	private boolean requestDeleteItem(T item)
+	//Deletes an item, item is automatically remove from the current item list.
+	public boolean delete(T item)
 	{
 		boolean success = false;
 		
-		/*try
+		try
 		{
 			if (m_items.contains(item))
 			{
-				//String response = m_serverConnector.httpDELETE(m_request + "/" + m_items.);
-				System.out.println(m_items.indexOf(item));
 				m_items.remove(item);
-				//success = response != null;
+				String response = m_serverConnector.httpDELETE(m_request + "/" + item.id());
+				success = response != null;
 			}
 		}
 		catch (Exception exception)
 		{
 			
-		}*/
+		}
 		
 		return success;
 	}

@@ -7,6 +7,12 @@ public final class Compute extends Item
 	public Compute()
 	{
 		super();
+		m_arch = null;
+		m_cores = 0;
+		m_cpu = 0;
+		m_memory = 0;
+		m_state = null;
+		m_template = null;
 	}
 	
 	public Compute(int id, String name, String arch, int cores, float cpu, int memory, String state, String template)

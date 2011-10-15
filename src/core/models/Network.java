@@ -6,10 +6,20 @@ public class Network extends Item
 {
 	public Network()
 	{
+		super();
 		m_ip = null;
 		m_mask = null;
 		m_addressAllocation = null;
 		m_gateway = null;
+	}
+	
+	public Network(int id, String name, String ip, String mask, String addressAllocation, String gateway)
+	{
+		super(id, name);
+		m_ip = ip;
+		m_mask = mask;
+		m_addressAllocation = addressAllocation;
+		m_gateway = gateway;
 	}
 	
 	public String ip()
@@ -71,18 +81,20 @@ public class Network extends Item
 	@Override
 	public String toJSON()
 	{
-		String jsonString = null;
+		String jsonRepresentation = null;
 		
 		try
 		{
-			
+			JSONObject jsonObject = new JSONObject();
+			jsonNetwork(jsonObject);
+			jsonRepresentation = jsonObject.toString();
 		}
 		catch (Exception exception)
 		{
 			
 		}
 		
-		return jsonString;
+		return jsonRepresentation;
 	}
 	
 	@Override
@@ -125,6 +137,15 @@ public class Network extends Item
 			m_addressAllocation = jsonObject.getString("address_allocation");
 			m_gateway = jsonObject.getString("gateway");
 		}
+	}
+	
+	private void jsonNetwork(JSONObject jsonObject) throws Exception
+	{
+		jsonItem(jsonObject);
+		jsonObject.put("ip", m_ip);
+		jsonObject.put("mask", m_mask);
+		jsonObject.put("address_allocation", m_addressAllocation);
+		jsonObject.put("gateway", m_gateway);
 	}
 	
 	private String m_ip;

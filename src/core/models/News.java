@@ -6,7 +6,16 @@ public class News extends Item
 {
 	public News()
 	{
-		
+		super();
+		m_type = null;
+		m_content = null;
+	}
+	
+	public News(int id, String name, String type, String content)
+	{
+		super(id, name);
+		m_type = type;
+		m_content = content;
 	}
 	
 	public String type()
@@ -58,18 +67,20 @@ public class News extends Item
 	@Override
 	public String toJSON()
 	{
-		String jsonString = null;
+		String jsonRepresentation = null;
 		
 		try
 		{
-			
+			JSONObject jsonObject = new JSONObject();
+			jsonNews(jsonObject);
+			jsonRepresentation = jsonObject.toString();
 		}
 		catch (Exception exception)
 		{
 			
 		}
 		
-		return jsonString;
+		return jsonRepresentation;
 	}
 	
 	@Override
@@ -106,6 +117,13 @@ public class News extends Item
 			m_type = jsonObject.getString("type");
 			m_content = jsonObject.getString("content");
 		}
+	}
+	
+	private void jsonNews(JSONObject jsonObject) throws Exception
+	{
+		jsonItem(jsonObject);
+		jsonObject.put("type", m_type);
+		jsonObject.put("content", m_content);
 	}
 	
 	private String m_type;
