@@ -102,7 +102,9 @@ public class NetworkActivity extends Activity {
 
 	private void extra_info() {
 		setContentView(R.layout.extra);
-		invalidateOptionsMenu ();
+		if (menu != null){
+			invalidateOptionsMenu ();
+		}
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.Network selectedItem = networkList[(int) selectedItemID];
 		networkManager.details(selectedItem);

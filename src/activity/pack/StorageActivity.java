@@ -77,7 +77,9 @@ public class StorageActivity extends Activity {
 
 	private void extra_info() {
 		setContentView(R.layout.extra);
-		invalidateOptionsMenu ();
+		if (menu != null){
+			invalidateOptionsMenu ();
+		}
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.Storage selectedItem = storageList[(int) selectedItemID];
 		storageManager.details(selectedItem);

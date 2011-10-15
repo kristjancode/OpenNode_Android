@@ -2,10 +2,9 @@
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/start_machine" 
-		android:title="Start"
-		android:menuCategory="container" 
-		android:visible="true"
-		android:enabled="true" android:icon="@drawable/start48"></item>
+		android:title="Start" android:menuCategory="container" 
+		android:visible="true" android:enabled="true"
+		android:icon="@drawable/start48"></item>
 	<item android:id="@+id/stop_machine" android:title="Stop"
 		android:menuCategory="container" android:visible="true"
 		android:enabled="true" android:icon="@drawable/stop48"></item>

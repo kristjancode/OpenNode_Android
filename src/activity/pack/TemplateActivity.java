@@ -79,7 +79,9 @@ public class TemplateActivity extends Activity {
 
 	private void extra_info() {
 		setContentView(R.layout.extra);
-		invalidateOptionsMenu ();
+		if (menu != null){
+			invalidateOptionsMenu ();
+		}
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.Template selectedItem = templateList[(int) selectedItemID];
 		templateManager.details(selectedItem);

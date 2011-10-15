@@ -84,7 +84,9 @@ public class ComputeActivity extends Activity {
 	}
 	private void extra_info() {
 		setContentView(R.layout.extra);
-		invalidateOptionsMenu ();
+		if (menu != null){
+			invalidateOptionsMenu ();
+		}
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.Compute selectedItem = computeList[(int) selectedItemID];
 		computeManager.details(selectedItem);
@@ -122,7 +124,7 @@ public class ComputeActivity extends Activity {
 
 	}
 	public void invalidateOptionsMenu (){
-		menu.clear();
+			menu.clear();
 		if (selectedItemID == -1){
 
 		MenuInflater inflater = getMenuInflater();

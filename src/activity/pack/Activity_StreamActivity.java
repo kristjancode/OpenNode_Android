@@ -72,7 +72,9 @@ public class Activity_StreamActivity extends Activity {
 	}
 	private void extra_info() {
 		setContentView(R.layout.extra);
-		invalidateOptionsMenu ();
+		if (menu != null){
+			invalidateOptionsMenu ();
+		}
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.News selectedItem = newsList[(int) selectedItemID];
 		newsManager.details(selectedItem);
