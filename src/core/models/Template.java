@@ -6,7 +6,16 @@ public class Template extends Item
 {
 	public Template()
 	{
-		
+		super();
+		m_minDiskSize = 0;
+		m_minMemorySize = 0;
+	}
+	
+	public Template(int id, String name, int minDiskSize, int minMemorySize)
+	{
+		super(id, name);
+		m_minDiskSize = minDiskSize;
+		m_minMemorySize = minMemorySize;
 	}
 	
 	public int minDiskSize()
@@ -58,18 +67,20 @@ public class Template extends Item
 	@Override
 	public String toJSON()
 	{
-		String jsonString = null;
+		String jsonRepresentation = null;
 		
 		try
 		{
-			
+			JSONObject jsonObject = new JSONObject();
+			jsonTemplate(jsonObject);
+			jsonRepresentation = jsonObject.toString();
 		}
 		catch (Exception exception)
 		{
 			
 		}
 		
-		return jsonString;
+		return jsonRepresentation;
 	}
 	
 	@Override
@@ -108,6 +119,13 @@ public class Template extends Item
 			m_minDiskSize = jsonObject.getInt("min_disk_size");
 			m_minMemorySize = jsonObject.getInt("min_memory_size");
 		}
+	}
+	
+	private void jsonTemplate(JSONObject jsonObject) throws Exception
+	{
+		jsonItem(jsonObject);
+		jsonObject.put("min_disk_size", m_minDiskSize);
+		jsonObject.put("min_memory_size", m_minMemorySize);
 	}
 	
 	private int m_minDiskSize;
