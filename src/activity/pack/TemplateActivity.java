@@ -31,8 +31,8 @@ public class TemplateActivity extends Activity {
 		super.onCreate(icicle);
 		setContentView(R.layout.template);
 		templateManager = UI_Core.getCore().templateManager();
-		boolean itemsLoaded = templateManager.loadItems();	//It seems to be unused, but it´s really for getting new data.
-		int elementsIntemplateList = templateManager.itemCount();	
+		boolean itemsLoaded = templateManager.load();	//It seems to be unused, but it´s really for getting new data.
+		int elementsIntemplateList = templateManager.count();	
 		templateList = new core.models.Template[elementsIntemplateList];
 		listItems = new String[elementsIntemplateList];
 		for (int counter=0; counter<elementsIntemplateList; counter++){
@@ -79,7 +79,7 @@ public class TemplateActivity extends Activity {
 		setContentView(R.layout.extra);
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.Template selectedItem = templateList[(int) selectedItemID];
-		templateManager.loadItemDetails(selectedItem);
+		templateManager.details(selectedItem);
 		computeExtraLabel.setText(selectedItem.name());
 		
 		extraListItems = new String[3];

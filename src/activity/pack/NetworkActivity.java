@@ -31,8 +31,8 @@ public class NetworkActivity extends Activity {
 		super.onCreate(icicle);
 		setContentView(R.layout.network);
 		networkManager = UI_Core.getCore().networkManager();
-		boolean itemsLoaded = networkManager.loadItems();	//It seems to be unused, but it´s really for getting new data.
-		int elementsInnetworkList = networkManager.itemCount();	
+		boolean itemsLoaded = networkManager.load();	//It seems to be unused, but it´s really for getting new data.
+		int elementsInnetworkList = networkManager.count();	
 		networkList = new core.models.Network[elementsInnetworkList];
 		listItems = new String[elementsInnetworkList];
 		for (int counter=0; counter<elementsInnetworkList; counter++){
@@ -72,7 +72,7 @@ public class NetworkActivity extends Activity {
 		setContentView(R.layout.extra);
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.Network selectedItem = networkList[(int) selectedItemID];
-		networkManager.loadItemDetails(selectedItem);
+		networkManager.details(selectedItem);
 		computeExtraLabel.setText(selectedItem.name());
 		
 		extraListItems = new String[5];

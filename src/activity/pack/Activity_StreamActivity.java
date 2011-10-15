@@ -30,8 +30,8 @@ public class Activity_StreamActivity extends Activity {
 		super.onCreate(icicle);
 		setContentView(R.layout.activity_stream);
 		newsManager = UI_Core.getCore().newsManager();
-		boolean itemsLoaded = newsManager.loadItems();	//It seems to be unused, but it´s really for getting new data.
-		int elementsInnewsList = newsManager.itemCount();	
+		boolean itemsLoaded = newsManager.load();	//It seems to be unused, but it´s really for getting new data.
+		int elementsInnewsList = newsManager.count();	
 		newsList = new core.models.News[elementsInnewsList];
 		listItems = new String[elementsInnewsList];
 		for (int counter=0; counter<elementsInnewsList; counter++){
@@ -72,13 +72,13 @@ public class Activity_StreamActivity extends Activity {
 		setContentView(R.layout.extra);
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.News selectedItem = newsList[(int) selectedItemID];
-		newsManager.loadItemDetails(selectedItem);
+		newsManager.details(selectedItem);
 		computeExtraLabel.setText(selectedItem.name());
 		
 		extraListItems = new String[4];
 		extraListItems[0] = ("ID : " + selectedItem.id());
 		extraListItems[1] = ("Type : " + selectedItem.type());
-		extraListItems[2] = ("Title : " + selectedItem.title());
+		extraListItems[2] = ("Title : " + selectedItem.name());
 		extraListItems[3] = ("Content : " + selectedItem.content());
 		
 		newsExtraListView = (ListView) findViewById(R.id.list_extra);

@@ -35,8 +35,8 @@ public class ComputeActivity extends Activity {
 		super.onCreate(icicle);
 		setContentView(R.layout.compute);
 		computeManager = UI_Core.getCore().computeManager();
-		boolean itemsLoaded = computeManager.loadItems();	
-		int ItemsInComputeList = computeManager.itemCount();	
+		boolean itemsLoaded = computeManager.load();	
+		int ItemsInComputeList = computeManager.count();	
 		computeList = new core.models.Compute[ItemsInComputeList];
 		listItems = new String[ItemsInComputeList];
 
@@ -87,11 +87,11 @@ public class ComputeActivity extends Activity {
 		setContentView(R.layout.extra);
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.Compute selectedItem = computeList[(int) selectedItemID];
-		computeManager.loadItemDetails(selectedItem);
+		computeManager.details(selectedItem);
 		computeExtraLabel.setText(selectedItem.name());
 		
 		extraListItems = new String[7];
-		extraListItems[0] = ("Hostname : " + selectedItem.hostname());
+		extraListItems[0] = ("Hostname : " + selectedItem.name());
 		extraListItems[1] = ("Arch : " + selectedItem.arch());
 		extraListItems[2] = ("Memory : " + selectedItem.memory());
 		extraListItems[3] = ("Cpu : " + selectedItem.cpu());

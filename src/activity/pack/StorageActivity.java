@@ -31,8 +31,8 @@ public class StorageActivity extends Activity {
 		super.onCreate(icicle);
 		setContentView(R.layout.storage);
 		storageManager = UI_Core.getCore().storageManager();
-		boolean itemsLoaded = storageManager.loadItems();
-		int elementsInstorageList = storageManager.itemCount();	
+		boolean itemsLoaded = storageManager.load();;
+		int elementsInstorageList = storageManager.count();;	
 		storageList = new core.models.Storage[elementsInstorageList];
 		listItems = new String[elementsInstorageList];
 		for (int counter=0; counter<elementsInstorageList; counter++){
@@ -77,7 +77,7 @@ public class StorageActivity extends Activity {
 		setContentView(R.layout.extra);
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.Storage selectedItem = storageList[(int) selectedItemID];
-		storageManager.loadItemDetails(selectedItem);
+		storageManager.details(selectedItem);
 		computeExtraLabel.setText(selectedItem.name());
 		
 		extraListItems = new String[3];
