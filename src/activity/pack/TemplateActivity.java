@@ -80,7 +80,7 @@ public class TemplateActivity extends Activity {
 		case R.id.delete_template:
 			delete_template();
 			break;
-		case R.id.create_vm:
+		case R.id.create_vm2:
 			create_compute();
 			break;
 
@@ -104,7 +104,6 @@ public class TemplateActivity extends Activity {
 		
 		TextView nameText = (TextView) findViewById(R.id.create_vm_label);
 		nameText.setText("Create Compute");
-		TextView idText = (TextView) findViewById(R.id.textView1);
 		TextView tempText = (TextView) findViewById(R.id.textView9);
 		final EditText nameEdit = (EditText) findViewById(R.id.editText1);
 		final EditText archEdit = (EditText) findViewById(R.id.editText2);
@@ -112,8 +111,7 @@ public class TemplateActivity extends Activity {
 		final EditText cpuEdit = (EditText) findViewById(R.id.editText4);
 		final EditText memoryEdit = (EditText) findViewById(R.id.editText5);
 		final EditText stateEdit = (EditText) findViewById(R.id.editText6);
-		final int computeId = i;
-		idText.setText("ID : "+computeId);
+
 		tempText.setText("Template : "+selectedItem.name());
 		
 		Button createCompute = (Button) findViewById(R.id.btn_create_vm);

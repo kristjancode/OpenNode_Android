@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
+	public static final String PREFS_NAME = "MyPrefsFile";
+	private static final String PREF_USERNAME = "username";
+	private static final String PREF_PASSWORD = "password";
 
 	@Override
 	public void onCreate(final Bundle icicle) {
@@ -20,6 +23,7 @@ public class LoginActivity extends Activity {
 		Button login = (Button) findViewById(R.id.btn_login_login);
 		login.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
+				
 				Intent myIntent = new Intent(view.getContext(),
 						MainActivity.class);
 				startActivityForResult(myIntent, 0);
@@ -29,9 +33,9 @@ public class LoginActivity extends Activity {
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
 
-		MenuInflater inflater = getMenuInflater();
+		//MenuInflater inflater = getMenuInflater();
 
-		inflater.inflate(R.menu.actionbar, menu2);
+		//inflater.inflate(R.menu.actionbar, menu2);
 
 		return true;
 
