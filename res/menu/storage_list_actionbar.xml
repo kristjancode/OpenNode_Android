@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/new_element" android:icon="@drawable/new48"   android:title="New Storage" ></item>
 	<item android:id="@+id/home" android:icon="@drawable/home48" android:title="Home" android:menuCategory="container"></item>
-	<item android:id="@+id/settings" android:icon="@drawable/settings48" android:title="Settings"  android:menuCategory="container"></item>
 
     
 </menu>

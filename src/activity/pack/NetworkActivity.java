@@ -1,6 +1,5 @@
 package activity.pack;
 
-import core.interfaces.ComputeManager;
 import core.interfaces.NetworkManager;
 import android.app.Activity;
 import android.content.Intent;
@@ -53,33 +52,21 @@ public class NetworkActivity extends Activity {
 	}
 	public boolean onCreateOptionsMenu(Menu menu2) {
 		menu = menu2;
-		if (selectedItemID == -1){
 
 		MenuInflater inflater = getMenuInflater();
 
 		inflater.inflate(R.menu.network_list_actionbar, menu2);
-		}
-		else{
-			MenuInflater inflater = getMenuInflater();
 
-			inflater.inflate(R.menu.detail_actionbar, menu2);
-		}
 		return true;
 
 	}
 	public void invalidateOptionsMenu (){
-		menu.clear();
-		if (selectedItemID == -1){
 
 		MenuInflater inflater = getMenuInflater();
 
 		inflater.inflate(R.menu.network_list_actionbar, menu);
-		}
-		else{
-			MenuInflater inflater = getMenuInflater();
-
-			inflater.inflate(R.menu.detail_actionbar, menu);
-		}
+		menu.clear();
+	
 	}
 	
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
@@ -127,18 +114,11 @@ public class NetworkActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.actionbar_item_home:
+		case R.id.home:
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
 			break;
-		case R.id.actionbar_item_create:
-			Toast.makeText(this, "You pressed the text!", Toast.LENGTH_LONG)
-					.show();
-			break;
-		case R.id.actionbar_item_search:
-			Toast.makeText(this, "You pressed the icon and text!",
-					Toast.LENGTH_LONG).show();
-			break;
+
 		}
 		return true;
 	}

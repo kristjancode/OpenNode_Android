@@ -72,9 +72,6 @@ public class StorageActivity extends Activity {
 		case R.id.update_storage:
 			update_storage();
 			break;
-		case R.id.new_element:
-			create_storage();
-			break;
 		case R.id.delete_storage:
 			delete_storage();
 			break;
@@ -84,7 +81,6 @@ public class StorageActivity extends Activity {
 	}
 
 	private void delete_storage() {
-		setContentView(R.layout.update_storage);
 		if (menu != null){
 			invalidateOptionsMenu ();
 		}
@@ -93,7 +89,6 @@ public class StorageActivity extends Activity {
 		storageManager.delete(selectedItem);
 		Intent intent = new Intent(this, StorageActivity.class);
 		this.startActivity(intent);
-		setContentView(R.layout.storage);
 		
 	}
 
@@ -118,9 +113,6 @@ public class StorageActivity extends Activity {
 		Button updateStorage = (Button) findViewById(R.id.btn_update_storage);
 		updateStorage.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				sizeEdit.getText();
-				typeEdit.getText();
-				nameEdit.getText();
 				Storage newStorage = new Storage(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(sizeEdit.getText().toString()), typeEdit.getText().toString());
 				storageManager.update(selectedItem, newStorage);
 				Intent myIntent = new Intent(view.getContext(), StorageActivity.class);
@@ -187,9 +179,6 @@ public class StorageActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.new_element:
-			create_storage();
-			break;
 		case R.id.home:
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
@@ -226,9 +215,6 @@ public class StorageActivity extends Activity {
 		updateStorage.setText("Create");
 		updateStorage.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				sizeEdit.getText();
-				typeEdit.getText();
-				nameEdit.getText();
 				Storage newStorage = new Storage(storageId,nameEdit.getText().toString(), Integer.parseInt(sizeEdit.getText().toString()), typeEdit.getText().toString());
 				storageManager.create(newStorage);
 				Intent myIntent = new Intent(view.getContext(), StorageActivity.class);

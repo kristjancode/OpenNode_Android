@@ -1,6 +1,7 @@
 package activity.pack;
 
 import core.interfaces.NewsManager;
+import core.models.News;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -70,13 +71,15 @@ public class Activity_StreamActivity extends Activity {
 		}
 		return true;
 	}
+
+
 	private void extra_info() {
 		setContentView(R.layout.extra);
 		if (menu != null){
 			invalidateOptionsMenu ();
 		}
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
-		core.models.News selectedItem = newsList[(int) selectedItemID];
+		News selectedItem = newsList[(int) selectedItemID];
 		newsManager.details(selectedItem);
 		computeExtraLabel.setText(selectedItem.name());
 		
@@ -124,21 +127,32 @@ public class Activity_StreamActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.actionbar_item_home:
+		case R.id.home:
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
 			break;
-		case R.id.actionbar_item_create:
-			Toast.makeText(this, "You pressed the text!", Toast.LENGTH_LONG)
-					.show();
+		case R.id.delete:
+			delete_news();
 			break;
-		case R.id.actionbar_item_search:
-			Toast.makeText(this, "You pressed the icon and text!",
-					Toast.LENGTH_LONG).show();
+		case R.id.comment:
 			break;
 		}
 		return true;
 	}
+	private void delete_news() {
+		if (menu != null){
+			invalidateOptionsMenu ();
+		}
+		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
+		News selectedItem = newsList[(int) selectedItemID];
+		newsManager.details(selectedItem);
+		computeExtraLabel.setText(selectedItem.name());
+		newsManager.delete(selectedItem);
+		Intent intent = new Intent(this, Activity_StreamActivity.class);
+		this.startActivity(intent);
+		
+	}
+
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_SEARCH){
 			Intent intent = new Intent(this, SearchActivity.class);
