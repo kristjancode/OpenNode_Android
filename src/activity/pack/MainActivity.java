@@ -74,9 +74,9 @@ public class MainActivity extends Activity {
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
 
-		MenuInflater inflater = getMenuInflater();
+		//MenuInflater inflater = getMenuInflater();
 
-		inflater.inflate(R.menu.actionbar, menu2);
+		//inflater.inflate(R.menu.actionbar, menu2);
 
 		return true;
 

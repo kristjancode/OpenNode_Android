@@ -52,11 +52,11 @@ public class NetworkActivity extends Activity {
 	}
 	public boolean onCreateOptionsMenu(Menu menu2) {
 		menu = menu2;
-
-		MenuInflater inflater = getMenuInflater();
-
-		inflater.inflate(R.menu.network_list_actionbar, menu2);
-
+		if (selectedItemID == -1){
+			MenuInflater inflater = getMenuInflater();
+	
+			inflater.inflate(R.menu.network_list_actionbar, menu2);
+		}
 		return true;
 
 	}
@@ -128,7 +128,15 @@ public class NetworkActivity extends Activity {
 			this.startActivity(intent);
                 return false;
         }else{
+        	 if(keyCode == KeyEvent.KEYCODE_BACK){
+     			Intent intent = new Intent(this, MainActivity.class);
+    			this.startActivity(intent);
+                    return false;
+        	 }
+        	 else{
                 return super.onKeyUp(keyCode, event); 
+        	 }
         }
 }
+
 }

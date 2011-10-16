@@ -230,7 +230,15 @@ public class StorageActivity extends Activity {
 			this.startActivity(intent);
                 return false;
         }else{
+        	 if(keyCode == KeyEvent.KEYCODE_BACK){
+     			Intent intent = new Intent(this, MainActivity.class);
+    			this.startActivity(intent);
+                    return false;
+        	 }
+        	 else{
                 return super.onKeyUp(keyCode, event); 
+        	 }
         }
 }
+ 
 }

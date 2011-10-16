@@ -121,7 +121,7 @@ public class TemplateActivity extends Activity {
 		createCompute.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 
-				Compute newCompute = new Compute(computeId,nameEdit.getText().toString(), archEdit.getText().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEdit.getText().toString(), selectedItem.name());
+				Compute newCompute = new Compute(0,nameEdit.getText().toString(), archEdit.getText().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEdit.getText().toString(), selectedItem.name());
 				computeManager.create(newCompute);
 				Intent myIntent = new Intent(view.getContext(), ComputeActivity.class);
 				startActivityForResult(myIntent, 0);
@@ -250,7 +250,15 @@ public class TemplateActivity extends Activity {
 			this.startActivity(intent);
                 return false;
         }else{
+        	 if(keyCode == KeyEvent.KEYCODE_BACK){
+     			Intent intent = new Intent(this, MainActivity.class);
+    			this.startActivity(intent);
+                    return false;
+        	 }
+        	 else{
                 return super.onKeyUp(keyCode, event); 
+        	 }
         }
 }
+
 }
