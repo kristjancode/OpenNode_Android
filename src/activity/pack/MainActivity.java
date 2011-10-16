@@ -105,7 +105,14 @@ public class MainActivity extends Activity {
 			this.startActivity(intent);
                 return false;
         }else{
-                return super.onKeyUp(keyCode, event); 
-        }
+       	 if(keyCode == KeyEvent.KEYCODE_BACK){
+ 			Intent intent = new Intent(this, LoginActivity.class);
+ 			this.startActivity(intent);  
+       		 	   return false;
+       	 }
+       	 else{
+               return super.onKeyUp(keyCode, event); 
+       	 }
+       }
 }
 }
