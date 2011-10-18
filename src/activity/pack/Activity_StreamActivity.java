@@ -23,7 +23,7 @@ public class Activity_StreamActivity extends Activity {
 	private ListView newsExtraListView;
 	private String[] listItems;
 	private String[] extraListItems;
-	private long selectedItemID;
+	static long selectedItemID;
 	private NewsManager newsManager;
 	private core.models.News newsList[];
 	private Menu menu;
@@ -47,7 +47,8 @@ public class Activity_StreamActivity extends Activity {
 		newsListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 			    	selectedItemID = arg2;
-			    	extra_info();
+					Intent myIntent = new Intent(arg1.getContext(),	NewsDetailActivity.class);
+					startActivityForResult(myIntent, 0);
 				}  		
 		      });  
 	}
@@ -64,9 +65,13 @@ public class Activity_StreamActivity extends Activity {
     public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_news:
-			extra_info();
+			Intent intent = new Intent(this, NewsDetailActivity.class);
+			this.startActivity(intent);
 			break;
 		case R.id.make_comment:
+			break;
+		case R.id.delete_news:
+			delete_news();
 			break;
 		}
 		return true;
@@ -75,9 +80,7 @@ public class Activity_StreamActivity extends Activity {
 
 	private void extra_info() {
 		setContentView(R.layout.extra);
-		if (menu != null){
-			invalidateOptionsMenu ();
-		}
+
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		News selectedItem = newsList[(int) selectedItemID];
 		newsManager.details(selectedItem);
@@ -95,34 +98,13 @@ public class Activity_StreamActivity extends Activity {
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
-		menu = menu2;
-		if (selectedItemID == -1){
 
 		MenuInflater inflater = getMenuInflater();
 
 		inflater.inflate(R.menu.news_list_actionbar, menu2);
-		}
-		else{
-			MenuInflater inflater = getMenuInflater();
 
-			inflater.inflate(R.menu.news_detail_actionbar, menu2);
-		}
 		return true;
 
-	}
-	public void invalidateOptionsMenu (){
-		menu.clear();
-		if (selectedItemID == -1){
-
-		MenuInflater inflater = getMenuInflater();
-
-		inflater.inflate(R.menu.news_list_actionbar, menu);
-		}
-		else{
-			MenuInflater inflater = getMenuInflater();
-
-			inflater.inflate(R.menu.news_detail_actionbar, menu);
-		}
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -140,13 +122,9 @@ public class Activity_StreamActivity extends Activity {
 		return true;
 	}
 	private void delete_news() {
-		if (menu != null){
-			invalidateOptionsMenu ();
-		}
-		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
+
 		News selectedItem = newsList[(int) selectedItemID];
 		newsManager.details(selectedItem);
-		computeExtraLabel.setText(selectedItem.name());
 		newsManager.delete(selectedItem);
 		Intent intent = new Intent(this, Activity_StreamActivity.class);
 		this.startActivity(intent);
