@@ -29,6 +29,16 @@
         android:configChanges="orientation|keyboard|keyboardHidden" />
         <activity android:name=".StorageActivity" 
         android:configChanges="orientation|keyboard|keyboardHidden" />
+        <activity android:name=".StorageDetailActivity" 
+        android:configChanges="orientation|keyboard|keyboardHidden" />
+        <activity android:name=".NetworkDetailActivity" 
+        android:configChanges="orientation|keyboard|keyboardHidden" />
+        <activity android:name=".TemplateDetailActivity" 
+        android:configChanges="orientation|keyboard|keyboardHidden" />    
+        <activity android:name=".ComputeDetailActivity" 
+        android:configChanges="orientation|keyboard|keyboardHidden" />    
+        <activity android:name=".NewsDetailActivity" 
+        android:configChanges="orientation|keyboard|keyboardHidden" />
         <activity android:name=".ComputeActivity" 
         android:configChanges="orientation|keyboard|keyboardHidden" />
      

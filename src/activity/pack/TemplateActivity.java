@@ -29,16 +29,16 @@ public class TemplateActivity extends Activity {
 	private ListView templateExtraListView;
 	private String[] listItems;
 	private String[] extraListItems;
-	private long selectedItemID;
+	static long selectedItemID;
 	private TemplateManager templateManager;
 	private core.models.Template templateList[];
-	private Menu menu;
 	private ComputeManager computeManager;
+	static int actionValue = 0;
+	
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.template);
-		selectedItemID = -1;
 		templateManager = UI_Core.getCore().templateManager();
 		computeManager = UI_Core.getCore().computeManager();
 		boolean itemsLoaded = templateManager.load();	//It seems to be unused, but it´s really for getting new data.
@@ -55,7 +55,9 @@ public class TemplateActivity extends Activity {
 		templateListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 			    	selectedItemID = arg2;
-			    	extra_info();
+			    	actionValue = 0;
+					Intent myIntent = new Intent(arg1.getContext(),	TemplateDetailActivity.class);
+					startActivityForResult(myIntent, 0);
 				}  		
 		      });  
 	}
@@ -72,16 +74,22 @@ public class TemplateActivity extends Activity {
     public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_template:
-			extra_info();
+			actionValue = 0;
+			Intent intent = new Intent(this, TemplateDetailActivity.class);
+			this.startActivity(intent);
 			break;
 		case R.id.update_template:
-			update_template();
+			actionValue = 1;
+			Intent intent1 = new Intent(this, TemplateDetailActivity.class);
+			this.startActivity(intent1);
 			break;
 		case R.id.delete_template:
 			delete_template();
 			break;
 		case R.id.create_vm2:
-			create_compute();
+			actionValue = 2;
+			Intent intent2 = new Intent(this, TemplateDetailActivity.class);
+			this.startActivity(intent2);
 			break;
 
 		}
@@ -89,9 +97,7 @@ public class TemplateActivity extends Activity {
 	}
 	private void create_compute() {
 		setContentView(R.layout.create_vm);
-		if (menu != null){
-			invalidateOptionsMenu ();
-		}
+
 		int i=0;
 		while (i<computeManager.count()){
 			if (computeManager.item(i)==null){
@@ -129,9 +135,7 @@ public class TemplateActivity extends Activity {
 	}
 	private void extra_info() {
 		setContentView(R.layout.extra);
-		if (menu != null){
-			invalidateOptionsMenu ();
-		}
+
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.Template selectedItem = templateList[(int) selectedItemID];
 		templateManager.details(selectedItem);
@@ -149,35 +153,15 @@ public class TemplateActivity extends Activity {
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
-		menu = menu2;
-		if (selectedItemID == -1){
 
 		MenuInflater inflater = getMenuInflater();
 
 		inflater.inflate(R.menu.template_list_actionbar, menu2);
-		}
-		else{
-			MenuInflater inflater = getMenuInflater();
 
-			inflater.inflate(R.menu.template_detail_actionbar, menu2);
-		}
 		return true;
 
 	}
-	public void invalidateOptionsMenu (){
-		menu.clear();
-		if (selectedItemID == -1){
 
-		MenuInflater inflater = getMenuInflater();
-
-		inflater.inflate(R.menu.template_list_actionbar, menu);
-		}
-		else{
-			MenuInflater inflater = getMenuInflater();
-
-			inflater.inflate(R.menu.template_detail_actionbar, menu);
-		}
-	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -198,9 +182,7 @@ public class TemplateActivity extends Activity {
 		return true;
 	}
 	private void delete_template() {
-		if (menu != null){
-			invalidateOptionsMenu ();
-		}
+
 		final Template selectedItem = templateList[(int) selectedItemID];
 		templateManager.details(selectedItem);
 		templateManager.delete(selectedItem);
@@ -211,9 +193,6 @@ public class TemplateActivity extends Activity {
 
 	private void update_template() {
 		setContentView(R.layout.update_template);
-		if (menu != null){
-			invalidateOptionsMenu ();
-		}
 		final core.models.Template selectedItem = templateList[(int) selectedItemID];
 		templateManager.details(selectedItem);
 

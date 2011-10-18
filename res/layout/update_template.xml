@@ -43,7 +43,7 @@ android:fillViewport="true">
 		<Button android:layout_alignLeft="@+id/editText3"
 			android:layout_height="wrap_content" android:layout_below="@+id/editText3"
 			android:layout_marginTop="19dp" android:layout_width="wrap_content"
-			android:id="@+id/btn_update_storage" android:text="Update" android:layout_alignRight="@+id/textView4"></Button>
+			android:text="Update" android:layout_alignRight="@+id/textView4" android:id="@+id/btn_update_template"></Button>
 		<TextView android:text="Min disk size 	: " android:layout_height="wrap_content"
 			android:layout_width="107dp" android:textAppearance="?android:attr/textAppearanceLarge"
 			android:id="@+id/textView3" android:layout_below="@+id/editText4"

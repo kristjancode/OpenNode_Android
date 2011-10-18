@@ -22,7 +22,7 @@ public class NetworkActivity extends Activity {
 	private ListView networkExtraListView;
 	private String[] listItems;
 	private String[] extraListItems;
-	private long selectedItemID;
+	static long selectedItemID;
 	private NetworkManager networkManager;
 	private core.models.Network networkList[];
 	private Menu menu;
@@ -46,7 +46,8 @@ public class NetworkActivity extends Activity {
 		networkListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 			    	selectedItemID = arg2;
-			    	extra_info();
+					Intent myIntent = new Intent(arg1.getContext(),	NetworkDetailActivity.class);
+					startActivityForResult(myIntent, 0);
 				}  		
 		      });  
 	}
@@ -81,7 +82,8 @@ public class NetworkActivity extends Activity {
     public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_network:
-			extra_info();
+			Intent intent = new Intent(this, NetworkDetailActivity.class);
+			this.startActivity(intent);
 			break;
 		}
 		return true;
