@@ -28,10 +28,8 @@
 
 # OS generated files #
 ######################
-.DS_Store?
+.DS_Store
 ehthumbs.db
 Icon?
 Thumbs.db
 /AndroidManifest.xml
-
-tests/src/core/interfaces/.DS_Store
