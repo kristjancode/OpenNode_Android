@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="OpenNode_Android_Unit" default="run-tests">
+	
+	<property name="core_source.dir" value="../src/core"/>
+    <property name="source.dir" value="src"/>
+    <property name="libs.dir" value="libs"/>
+
+    <property name="out.dir" value="build"/>
+    <property name="classes.dir" value="${out.dir}/classes"/>
+    <property name="reports.dir" value="${out.dir}/reports"/>
+    <property name="tested.dir" value=".."/>
+    <property name="tested.classes.dir" value="${tested.dir}/build/classes"/>
+    <property name="tested.libs.dir" value="${tested.dir}/libs"/>
+
+    <path id="compile.classpath">
+        <fileset dir="${libs.dir}" includes="*.jar"/>
+        <fileset dir="${tested.libs.dir}" includes="*.jar"/>
+        <pathelement location="${tested.classes.dir}"/>
+    </path>
+
+    <path id="run.classpath">
+        <path refid="compile.classpath"/>
+        <pathelement location="${classes.dir}"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="${out.dir}"/>
+    </target>
+
+    <target name="-init">
+    	<mkdir dir="${out.dir}"/>
+    	<mkdir dir="${classes.dir}"/>
+    	<mkdir dir="${reports.dir}"/>
+    </target>
+
+    <target name="-compile-tested">
+        <subant target="compile" buildpath="${tested.dir}"/>
+    </target>
+
+    <target name="compile" depends="-init,-compile-tested">
+        <javac target="1.5" debug="true" destdir="${classes.dir}">
+        	<src path="${core_source.dir}"/>
+            <src path="${source.dir}"/>
+            <classpath refid="compile.classpath"/>
+        </javac>
+    </target>
+
+    <target name="run-tests" depends="compile">
+        <junit printsummary="yes" failureproperty="test.failure">
+            <classpath refid="run.classpath"/>
+
+            <formatter type="xml"/>
+
+            <batchtest todir="${reports.dir}">
+                <fileset dir="${source.dir}" includes="**/*Test.java"/>
+            </batchtest>
+        </junit>
+
+        <fail message="One or more test cases failed" if="test.failure"/>
+    </target>
+</project>
