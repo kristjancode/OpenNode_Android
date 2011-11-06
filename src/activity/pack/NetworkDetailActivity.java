@@ -69,6 +69,7 @@ public class NetworkDetailActivity extends Activity {
 
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_SEARCH){
+        	SearchActivity.netwCheck = true;
 			Intent intent = new Intent(this, SearchActivity.class);
 			this.startActivity(intent);
                 return false;

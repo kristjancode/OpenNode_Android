@@ -6,17 +6,44 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class SearchActivity extends Activity {
+
+    static boolean compCheck=false;
+    static boolean netwCheck=false;
+    static boolean storCheck=false;
+    static boolean tempCheck=false;
+    static boolean newCheck=false;
 
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.search);
+	    CheckBox computeCheck = (CheckBox) findViewById(R.id.computeCheck);
+	    CheckBox networkCheck = (CheckBox) findViewById(R.id.networkCheck);
+	    CheckBox storageCheck = (CheckBox) findViewById(R.id.storageCheck);
+	    CheckBox templateCheck = (CheckBox) findViewById(R.id.templateCheck);
+	    CheckBox newsCheck = (CheckBox) findViewById(R.id.newsCheck);
+		computeCheck.setChecked(compCheck);
+		networkCheck.setChecked(netwCheck);
+		storageCheck.setChecked(storCheck);
+		templateCheck.setChecked(tempCheck);
+		newsCheck.setChecked(newCheck);
+		backToFalse();
 
 	}
+	private void backToFalse() {
+	    compCheck=false;
+	    netwCheck=false;
+	    storCheck=false;
+	    tempCheck=false;
+	    newCheck=false;
 
+		
+	}
 	public boolean onCreateOptionsMenu(Menu menu2) {
 
 		MenuInflater inflater = getMenuInflater();

@@ -9,6 +9,11 @@
 
 	<!-- Compute Activity -->
     <string name="action_new_compute" >New Compute</string>
+    <string-array name="state_array">
+        <item>running</item>
+        <item>stopped</item>
+        <item>suspended</item>
+    </string-array>
 	<!-- Network Activity -->
 
 	<!-- Storage Activity -->

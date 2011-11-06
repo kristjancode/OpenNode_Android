@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -116,7 +117,8 @@ public class TemplateActivity extends Activity {
 		final EditText coresEdit = (EditText) findViewById(R.id.editText3);
 		final EditText cpuEdit = (EditText) findViewById(R.id.editText4);
 		final EditText memoryEdit = (EditText) findViewById(R.id.editText5);
-		final EditText stateEdit = (EditText) findViewById(R.id.editText6);
+		final Spinner stateEditSpinner = (Spinner) findViewById(R.id.spinnerState);
+		final String stateEdit = stateEditSpinner.getSelectedItem().toString();
 
 		tempText.setText("Template : "+selectedItem.name());
 		
@@ -125,7 +127,7 @@ public class TemplateActivity extends Activity {
 		createCompute.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 
-				Compute newCompute = new Compute(0,nameEdit.getText().toString(), archEdit.getText().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEdit.getText().toString(), selectedItem.name());
+				Compute newCompute = new Compute(0,nameEdit.getText().toString(), archEdit.getText().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEdit, selectedItem.name());
 				computeManager.create(newCompute);
 				Intent myIntent = new Intent(view.getContext(), ComputeActivity.class);
 				startActivityForResult(myIntent, 0);
@@ -223,6 +225,7 @@ public class TemplateActivity extends Activity {
 
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_SEARCH){
+        	SearchActivity.tempCheck = true;
 			Intent intent = new Intent(this, SearchActivity.class);
 			this.startActivity(intent);
                 return false;

@@ -3,6 +3,8 @@ package activity.pack;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import core.config.Config;
+
 import activity.pack.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -39,7 +41,12 @@ public class LoginActivity extends Activity {
 		username2.setText(username);
 		password2.setText(password);
 		url2.setText(url);
-
+		//
+		Config config = UI_Core.core.config();
+		config.serverHostname("10.0.2.2");
+		config.serverPort(8080);
+		config.serverUsername("opennode");
+		config.serverPassword("demo");
 
 
 		Button login = (Button) findViewById(R.id.btn_login_login);
