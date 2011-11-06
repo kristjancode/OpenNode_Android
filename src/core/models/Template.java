@@ -65,6 +65,25 @@ public class Template extends Item
 	}
 	
 	@Override
+	public boolean valid()
+	{
+		boolean valid = false;
+		
+		try
+		{
+			valid = super.valid();
+			valid = valid ? m_minDiskSize >= 0 : false;
+			valid = valid ? m_minMemorySize >= 0 : false;
+		}
+		catch (Exception exception)
+		{
+			
+		}
+		
+		return valid;
+	}
+	
+	@Override
 	public String toJSON()
 	{
 		String jsonRepresentation = null;
@@ -89,13 +108,8 @@ public class Template extends Item
 		String stringRepresentation = "Template(";
 		stringRepresentation += m_id + ", ";
 		stringRepresentation += m_name;
-		
-		if (m_full)
-		{
-			stringRepresentation += ", " + m_minDiskSize + ", ";
-			stringRepresentation += m_minMemorySize;
-		}
-		
+		stringRepresentation += ", " + m_minDiskSize + ", ";
+		stringRepresentation += m_minMemorySize;
 		stringRepresentation += ")";
 		
 		return stringRepresentation;
@@ -111,14 +125,10 @@ public class Template extends Item
 	private void assignTemplate(JSONObject jsonObject, boolean full) throws Exception
 	{
 		assignItem(jsonObject, full);
-		
-		if (m_full)
-		{
-			m_id = jsonObject.getInt("id");
-			m_name = jsonObject.getString("name");
-			m_minDiskSize = jsonObject.getInt("min_disk_size");
-			m_minMemorySize = jsonObject.getInt("min_memory_size");
-		}
+		m_id = jsonObject.getInt("id");
+		m_name = jsonObject.getString("name");
+		m_minDiskSize = jsonObject.getInt("min_disk_size");
+		m_minMemorySize = jsonObject.getInt("min_memory_size");
 	}
 	
 	private void jsonTemplate(JSONObject jsonObject) throws Exception

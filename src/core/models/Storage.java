@@ -65,6 +65,25 @@ public class Storage extends Item
 	}
 	
 	@Override
+	public boolean valid()
+	{
+		boolean valid = false;
+		
+		try
+		{
+			valid = super.valid();
+			valid = valid ? m_size >= 0 : false;
+			valid = valid ? m_type != null : false;
+		}
+		catch (Exception exception)
+		{
+			
+		}
+		
+		return valid;
+	}
+	
+	@Override
 	public String toJSON()
 	{
 		String jsonRepresentation = null;
@@ -89,13 +108,8 @@ public class Storage extends Item
 		String stringRepresentation = "Storage(";
 		stringRepresentation += m_id + ", ";
 		stringRepresentation += m_name;
-		
-		if (m_full)
-		{
-			stringRepresentation += ", " + m_size + ", ";
-			stringRepresentation += m_type;
-		}
-		
+		stringRepresentation += ", " + m_size + ", ";
+		stringRepresentation += m_type;	
 		stringRepresentation += ")";
 		
 		return stringRepresentation;
@@ -111,12 +125,8 @@ public class Storage extends Item
 	private void assignStorage(JSONObject jsonObject, boolean full) throws Exception
 	{
 		assignItem(jsonObject, full);
-		
-		if (m_full)
-		{
-			m_size = jsonObject.getInt("size");
-			m_type = jsonObject.getString("type");
-		}
+		m_size = jsonObject.getInt("size");
+		m_type = jsonObject.getString("type");
 	}
 	
 	private void jsonStorage(JSONObject jsonObject) throws Exception

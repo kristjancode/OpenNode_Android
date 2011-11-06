@@ -5,14 +5,19 @@ import core.Core;
 import core.config.Config;
 import core.interfaces.*;
 import core.models.*;
+import core.network.Networking;
 
 public class Main 
 {
 	public static void main(String[] args)
 	{
-		Config.SERVER_HOSTNAME = "127.0.0.1";
-		Config.SERVER_PORT = 8080;
 		Core core = new Core();
+		Config config = core.config();
+		config.serverHostname("127.0.0.1");
+		config.serverPort(8080);
+		config.serverUsername("opennode");
+		config.serverPassword("demo");
+		System.out.println(core.serverConnector().authenticate());
 		
 		testManagers(core);
 		testItemToJSON();
@@ -35,7 +40,7 @@ public class Main
 		loadAndGetDetails((AbstractManager) networkManager);
 		loadAndGetDetails((AbstractManager) storageManager);
 		loadAndGetDetails((AbstractManager) templateManager);
-		loadAndGetDetails((AbstractManager) newsManager);
+		//loadAndGetDetails((AbstractManager) newsManager); //NEWS IS CURRENTLY BROKEN IN DEMOSERVER
 		
 		System.out.println("");
 	}

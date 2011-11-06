@@ -89,13 +89,8 @@ public class News extends Item
 		String stringRepresentation = "News(";
 		stringRepresentation += m_id + ", ";
 		stringRepresentation += m_name;
-		
-		if (m_full)
-		{
-			stringRepresentation += ", " + m_type + ", ";
-			stringRepresentation += m_content;
-		}
-		
+		stringRepresentation += ", " + m_type + ", ";
+		stringRepresentation += m_content;	
 		stringRepresentation += ")";
 		
 		return stringRepresentation;
@@ -111,12 +106,8 @@ public class News extends Item
 	private void assignNews(JSONObject jsonObject, boolean full) throws Exception
 	{
 		assignItem(jsonObject, full);
-		
-		if (m_full)
-		{
-			m_type = jsonObject.getString("type");
-			m_content = jsonObject.getString("content");
-		}
+		m_type = jsonObject.getString("type");
+		m_content = jsonObject.getString("content");
 	}
 	
 	private void jsonNews(JSONObject jsonObject) throws Exception

@@ -8,12 +8,18 @@ public class Core
 {
 	public Core()
 	{
-		m_serverConnector = new ServerConnector(Config.SERVER_HOSTNAME, Config.SERVER_PORT);
+		m_config = new Config();
+		m_serverConnector = new ServerConnector(m_config);
 		m_computeManager = new ComputeManager(this);
 		m_networkManager = new NetworkManager(this);
 		m_storageManager = new StorageManager(this);
 		m_templateManager = new TemplateManager(this);
 		m_newsManager = new NewsManager(this);
+	}
+	
+	public Config config()
+	{
+		return m_config;
 	}
 	
 	public ServerConnector serverConnector()
@@ -46,6 +52,7 @@ public class Core
 		return m_newsManager;
 	}
 	
+	private Config m_config;
 	private ServerConnector m_serverConnector;
 	private ComputeManager m_computeManager;
 	private NetworkManager m_networkManager;

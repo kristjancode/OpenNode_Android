@@ -79,6 +79,27 @@ public class Network extends Item
 	}
 	
 	@Override
+	public boolean valid()
+	{
+		boolean valid = false;
+		
+		try
+		{
+			valid = super.valid();
+			valid = valid ? m_ip != null : false;
+			valid = valid ? m_mask != null : false;
+			valid = valid ? m_addressAllocation != null : false;
+			valid = valid ? m_gateway != null : false;
+		}
+		catch (Exception exception)
+		{
+			
+		}
+		
+		return valid;
+	}
+	
+	@Override
 	public String toJSON()
 	{
 		String jsonRepresentation = null;
@@ -103,15 +124,10 @@ public class Network extends Item
 		String stringRepresentation = "Network(";
 		stringRepresentation += m_id + ", ";
 		stringRepresentation += m_name;
-		
-		if (m_full)
-		{
-			stringRepresentation += ", " + m_ip + ", ";
-			stringRepresentation += m_mask + ", ";
-			stringRepresentation += m_addressAllocation + ", ";
-			stringRepresentation += m_gateway;
-		}
-		
+		stringRepresentation += ", " + m_ip + ", ";
+		stringRepresentation += m_mask + ", ";
+		stringRepresentation += m_addressAllocation + ", ";
+		stringRepresentation += m_gateway;		
 		stringRepresentation += ")";
 		
 		return stringRepresentation;
@@ -129,14 +145,10 @@ public class Network extends Item
 	private void assignNetwork(JSONObject jsonObject, boolean full) throws Exception
 	{
 		assignItem(jsonObject, full);
-		
-		if (m_full)
-		{
-			m_ip = jsonObject.getString("ip");
-			m_mask = jsonObject.getString("mask");
-			m_addressAllocation = jsonObject.getString("address_allocation");
-			m_gateway = jsonObject.getString("gateway");
-		}
+		m_ip = jsonObject.getString("ip");
+		m_mask = jsonObject.getString("mask");
+		m_addressAllocation = jsonObject.getString("address_allocation");
+		m_gateway = jsonObject.getString("gateway");
 	}
 	
 	private void jsonNetwork(JSONObject jsonObject) throws Exception

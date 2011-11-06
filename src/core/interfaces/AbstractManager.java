@@ -29,7 +29,7 @@ public abstract class AbstractManager<T extends Item>
 	{
 		T item = null;
 		
-		if (index < m_items.size())
+		if (index >= 0 && index < m_items.size())
 		{
 			item = m_items.get(index);
 		}
@@ -54,7 +54,7 @@ public abstract class AbstractManager<T extends Item>
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
 				T item = itemInstance();
 				
-				if (item.assign(jsonObject, false))
+				if (item.assign(jsonObject, true))
 				{
 					m_items.add(item);
 				}
@@ -77,9 +77,9 @@ public abstract class AbstractManager<T extends Item>
 		
 		try
 		{
-			if (m_items.contains(item))
+			if (m_items.contains(item) && item.valid())
 			{
-				String response = m_serverConnector.httpGET(m_request + "/" + item.id());
+				String response = m_serverConnector.httpGET(m_request + "/" + item.id() + "/");
 				JSONObject jsonObject = new JSONObject(response);
 				success = item.assign(jsonObject, true);
 			}
@@ -99,13 +99,16 @@ public abstract class AbstractManager<T extends Item>
 		
 		try
 		{
-			String response = m_serverConnector.httpPOST(m_request + "/", item.toJSON());
-			JSONObject jsonObject = new JSONObject(response);
-			
-			if (item.assign(jsonObject, true))
+			if (item.valid())
 			{
-				m_items.add(item);
-				success = true;
+				String response = m_serverConnector.httpPOST(m_request + "/", item.toJSON());
+				JSONObject jsonObject = new JSONObject(response);
+				
+				if (item.assign(jsonObject, true))
+				{
+					m_items.add(item);
+					success = true;
+				}
 			}
 		}
 		catch (Exception exception)
@@ -123,9 +126,9 @@ public abstract class AbstractManager<T extends Item>
 		
 		try
 		{
-			if (m_items.contains(item))
+			if (m_items.contains(item) && item.valid())
 			{
-				String response = m_serverConnector.httpPUT(m_request + "/" + item.id(), newItem.toJSON());
+				String response = m_serverConnector.httpPUT(m_request + "/" + item.id() + "/", newItem.toJSON());
 				JSONObject jsonObject = new JSONObject(response);
 				success = item.assign(jsonObject, true);
 			}
@@ -145,10 +148,10 @@ public abstract class AbstractManager<T extends Item>
 		
 		try
 		{
-			if (m_items.contains(item))
+			if (m_items.contains(item) && item.valid())
 			{
 				m_items.remove(item);
-				String response = m_serverConnector.httpDELETE(m_request + "/" + item.id());
+				String response = m_serverConnector.httpDELETE(m_request + "/" + item.id() + "/");
 				success = response != null;
 			}
 		}

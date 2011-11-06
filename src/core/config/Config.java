@@ -2,17 +2,56 @@ package core.config;
 
 public class Config 
 {
-	private Config()
+	public Config()
 	{
-		
+		m_serverHostname = null;
+		m_serverPort = 0;
+		m_serverUsername = null;
+		m_serverPassword = null;
 	}
 	
-	static
+	public void serverHostname(String serverHostname)
 	{
-		SERVER_HOSTNAME = "127.0.0.1";
-		SERVER_PORT = 8080;
+		m_serverHostname = serverHostname;
 	}
 	
-	public static String SERVER_HOSTNAME;
-	public static int SERVER_PORT;
+	public void serverPort(int serverPort)
+	{
+		m_serverPort = serverPort;
+	}
+	
+	public void serverUsername(String serverUsername)
+	{
+		m_serverUsername = serverUsername;
+	}
+	
+	public void serverPassword(String serverPassword)
+	{
+		m_serverPassword = serverPassword;
+	}
+	
+	public String serverHostname()
+	{
+		return m_serverHostname;
+	}
+	
+	public int serverPort()
+	{
+		return m_serverPort;
+	}
+	
+	public String serverUsername()
+	{
+		return m_serverUsername;
+	}
+	
+	public String serverPassword()
+	{
+		return m_serverPassword;
+	}
+	
+	private String m_serverHostname;
+	private int m_serverPort;
+	private String m_serverUsername;
+	private String m_serverPassword;	
 }

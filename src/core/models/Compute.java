@@ -93,6 +93,29 @@ public final class Compute extends Item
 	}
 	
 	@Override
+	public boolean valid()
+	{
+		boolean valid = false;
+		
+		try
+		{
+			valid = super.valid();
+			valid = valid ? m_arch != null : false;
+			valid = valid ? m_cores >= 0 : false;
+			valid = valid ? m_cpu >= 0 : false;
+			valid = valid ? m_memory >= 0 : false;
+			valid = valid ? m_state != null : false;
+			valid = valid ? m_template != null : false;
+		}
+		catch (Exception exception)
+		{
+			
+		}
+		
+		return valid;
+	}
+	
+	@Override
 	public String toJSON()
 	{
 		String jsonRepresentation = null;
@@ -117,16 +140,12 @@ public final class Compute extends Item
 		String stringRepresentation = "Compute (";
 		stringRepresentation += m_id + ", ";
 		stringRepresentation += m_name;
-		
-		if (m_full)
-		{
-			stringRepresentation += ", " + m_arch + ", ";
-			stringRepresentation += m_cores + ", ";
-			stringRepresentation += m_cpu + ", ";
-			stringRepresentation += m_memory + ", ";
-			stringRepresentation += m_state + ", ";
-			stringRepresentation += m_template;
-		}
+		stringRepresentation += ", " + m_arch + ", ";
+		stringRepresentation += m_cores + ", ";
+		stringRepresentation += m_cpu + ", ";
+		stringRepresentation += m_memory + ", ";
+		stringRepresentation += m_state + ", ";
+		stringRepresentation += m_template;
 		
 		stringRepresentation += ")";
 		
@@ -147,16 +166,12 @@ public final class Compute extends Item
 	private void assignCompute(JSONObject jsonObject, boolean full) throws Exception
 	{
 		assignItem(jsonObject, full);
-		
-		if (m_full)
-		{
-			m_arch = jsonObject.getString("arch");
-			m_cores = jsonObject.getInt("cores");
-			m_cpu = (float) jsonObject.getDouble("cpu");
-			m_memory = jsonObject.getInt("memory");
-			m_state = jsonObject.getString("state");
-			m_template = jsonObject.getString("template");
-		}
+		m_arch = jsonObject.getString("arch");
+		m_cores = jsonObject.getInt("cores");
+		m_cpu = (float) jsonObject.getDouble("cpu");
+		m_memory = jsonObject.getInt("memory");
+		m_state = jsonObject.getString("state");
+		m_template = jsonObject.getString("template");
 	}
 	
 	private void jsonCompute(JSONObject jsonObject) throws Exception

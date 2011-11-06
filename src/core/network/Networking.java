@@ -12,7 +12,7 @@ public class Networking
 		
 	}
 	
-	public String httpRequest(String server, int port, String method, String destination, String data)
+	public String httpRequest(String server, int port, String username, String password, String method, String destination, String data)
 	{
 		String response = null;
 		
@@ -23,6 +23,9 @@ public class Networking
 			HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
 			httpUrlConnection.setRequestMethod(method);		
 			httpUrlConnection.setConnectTimeout(10000);
+			String loginDetails = username + ":" + password;
+			String loginDetailsBase64 = new sun.misc.BASE64Encoder().encode(loginDetails.getBytes());
+			httpUrlConnection.setRequestProperty ("Authorization", "Basic " + loginDetailsBase64);
 			
 			if (data.length() > 0)
 			{
