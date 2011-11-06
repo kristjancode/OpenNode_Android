@@ -163,6 +163,15 @@ public abstract class AbstractManager<T extends Item>
 		return success;
 	}
 	
+	public boolean search(String[] tags)
+	{
+		boolean success = false;
+		
+		
+		
+		return success;
+	}
+	
 	protected abstract T itemInstance();
 	
 	protected Core m_core;

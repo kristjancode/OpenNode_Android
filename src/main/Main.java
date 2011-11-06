@@ -36,11 +36,11 @@ public class Main
 		TemplateManager templateManager = core.templateManager();
 		NewsManager newsManager = core.newsManager();
 		
-		loadAndGetDetails((AbstractManager) computeManager);
-		loadAndGetDetails((AbstractManager) networkManager);
-		loadAndGetDetails((AbstractManager) storageManager);
-		loadAndGetDetails((AbstractManager) templateManager);
-		//loadAndGetDetails((AbstractManager) newsManager); //NEWS IS CURRENTLY BROKEN IN DEMOSERVER
+		//loadAndGetDetails((AbstractManager) computeManager);
+		//loadAndGetDetails((AbstractManager) networkManager);
+		//loadAndGetDetails((AbstractManager) storageManager);
+		//loadAndGetDetails((AbstractManager) templateManager);
+		loadAndGetDetails((AbstractManager) newsManager); //NEWS IS CURRENTLY BROKEN IN DEMOSERVER
 		
 		System.out.println("");
 	}

@@ -12,6 +12,7 @@ public class Networking
 		
 	}
 	
+	@SuppressWarnings("restriction")
 	public String httpRequest(String server, int port, String username, String password, String method, String destination, String data)
 	{
 		String response = null;
