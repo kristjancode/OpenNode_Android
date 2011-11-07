@@ -28,21 +28,21 @@ public class ComputeDetailActivity extends Activity {
 			
 			computeManager = UI_Core.getCore().computeManager();
 			//boolean itemsLoaded = computeManager.load();;
-			
+			TextView smallId = (TextView) findViewById(R.id.smallId);
 			TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 			Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
 			computeManager.details(selectedItem);
 			computeExtraLabel.setText(selectedItem.name());
+			smallId.setText("ID : " + selectedItem.id());
 			
-			extraListItems = new String[8];
-			extraListItems[0] = ("ID : " + selectedItem.id());
-			extraListItems[1] = ("Hostname : " + selectedItem.name());
-			extraListItems[2] = ("Arch : " + selectedItem.arch());
-			extraListItems[3] = ("Memory : " + selectedItem.memory());
-			extraListItems[4] = ("Cpu : " + selectedItem.cpu());
-			extraListItems[5] = ("Cores : " + selectedItem.cores());
-			extraListItems[6] = ("Template : " + selectedItem.template());
-			extraListItems[7] = ("State : " + selectedItem.state());
+			extraListItems = new String[7];
+			extraListItems[0] = ("Hostname : " + selectedItem.name());
+			extraListItems[1] = ("Arch : " + selectedItem.arch());
+			extraListItems[2] = ("Memory : " + selectedItem.memory());
+			extraListItems[3] = ("Cpu : " + selectedItem.cpu());
+			extraListItems[4] = ("Cores : " + selectedItem.cores());
+			extraListItems[5] = ("Template : " + selectedItem.template());
+			extraListItems[6] = ("State : " + selectedItem.state());
 			
 			computeExtraListView = (ListView) findViewById(R.id.list_extra);
 			computeExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));

@@ -34,13 +34,14 @@ public class NetworkDetailActivity extends Activity {
 		
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		computeExtraLabel.setText(selectedItem.name());
+		TextView smallId = (TextView) findViewById(R.id.smallId);
+		smallId.setText("ID : " + selectedItem.id());
 		
-		extraListItems = new String[5];
-		extraListItems[0] = ("ID : " + selectedItem.id());
-		extraListItems[1] = ("IP : " + selectedItem.ip());
-		extraListItems[2] = ("Mask : " + selectedItem.mask());
-		extraListItems[3] = ("Address allocation : " + selectedItem.addressAllocation());
-		extraListItems[4] = ("Gateway : " + selectedItem.gateway());
+		extraListItems = new String[4];
+		extraListItems[0] = ("IP : " + selectedItem.ip());
+		extraListItems[1] = ("Mask : " + selectedItem.mask());
+		extraListItems[2] = ("Address allocation : " + selectedItem.addressAllocation());
+		extraListItems[3] = ("Gateway : " + selectedItem.gateway());
 
 		
 		networkExtraListView = (ListView) findViewById(R.id.list_extra);

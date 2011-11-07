@@ -37,11 +37,12 @@ public class StorageDetailActivity extends Activity {
 				
 				TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 				computeExtraLabel.setText(selectedItem.name());
+				TextView smallId = (TextView) findViewById(R.id.smallId);
+				smallId.setText("ID : " + selectedItem.id());
 			
-				extraListItems = new String[3];
-				extraListItems[0] = ("ID : " + selectedItem.id());
-				extraListItems[1] = ("Size : " + selectedItem.size());
-				extraListItems[2] = ("Type : " + selectedItem.type());
+				extraListItems = new String[2];
+				extraListItems[0] = ("Size : " + selectedItem.size());
+				extraListItems[1] = ("Type : " + selectedItem.type());
 		
 		
 				

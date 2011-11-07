@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -46,6 +47,16 @@ public class TemplateActivity extends Activity {
 		int elementsIntemplateList = templateManager.count();	
 		templateList = new core.models.Template[elementsIntemplateList];
 		listItems = new String[elementsIntemplateList];
+		ImageView search = (ImageView) findViewById(R.id.btn_computeSearch);
+		search.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+	        	SearchActivity.tempCheck = true;
+				Intent myIntent = new Intent(view.getContext(),
+						SearchActivity.class);
+				startActivityForResult(myIntent, 0);
+			}
+
+		});
 		for (int counter=0; counter<elementsIntemplateList; counter++){
 			templateList[counter]=templateManager.item(counter);
 			listItems[counter] = templateList[counter].name();

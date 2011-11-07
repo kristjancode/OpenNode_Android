@@ -28,6 +28,7 @@ public class TemplateDetailActivity  extends Activity {
 	static long selectedItemID;
 	private TemplateManager templateManager;
 	protected ArrayAdapter<CharSequence> mAdapter;
+	protected ArrayAdapter<CharSequence> m2Adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,11 +46,12 @@ public class TemplateDetailActivity  extends Activity {
 				CreateTemplateManager();
 				TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);;
 				computeExtraLabel.setText(selectedItem.name());
+				TextView smallId = (TextView) findViewById(R.id.smallId);
+				smallId.setText("ID : " + selectedItem.id());
 				
-				extraListItems = new String[3];
-				extraListItems[0] = ("ID : " + selectedItem.id());
-				extraListItems[1] = ("Min disk size : " + selectedItem.minDiskSize());
-				extraListItems[2] = ("Min memory size : " + selectedItem.minMemorySize());
+				extraListItems = new String[2];
+				extraListItems[0] = ("Min disk size : " + selectedItem.minDiskSize());
+				extraListItems[1] = ("Min memory size : " + selectedItem.minMemorySize());
 
 				
 				templateExtraListView = (ListView) findViewById(R.id.list_extra);
@@ -104,7 +106,7 @@ public class TemplateDetailActivity  extends Activity {
 		nameText.setText("Create Compute");
 		TextView tempText = (TextView) findViewById(R.id.textView9);
 		final EditText nameEdit = (EditText) findViewById(R.id.editText1);
-		final EditText archEdit = (EditText) findViewById(R.id.editText2);
+		final Spinner archEditSpinner = (Spinner) findViewById(R.id.spinnerArch);
 		final EditText coresEdit = (EditText) findViewById(R.id.editText3);
 		final EditText cpuEdit = (EditText) findViewById(R.id.editText4);
 		final EditText memoryEdit = (EditText) findViewById(R.id.editText5);
@@ -113,6 +115,9 @@ public class TemplateDetailActivity  extends Activity {
 		this.mAdapter = ArrayAdapter.createFromResource(this, R.array.state_array,
                 android.R.layout.simple_spinner_item);
         stateEditSpinner.setAdapter(this.mAdapter);
+		this.m2Adapter = ArrayAdapter.createFromResource(this, R.array.arch_array,
+                android.R.layout.simple_spinner_item);
+        archEditSpinner.setAdapter(this.m2Adapter);
 		
 		tempText.setText("Template : "+selectedItem.name());
 		
@@ -121,7 +126,7 @@ public class TemplateDetailActivity  extends Activity {
 		createCompute.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 
-				Compute newCompute = new Compute(0,nameEdit.getText().toString(), archEdit.getText().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEditSpinner.getSelectedItem().toString(), selectedItem.name());
+				Compute newCompute = new Compute(0,nameEdit.getText().toString(), archEditSpinner.getSelectedItem().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEditSpinner.getSelectedItem().toString(), selectedItem.name());
 				computeManager.create(newCompute);
 				Intent myIntent = new Intent(view.getContext(), ComputeActivity.class);
 				startActivityForResult(myIntent, 0);

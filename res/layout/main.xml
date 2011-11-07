@@ -10,10 +10,12 @@
 		>
 		<ImageButton android:layout_width="48dp"
 			android:layout_height="46dp" android:layout_gravity="right"
-			android:id="@+id/btn_Search" android:src="@drawable/ic_action_search"
-			android:clickable="true" android:onClick="btnSearchClicked"
-			android:background="@color/actionbar_background_end"></ImageButton>
-		<ImageView android:layout_width="168dp" android:layout_height="51dp" android:id="@+id/imageView1" android:src="@drawable/logo_opennode_lowres" android:layout_gravity="center_vertical|left|top" android:layout_marginLeft="50dp"></ImageView>
+			android:id="@+id/btn_Search" android:clickable="true" android:onClick="btnSearchClicked"
+			android:src="@drawable/search48" android:background="@color/actionbar_background_start"></ImageButton>
+		<ImageView android:layout_width="168dp" 
+		android:layout_height="51dp" android:id="@+id/imageView1" 
+		android:src="@drawable/logo_opennode_lowres" 
+		 android:layout_gravity="center|center_vertical|top"></ImageView>
 	</FrameLayout>
 	<LinearLayout android:layout_width="wrap_content"
 		android:layout_height="wrap_content">

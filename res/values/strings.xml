@@ -14,6 +14,13 @@
         <item>stopped</item>
         <item>suspended</item>
     </string-array>
+        <string-array name="arch_array">
+        <item>macosx</item>
+        <item>win32</item>
+        <item>win64</item>        
+        <item>x64</item>
+        <item>x86</item>
+    </string-array>
 	<!-- Network Activity -->
 
 	<!-- Storage Activity -->

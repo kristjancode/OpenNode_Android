@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,16 @@ public class Activity_StreamActivity extends Activity {
 		int elementsInnewsList = newsManager.count();	
 		newsList = new core.models.News[elementsInnewsList];
 		listItems = new String[elementsInnewsList];
+		ImageView search = (ImageView) findViewById(R.id.btn_computeSearch);
+		search.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+	        	SearchActivity.newCheck = true;
+				Intent myIntent = new Intent(view.getContext(),
+						SearchActivity.class);
+				startActivityForResult(myIntent, 0);
+			}
+
+		});
 		for (int counter=0; counter<elementsInnewsList; counter++){
 			newsList[counter]=newsManager.item(counter);
 			listItems[counter] = newsList[counter].name();

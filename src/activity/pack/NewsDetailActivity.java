@@ -29,17 +29,17 @@ public class NewsDetailActivity extends Activity {
 		//boolean itemsLoaded = newsManager.load();;
 		
 		News selectedItem = newsManager.item((int) Activity_StreamActivity.selectedItemID);
-		
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		computeExtraLabel.setText(selectedItem.name());
 		newsManager.details(selectedItem);
 		computeExtraLabel.setText(selectedItem.name());
+		TextView smallId = (TextView) findViewById(R.id.smallId);
+		smallId.setText("ID : " + selectedItem.id());
 		
-		extraListItems = new String[4];
-		extraListItems[0] = ("ID : " + selectedItem.id());
-		extraListItems[1] = ("Type : " + selectedItem.type());
-		extraListItems[2] = ("Title : " + selectedItem.name());
-		extraListItems[3] = ("Content : " + selectedItem.content());
+		extraListItems = new String[3];
+		extraListItems[0] = ("Type : " + selectedItem.type());
+		extraListItems[1] = ("Title : " + selectedItem.name());
+		extraListItems[2] = ("Content : " + selectedItem.content());
 		
 		newsExtraListView = (ListView) findViewById(R.id.list_extra);
 		newsExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));

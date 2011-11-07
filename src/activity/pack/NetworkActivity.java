@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,16 @@ public class NetworkActivity extends Activity {
 		int elementsInnetworkList = networkManager.count();	
 		networkList = new core.models.Network[elementsInnetworkList];
 		listItems = new String[elementsInnetworkList];
+		ImageView search = (ImageView) findViewById(R.id.btn_computeSearch);
+		search.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+	        	SearchActivity.netwCheck = true;
+				Intent myIntent = new Intent(view.getContext(),
+						SearchActivity.class);
+				startActivityForResult(myIntent, 0);
+			}
+
+		});
 		for (int counter=0; counter<elementsInnetworkList; counter++){
 			networkList[counter]=networkManager.item(counter);
 			listItems[counter] = networkList[counter].name();

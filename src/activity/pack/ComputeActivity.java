@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -78,7 +79,16 @@ public class ComputeActivity extends Activity {
 			computeList[counter]=computeManager.item(counter);
 			listItems[counter] = computeList[counter].name();
 		}
+		ImageView search = (ImageView) findViewById(R.id.btn_computeSearch);
+		search.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+	        	SearchActivity.compCheck = true;
+				Intent myIntent = new Intent(view.getContext(),
+						SearchActivity.class);
+				startActivityForResult(myIntent, 0);
+			}
 
+		});
 		computeListView = (ListView) findViewById(R.id.list_compute);
 		computeListView.setLongClickable(true);
 		computeListView.setAdapter(new MyArrayAdapter<String>(this,R.layout.row , R.id.computeRow, listItems));

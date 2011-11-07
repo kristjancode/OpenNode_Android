@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,16 @@ public class StorageActivity extends Activity {
 		int elementsInstorageList = storageManager.count();;	
 		storageList = new core.models.Storage[elementsInstorageList];
 		listItems = new String[elementsInstorageList];
+		ImageView search = (ImageView) findViewById(R.id.btn_computeSearch);
+		search.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+	        	SearchActivity.storCheck = true;
+				Intent myIntent = new Intent(view.getContext(),
+						SearchActivity.class);
+				startActivityForResult(myIntent, 0);
+			}
+
+		});
 		for (int counter=0; counter<elementsInstorageList; counter++){
 			storageList[counter]=storageManager.item(counter);
 			listItems[counter] = storageList[counter].name();
