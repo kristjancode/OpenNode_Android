@@ -35,13 +35,15 @@ public class Main
 		searchManager.filterComputes(true);
 		searchManager.filterNetworks(true);
 		
-		if(searchManager.search(new String[] { "hostname_2", "network_2" }))
+		if(searchManager.search(new String[] { "hostname_3" }))
 		{
 			int count = searchManager.count();
 			
 			for (int i = 0; i < count; i++)
 			{
-				System.out.println("Item found: " + searchManager.item(i));
+				Item item = searchManager.item(i);
+				System.out.println("Item found: " + item);
+				System.out.println(core.computeManager().delete((Compute) item));
 			}
 		}	
 		else

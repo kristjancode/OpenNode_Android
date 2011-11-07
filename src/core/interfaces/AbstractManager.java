@@ -149,7 +149,7 @@ public abstract class AbstractManager<T extends Item>
 		try
 		{
 			if (m_items.contains(item) && item.valid())
-			{
+			{		
 				m_items.remove(item);
 				String response = m_serverConnector.httpDELETE(m_request + "/" + item.id() + "/");
 				success = response != null;
@@ -163,7 +163,6 @@ public abstract class AbstractManager<T extends Item>
 		return success;
 	}
 	
-	//@SuppressWarnings("unchecked")
 	public boolean loadSearchResults()
 	{
 		boolean success = false;
@@ -180,7 +179,8 @@ public abstract class AbstractManager<T extends Item>
 				
 				if (newItem.assign(searchItem))
 				{
-					boolean assigned = false;
+					newItem = (T) searchItem;
+					boolean replaced = false;
 					int size = m_items.size();
 						
 					for (int j = 0; j < size; j++)
@@ -189,13 +189,14 @@ public abstract class AbstractManager<T extends Item>
 						
 						if (item.id() == newItem.id())
 						{
-							item.assign(newItem);
-							assigned = true;
+							m_items.remove(item);
+							m_items.add(newItem);
+							replaced = true;
 							break;
 						}
 					}
 					
-					if (!assigned)
+					if (!replaced)
 					{
 						m_items.add(newItem);
 						//System.out.println("added new");

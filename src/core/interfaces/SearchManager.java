@@ -135,7 +135,7 @@ public class SearchManager
 		}
 		catch (Exception exception)
 		{
-			exception.printStackTrace();
+			
 		}
 		
 		return success;
