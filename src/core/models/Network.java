@@ -59,14 +59,14 @@ public class Network extends Item
 		return success;
 	}
 	
-	public boolean assign(JSONObject jsonObject, boolean full)
+	public boolean assign(JSONObject jsonObject)
 	{
 		boolean success = false;
 		
 		try
 		{
 			Network temp = new Network();
-			temp.assignNetwork(jsonObject, full);
+			temp.assignNetwork(jsonObject);
 			assignNetwork(temp);
 			success = true;
 		}
@@ -142,9 +142,9 @@ public class Network extends Item
 		m_gateway = network.m_gateway;
 	}
 	
-	private void assignNetwork(JSONObject jsonObject, boolean full) throws Exception
+	private void assignNetwork(JSONObject jsonObject) throws Exception
 	{
-		assignItem(jsonObject, full);
+		assignItem(jsonObject);
 		m_ip = jsonObject.getString("ip");
 		m_mask = jsonObject.getString("mask");
 		m_addressAllocation = jsonObject.getString("address_allocation");

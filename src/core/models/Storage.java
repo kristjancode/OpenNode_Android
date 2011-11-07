@@ -45,14 +45,14 @@ public class Storage extends Item
 		return success;
 	}
 	
-	public boolean assign(JSONObject jsonObject, boolean full)
+	public boolean assign(JSONObject jsonObject)
 	{
 		boolean success = false;
 		
 		try
 		{
 			Storage temp = new Storage();
-			temp.assignStorage(jsonObject, full);
+			temp.assignStorage(jsonObject);
 			assignStorage(temp);
 			success = true;
 		}
@@ -122,9 +122,9 @@ public class Storage extends Item
 		m_type = storage.m_type;
 	}
 	
-	private void assignStorage(JSONObject jsonObject, boolean full) throws Exception
+	private void assignStorage(JSONObject jsonObject) throws Exception
 	{
-		assignItem(jsonObject, full);
+		assignItem(jsonObject);
 		m_size = jsonObject.getInt("size");
 		m_type = jsonObject.getString("type");
 	}

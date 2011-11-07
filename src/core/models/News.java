@@ -45,14 +45,14 @@ public class News extends Item
 		return success;
 	}
 	
-	public boolean assign(JSONObject jsonObject, boolean full)
+	public boolean assign(JSONObject jsonObject)
 	{
 		boolean success = false;
 		
 		try
 		{
 			News temp = new News();
-			temp.assignNews(jsonObject, full);
+			temp.assignNews(jsonObject);
 			assignNews(temp);
 			success = true;
 		}
@@ -103,9 +103,9 @@ public class News extends Item
 		m_content = news.m_content;
 	}
 	
-	private void assignNews(JSONObject jsonObject, boolean full) throws Exception
+	private void assignNews(JSONObject jsonObject) throws Exception
 	{
-		assignItem(jsonObject, full);
+		assignItem(jsonObject);
 		m_type = jsonObject.getString("type");
 		m_content = jsonObject.getString("content");
 	}

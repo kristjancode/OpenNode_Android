@@ -15,6 +15,7 @@ public class Core
 		m_storageManager = new StorageManager(this);
 		m_templateManager = new TemplateManager(this);
 		m_newsManager = new NewsManager(this);
+		m_searchManager = new SearchManager(this);
 	}
 	
 	public Config config()
@@ -52,6 +53,11 @@ public class Core
 		return m_newsManager;
 	}
 	
+	public SearchManager searchManager()
+	{
+		return m_searchManager;
+	}
+	
 	private Config m_config;
 	private ServerConnector m_serverConnector;
 	private ComputeManager m_computeManager;
@@ -59,4 +65,5 @@ public class Core
 	private StorageManager m_storageManager;
 	private TemplateManager m_templateManager;
 	private NewsManager m_newsManager;
+	private SearchManager m_searchManager;
 }

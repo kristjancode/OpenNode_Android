@@ -73,14 +73,14 @@ public final class Compute extends Item
 		return success;
 	}
 	
-	public boolean assign(JSONObject jsonObject, boolean full)
+	public boolean assign(JSONObject jsonObject)
 	{
 		boolean success = false;
 		
 		try
 		{
 			Compute temp = new Compute();
-			temp.assignCompute(jsonObject, full);
+			temp.assignCompute(jsonObject);
 			assignCompute(temp);
 			success = true;
 		}
@@ -163,9 +163,9 @@ public final class Compute extends Item
 		m_template = compute.m_template;
 	}
 	
-	private void assignCompute(JSONObject jsonObject, boolean full) throws Exception
+	private void assignCompute(JSONObject jsonObject) throws Exception
 	{
-		assignItem(jsonObject, full);
+		assignItem(jsonObject);
 		m_arch = jsonObject.getString("arch");
 		m_cores = jsonObject.getInt("cores");
 		m_cpu = (float) jsonObject.getDouble("cpu");

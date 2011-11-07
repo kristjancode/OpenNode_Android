@@ -5,7 +5,6 @@ import core.Core;
 import core.config.Config;
 import core.interfaces.*;
 import core.models.*;
-import core.network.Networking;
 
 public class Main 
 {
@@ -19,9 +18,38 @@ public class Main
 		config.serverPassword("demo");
 		System.out.println(core.serverConnector().authenticate());
 		
+		testSearch(core);
 		testManagers(core);
 		testItemToJSON();
 		testComputeCreateUpdateDelete(core.computeManager());
+	}
+	
+	private static void testSearch(Core core)
+	{
+		System.out.println("Testing searching.");
+		System.out.println("Press enter to continue...");
+		new Scanner(System.in).nextLine();
+		
+		SearchManager searchManager = core.searchManager();
+		searchManager.resetFilters();
+		searchManager.filterComputes(true);
+		searchManager.filterNetworks(true);
+		
+		if(searchManager.search(new String[] { "hostname_2", "network_2" }))
+		{
+			int count = searchManager.count();
+			
+			for (int i = 0; i < count; i++)
+			{
+				System.out.println("Item found: " + searchManager.item(i));
+			}
+		}	
+		else
+		{
+			System.out.println("Search failed.");
+		}
+		
+		System.out.println("");
 	}
 	
 	private static void testManagers(Core core)
@@ -36,10 +64,10 @@ public class Main
 		TemplateManager templateManager = core.templateManager();
 		NewsManager newsManager = core.newsManager();
 		
-		//loadAndGetDetails((AbstractManager) computeManager);
-		//loadAndGetDetails((AbstractManager) networkManager);
-		//loadAndGetDetails((AbstractManager) storageManager);
-		//loadAndGetDetails((AbstractManager) templateManager);
+		loadAndGetDetails((AbstractManager) computeManager);
+		loadAndGetDetails((AbstractManager) networkManager);
+		loadAndGetDetails((AbstractManager) storageManager);
+		loadAndGetDetails((AbstractManager) templateManager);
 		loadAndGetDetails((AbstractManager) newsManager); //NEWS IS CURRENTLY BROKEN IN DEMOSERVER
 		
 		System.out.println("");

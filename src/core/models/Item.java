@@ -35,7 +35,7 @@ public abstract class Item
 	}
 	
 	public abstract boolean assign(Item item);
-	public abstract boolean assign(JSONObject jsonObject, boolean full);
+	public abstract boolean assign(JSONObject jsonObject);
 	public abstract String toJSON();
 	public abstract String toString();
 	
@@ -45,7 +45,7 @@ public abstract class Item
 		m_name = item.m_name;
 	}
 	
-	protected void assignItem(JSONObject jsonObject, boolean full) throws Exception
+	protected void assignItem(JSONObject jsonObject) throws Exception
 	{
 		m_id = jsonObject.getInt("id");
 		m_name = jsonObject.getString("name");

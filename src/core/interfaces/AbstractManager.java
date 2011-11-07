@@ -44,7 +44,7 @@ public abstract class AbstractManager<T extends Item>
 		
 		try
 		{
-			m_items.removeAll(m_items);
+			m_items.clear();
 			String response = m_serverConnector.httpGET(m_request + "/");
 			JSONArray jsonArray = new JSONArray(response);
 			int length = jsonArray.length();
@@ -54,7 +54,7 @@ public abstract class AbstractManager<T extends Item>
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
 				T item = itemInstance();
 				
-				if (item.assign(jsonObject, true))
+				if (item.assign(jsonObject))
 				{
 					m_items.add(item);
 				}
@@ -81,7 +81,7 @@ public abstract class AbstractManager<T extends Item>
 			{
 				String response = m_serverConnector.httpGET(m_request + "/" + item.id() + "/");
 				JSONObject jsonObject = new JSONObject(response);
-				success = item.assign(jsonObject, true);
+				success = item.assign(jsonObject);
 			}
 		}
 		catch (Exception exception)
@@ -104,7 +104,7 @@ public abstract class AbstractManager<T extends Item>
 				String response = m_serverConnector.httpPOST(m_request + "/", item.toJSON());
 				JSONObject jsonObject = new JSONObject(response);
 				
-				if (item.assign(jsonObject, true))
+				if (item.assign(jsonObject))
 				{
 					m_items.add(item);
 					success = true;
@@ -130,7 +130,7 @@ public abstract class AbstractManager<T extends Item>
 			{
 				String response = m_serverConnector.httpPUT(m_request + "/" + item.id() + "/", newItem.toJSON());
 				JSONObject jsonObject = new JSONObject(response);
-				success = item.assign(jsonObject, true);
+				success = item.assign(jsonObject);
 			}
 		}
 		catch (Exception exception)
@@ -163,11 +163,56 @@ public abstract class AbstractManager<T extends Item>
 		return success;
 	}
 	
-	public boolean search(String[] tags)
+	//@SuppressWarnings("unchecked")
+	public boolean loadSearchResults()
 	{
 		boolean success = false;
 		
-		
+		try
+		{
+			SearchManager searchManager = m_core.searchManager();
+			int searchCount = searchManager.count();
+			
+			for (int i = 0; i < searchCount; i++)
+			{			
+				Item searchItem = searchManager.item(i);
+				T newItem = itemInstance();
+				
+				if (newItem.assign(searchItem))
+				{
+					boolean assigned = false;
+					int size = m_items.size();
+						
+					for (int j = 0; j < size; j++)
+					{
+						T item = m_items.get(j);
+						
+						if (item.id() == newItem.id())
+						{
+							item.assign(newItem);
+							assigned = true;
+							break;
+						}
+					}
+					
+					if (!assigned)
+					{
+						m_items.add(newItem);
+						//System.out.println("added new");
+					}
+					else
+					{
+						//System.out.println("assigned");
+					}
+				}
+			}
+			
+			success = true;
+		}
+		catch (Exception exception)
+		{
+			
+		}
 		
 		return success;
 	}

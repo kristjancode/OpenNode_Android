@@ -45,14 +45,14 @@ public class Template extends Item
 		return success;
 	}
 	
-	public boolean assign(JSONObject jsonObject, boolean full)
+	public boolean assign(JSONObject jsonObject)
 	{
 		boolean success = false;
 		
 		try
 		{
 			Template temp = new Template();
-			temp.assignTemplate(jsonObject, full);
+			temp.assignTemplate(jsonObject);
 			assignTemplate(temp);
 			success = true;
 		}
@@ -122,9 +122,9 @@ public class Template extends Item
 		m_minMemorySize = template.m_minMemorySize;
 	}
 	
-	private void assignTemplate(JSONObject jsonObject, boolean full) throws Exception
+	private void assignTemplate(JSONObject jsonObject) throws Exception
 	{
-		assignItem(jsonObject, full);
+		assignItem(jsonObject);
 		m_id = jsonObject.getInt("id");
 		m_name = jsonObject.getString("name");
 		m_minDiskSize = jsonObject.getInt("min_disk_size");
