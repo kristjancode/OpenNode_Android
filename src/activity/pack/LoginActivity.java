@@ -3,6 +3,7 @@ package activity.pack;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import core.Core;
 import core.config.Config;
 
 import activity.pack.R;
@@ -64,13 +65,14 @@ public class LoginActivity extends Activity {
 					else{
 						urlReal = new URL(url2.getText().toString());
 					}
-					
-				Config config = UI_Core.core.config();
+				Core core = UI_Core.core;	
+				Config config = core.config();
 				config.serverHostname(urlReal.getHost());
 				config.serverPort(urlReal.getPort());
 				config.serverUsername(username2.getText().toString());
 				config.serverPassword(password2.getText().toString());
 				
+				if (core.serverConnector().authenticate()){
 				
 				CheckBox password_remembered = (CheckBox) findViewById(R.id.password_remembered);
 				password_remembered.hasSelection();
@@ -99,6 +101,15 @@ public class LoginActivity extends Activity {
 						MainActivity.class);
 				startActivityForResult(myIntent, 0);
 				}
+				else{
+					Context context = getApplicationContext();
+					CharSequence text = "Authentication failed";
+					int duration = Toast.LENGTH_LONG;
+
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+				}
+				}
 				catch (Exception e){
 					Context context = getApplicationContext();
 					CharSequence text = "Authentication failed";
@@ -122,7 +133,7 @@ public class LoginActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
+		switch (item.getItemId()) { 
 		case R.id.log_out:
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
