@@ -100,8 +100,14 @@ public class NewsDetailActivity extends Activity {
                 return false;
         }else{
         	 if(keyCode == KeyEvent.KEYCODE_BACK){
-     			Intent intent = new Intent(this, Activity_StreamActivity.class);
-    			this.startActivity(intent);
+         		if (Activity_StreamActivity.back==1){
+ 	     			Intent intent = new Intent(this, Activity_StreamActivity.class);
+ 	    			this.startActivity(intent);
+         		}
+         		else{
+         			Intent intent = new Intent(this, SearchActivity.class);
+         			this.startActivity(intent);
+         		}
                     return false;
         	 }
         	 else{

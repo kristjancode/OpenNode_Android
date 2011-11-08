@@ -143,8 +143,14 @@ public class ComputeDetailActivity extends Activity {
                 return false;
         }else{
         	 if(keyCode == KeyEvent.KEYCODE_BACK){
-     			Intent intent = new Intent(this, ComputeActivity.class);
-    			this.startActivity(intent);
+         		if (ComputeActivity.back==1){
+ 	     			Intent intent = new Intent(this, ComputeActivity.class);
+ 	    			this.startActivity(intent);
+         		}
+         		else{
+         			Intent intent = new Intent(this, SearchActivity.class);
+         			this.startActivity(intent);
+         		}
                     return false;
         	 }
         	 else{

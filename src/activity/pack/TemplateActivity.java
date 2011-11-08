@@ -36,6 +36,7 @@ public class TemplateActivity extends Activity {
 	private core.models.Template templateList[];
 	private ComputeManager computeManager;
 	static int actionValue = 0;
+	static int back = 0;
 	
 	@Override
 	public void onCreate(final Bundle icicle) {
@@ -68,6 +69,7 @@ public class TemplateActivity extends Activity {
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 			    	selectedItemID = arg2;
 			    	actionValue = 0;
+			    	back = 1;
 					Intent myIntent = new Intent(arg1.getContext(),	TemplateDetailActivity.class);
 					startActivityForResult(myIntent, 0);
 				}  		

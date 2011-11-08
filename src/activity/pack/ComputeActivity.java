@@ -38,6 +38,7 @@ public class ComputeActivity extends Activity {
 	private ComputeManager computeManager;
 	private core.models.Compute computeList[];
 	static int actionValue=0;
+	static int back = 0;
 
     private class MyArrayAdapter<T> extends ArrayAdapter<T>
     {
@@ -59,7 +60,9 @@ public class ComputeActivity extends Activity {
                 	imageView.setImageResource(R.drawable.stop48);
                 }
                 else{
+                	if (selectedItem.state().equals("suspended")){
                 	imageView.setImageResource(R.drawable.delete48);
+                	}
                 }
             }            
             return itemView;
@@ -100,6 +103,7 @@ public class ComputeActivity extends Activity {
 		computeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {  				
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				actionValue = 0;
+				back = 1;
 		    	selectedItemID = arg2;
 				Intent myIntent = new Intent(arg1.getContext(),	ComputeDetailActivity.class);
 				startActivityForResult(myIntent, 0);

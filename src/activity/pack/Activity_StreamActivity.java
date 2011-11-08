@@ -29,6 +29,7 @@ public class Activity_StreamActivity extends Activity {
 	private NewsManager newsManager;
 	private core.models.News newsList[];
 	private Menu menu;
+	static int back = 0;
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
@@ -59,6 +60,7 @@ public class Activity_StreamActivity extends Activity {
 		newsListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 			    	selectedItemID = arg2;
+			    	back = 1;
 					Intent myIntent = new Intent(arg1.getContext(),	NewsDetailActivity.class);
 					startActivityForResult(myIntent, 0);
 				}  		

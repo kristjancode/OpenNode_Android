@@ -131,9 +131,16 @@ public class StorageDetailActivity extends Activity {
                 return false;
         }else{
         	 if(keyCode == KeyEvent.KEYCODE_BACK){
-     			Intent intent = new Intent(this, StorageActivity.class);
-    			this.startActivity(intent);
+        		if (StorageActivity.back==1){
+	     			Intent intent = new Intent(this, StorageActivity.class);
+	    			this.startActivity(intent);
+        		}
+        		else{
+        			Intent intent = new Intent(this, SearchActivity.class);
+        			this.startActivity(intent);
+        		}
                     return false;
+                    
         	 }
         	 else{
                 return super.onKeyUp(keyCode, event); 

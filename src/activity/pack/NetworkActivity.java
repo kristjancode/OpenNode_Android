@@ -27,6 +27,7 @@ public class NetworkActivity extends Activity {
 	private NetworkManager networkManager;
 	private core.models.Network networkList[];
 	private Menu menu;
+	static int back = 0;
 	
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
@@ -57,6 +58,7 @@ public class NetworkActivity extends Activity {
 		networkListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 			    	selectedItemID = arg2;
+			    	back = 1;
 					Intent myIntent = new Intent(arg1.getContext(),	NetworkDetailActivity.class);
 					startActivityForResult(myIntent, 0);
 				}  		

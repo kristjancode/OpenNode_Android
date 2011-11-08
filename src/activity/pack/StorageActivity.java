@@ -30,6 +30,7 @@ public class StorageActivity extends Activity {
 	private core.models.Storage storageList[];
 	private Menu menu;
 	static int actionValue = 0;
+	static int back = 0; //It shows if detailed view is visited from here or from search to know where to go back.
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
@@ -60,6 +61,7 @@ public class StorageActivity extends Activity {
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 					selectedItemID = arg2;
 					actionValue = 0;
+					back = 1;
 					Intent myIntent = new Intent(arg1.getContext(),	StorageDetailActivity.class);
 					startActivityForResult(myIntent, 0);
 				}  		
