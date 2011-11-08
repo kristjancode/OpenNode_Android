@@ -1,6 +1,7 @@
 package activity.pack;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import core.interfaces.ComputeManager;
 import core.models.Compute;
 import core.models.Compute;
@@ -71,6 +73,7 @@ public class ComputeDetailActivity extends Activity {
 			stop_machine();
 			break;
 		case R.id.migrate_machine:
+			migrate_machine();
 			break;
 		case R.id.suspend_machine:
 			suspend_machine();
@@ -84,6 +87,14 @@ public class ComputeDetailActivity extends Activity {
 		return true;
 	}
 	
+	private void migrate_machine() {
+		Context context = getApplicationContext();
+		CharSequence text = "Functionality will be added in next version.";
+		int duration = Toast.LENGTH_LONG;
+
+		Toast toast = Toast.makeText(context, text, duration);
+		toast.show();		
+	}
 	private void delete_machine() {
 		Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
 		computeManager.details(selectedItem);

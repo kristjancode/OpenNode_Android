@@ -25,10 +25,9 @@ android:layout_height="51dp" android:src="@drawable/logo_opennode_lowres" androi
 </ImageView>
 </FrameLayout>
 <EditText
-android:id="@+id/editText1"
+android:id="@+id/editText123"
 android:layout_width="fill_parent"
-android:layout_height="wrap_content"
->
+android:layout_height="wrap_content" android:maxLines="1" android:lines="1">
 </EditText>
 <TableRow android:id="@+id/tableRow1" android:layout_height="wrap_content" android:layout_width="match_parent">
     <TableRow android:id="@+id/tableRow4" android:layout_height="wrap_content" android:layout_weight="10" android:layout_width="0dp" android:layout_marginLeft="7dp">
@@ -59,7 +58,9 @@ android:layout_height="wrap_content"
     </TableRow>
     <TableRow android:id="@+id/tableRow8" android:layout_height="wrap_content" android:layout_weight="3" android:layout_width="0dp"></TableRow>
 
-    <TableRow android:id="@+id/tableRow9" android:layout_height="wrap_content" android:layout_weight="10" android:layout_width="0dp"></TableRow>
+    <TableRow android:id="@+id/tableRow9" android:layout_height="wrap_content" android:layout_weight="10" android:layout_width="0dp">
+        <Button android:id="@+id/btn_Search_Search" android:text="Search" android:layout_height="40dp" android:layout_width="75dp"></Button>
+    </TableRow>
   
 </TableRow>
 <ListView android:layout_width="fill_parent" android:id="@+id/search_list" android:layout_height="383dp" android:layout_gravity="bottom"></ListView>

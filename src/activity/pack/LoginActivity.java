@@ -24,6 +24,7 @@ import android.widget.Toast;
 public class LoginActivity extends Activity {
 	public static final String PREFS_NAME = "MyPrefsFile";
 	private static final String PREF_URL = "url";
+	private static final String PREF_Checkbox = "false";
 	private static final String PREF_USERNAME = "username";
 	private static final String PREF_PASSWORD = "password";
 
@@ -38,10 +39,11 @@ public class LoginActivity extends Activity {
 		final EditText username2 = (EditText) findViewById(R.id.et_login_username);
 		final EditText password2 = (EditText) findViewById(R.id.et_login_password);
 		final EditText url2 = (EditText) findViewById(R.id.et_login_url);
+		CheckBox password2_remembered = (CheckBox) findViewById(R.id.password_remembered);
+		password2_remembered.setChecked(Boolean.parseBoolean(pref.getString(PREF_Checkbox, null))); 
 		username2.setText(username);
 		password2.setText(password);
 		url2.setText(url);
-		//
 		Config config = UI_Core.core.config();
 		config.serverHostname("10.0.2.2");
 		config.serverPort(8080);
@@ -57,6 +59,7 @@ public class LoginActivity extends Activity {
 				//} catch (MalformedURLException e) {
 				//	e.printStackTrace();
 				//}
+				
 				CheckBox password_remembered = (CheckBox) findViewById(R.id.password_remembered);
 				password_remembered.hasSelection();
 				if (username == null || password == null || url == null || username2.getText().toString() != username) {
@@ -66,14 +69,16 @@ public class LoginActivity extends Activity {
 				        .putString(PREF_URL, url2.getText().toString())
 				        .putString(PREF_USERNAME, username2.getText().toString())
 				        .putString(PREF_PASSWORD, password2.getText().toString())
+				        .putString(PREF_Checkbox, (""+password_remembered.isChecked()))
 				        .commit();
 					}
 					else{
 						getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
-				        .edit()
+				        .edit()//
 				        .putString(PREF_URL, url2.getText().toString())
 				        .putString(PREF_USERNAME, username2.getText().toString())
 				        .putString(PREF_PASSWORD, null)
+				        .putString(PREF_Checkbox, (""+password_remembered.isChecked()))
 				        .commit();
 					}
 				}			

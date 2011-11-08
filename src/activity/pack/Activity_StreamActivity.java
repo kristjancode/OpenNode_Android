@@ -3,6 +3,7 @@ package activity.pack;
 import core.interfaces.NewsManager;
 import core.models.News;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -80,6 +81,7 @@ public class Activity_StreamActivity extends Activity {
 			this.startActivity(intent);
 			break;
 		case R.id.make_comment:
+			make_comment();
 			break;
 		case R.id.delete_news:
 			delete_news();
@@ -88,6 +90,16 @@ public class Activity_StreamActivity extends Activity {
 		return true;
 	}
 
+
+	private void make_comment() {
+		Context context = getApplicationContext();
+		CharSequence text = "Functionality will be added in next version.";
+		int duration = Toast.LENGTH_LONG;
+
+		Toast toast = Toast.makeText(context, text, duration);
+		toast.show();
+		
+	}
 
 	private void extra_info() {
 		setContentView(R.layout.extra);

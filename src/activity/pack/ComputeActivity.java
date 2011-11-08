@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 
@@ -131,6 +132,9 @@ public class ComputeActivity extends Activity {
 		case R.id.suspend_machine:
 			suspend_machine();
 			break;
+		case R.id.migrate_machine:
+			migrate_machine();
+			break;
 		case R.id.delete_machine:
 			delete_machine();
 			break;
@@ -138,6 +142,17 @@ public class ComputeActivity extends Activity {
 		return true;
 	}
     
+	private void migrate_machine() {
+		Context context = getApplicationContext();
+		CharSequence text = "Functionality will be added in next version.";
+		int duration = Toast.LENGTH_LONG;
+
+		Toast toast = Toast.makeText(context, text, duration);
+		toast.show();
+		
+	}
+
+
 	public boolean onCreateOptionsMenu(Menu menu2) {
 
 		MenuInflater inflater = getMenuInflater();
