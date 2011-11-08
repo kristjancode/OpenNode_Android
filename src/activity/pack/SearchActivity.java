@@ -32,17 +32,51 @@ public class SearchActivity extends Activity {
     static boolean tempCheck=false;
     static boolean newCheck=false;
     Activity searchActivity = this;
-    private int[] detailedInfo;
-     
+    
+    private class MyArrayAdapter<T> extends ArrayAdapter<T>
+    {
+        public MyArrayAdapter(Context context, int resource, int textViewResourceId, String[] listItems) {
+            super(context, resource, textViewResourceId, (T[]) listItems);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View itemView = super.getView(position, convertView, parent);
+            ImageView imageView = (ImageView) itemView.findViewById(R.id.icon);
+
+    		if (searchManager.item(position) instanceof core.models.Compute){
+	        		core.models.Compute selectedItem =(core.models.Compute) searchManager.item(position);
+	            if (selectedItem.state().equals("running")){
+	            	imageView.setImageResource(R.drawable.start48);
+	            }
+	            else {
+	                if (selectedItem.state().equals("stopped")){
+	                	imageView.setImageResource(R.drawable.stop48);
+	                }
+	                else{
+	                	if (selectedItem.state().equals("suspended")){
+	                	imageView.setImageResource(R.drawable.delete48);
+	                	}
+	                }
+	            }            
+    		}
+    		else{
+    			imageView.setEnabled(false);
+    			imageView.setImageResource(R.drawable.empty);
+    			//imageView.setVisibility(false);
+    		}
+    		return itemView;
+        }
+    }
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.search);
-	    CheckBox computeCheck = (CheckBox) findViewById(R.id.computeCheck);
-	    CheckBox networkCheck = (CheckBox) findViewById(R.id.networkCheck);
-	    CheckBox storageCheck = (CheckBox) findViewById(R.id.storageCheck);
-	    CheckBox templateCheck = (CheckBox) findViewById(R.id.templateCheck);
-	    CheckBox newsCheck = (CheckBox) findViewById(R.id.newsCheck);
+	    final CheckBox computeCheck = (CheckBox) findViewById(R.id.computeCheck);
+	    final CheckBox networkCheck = (CheckBox) findViewById(R.id.networkCheck);
+	    final CheckBox storageCheck = (CheckBox) findViewById(R.id.storageCheck);
+	    final CheckBox templateCheck = (CheckBox) findViewById(R.id.templateCheck);
+	    final CheckBox newsCheck = (CheckBox) findViewById(R.id.newsCheck);
 		computeCheck.setChecked(compCheck);
 		networkCheck.setChecked(netwCheck);
 		storageCheck.setChecked(storCheck);
@@ -58,32 +92,23 @@ public class SearchActivity extends Activity {
 		        String[] array = searchText.split(" ");
 
 				searchManager = UI_Core.getCore().searchManager();
+				searchManager.resetFilters();
+				if(computeCheck.isChecked()){searchManager.filterComputes(true);}
+				if(networkCheck.isChecked()){searchManager.filterNetworks(true);}
+				if(storageCheck.isChecked()){searchManager.filterStorages(true);}
+				if(templateCheck.isChecked()){searchManager.filterTemplates(true);}
+				if(newsCheck.isChecked()){searchManager.filterNews(true);}
+				
 				boolean itemsLoaded = searchManager.search(array);
 				int ItemsInsearchList = searchManager.count();	
 				listItems = new String[ItemsInsearchList];
-				detailedInfo = new int[ItemsInsearchList];
 				searchList = new core.models.Item[ItemsInsearchList];
 				for (int counter=0; counter<ItemsInsearchList; counter++){
 					searchList[counter]= searchManager.item(counter);
 					listItems[counter] = searchList[counter].name();
-					if (searchManager.item(counter) instanceof core.models.Compute){
-						detailedInfo[counter]=1;
-					}
-					if (searchManager.item(counter) instanceof core.models.Network){
-						detailedInfo[counter]=2;
-					}
-					if (searchManager.item(counter) instanceof core.models.Storage){
-						detailedInfo[counter]=3;
-					}
-					if (searchManager.item(counter) instanceof core.models.Template){
-						detailedInfo[counter]=4;
-					}
-					if (searchManager.item(counter) instanceof core.models.News){
-						detailedInfo[counter]=5;
-					}
 				}
 				searchListView = (ListView) findViewById(R.id.search_list);
-				searchListView.setAdapter(new ArrayAdapter<String>(searchActivity, android.R.layout.simple_list_item_1 , listItems));
+				searchListView.setAdapter(new MyArrayAdapter<String>(searchActivity,R.layout.row , R.id.computeRow, listItems));
 				//registerForContextMenu(searchListView);
 				searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {  				
 					public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -93,35 +118,39 @@ public class SearchActivity extends Activity {
 				    	StorageActivity.selectedItemID = arg2;
 				    	TemplateActivity.selectedItemID = arg2;
 				    	Activity_StreamActivity.selectedItemID = arg2;
-				    	switch (detailedInfo[arg2]){
-				    	
-				    	case 1:
+						if (searchManager.item(arg2) instanceof core.models.Compute){
+							searchList[arg2]=(core.models.Compute) searchManager.item(arg2);
 							Intent myIntent = new Intent(arg1.getContext(),	ComputeDetailActivity.class);
 							startActivityForResult(myIntent, 0);
-				    		break;
-				    	case 2:
+						}
+						if (searchManager.item(arg2) instanceof core.models.Network){
+							searchList[arg2]=(core.models.Network) searchManager.item(arg2);
 							Intent myIntent2 = new Intent(arg1.getContext(),	NetworkDetailActivity.class);
 							startActivityForResult(myIntent2, 0);
-				    		break;
-				    	case 3:
+						}
+						if (searchManager.item(arg2) instanceof core.models.Storage){
+							searchList[arg2]=(core.models.Storage) searchManager.item(arg2);
 							Intent myIntent3 = new Intent(arg1.getContext(),	StorageDetailActivity.class);
 							startActivityForResult(myIntent3, 0);
-				    		break;
-				    	case 4:
+						}
+						if (searchManager.item(arg2) instanceof core.models.Template){
+							searchList[arg2]=(core.models.Template) searchManager.item(arg2);
 							Intent myIntent4 = new Intent(arg1.getContext(),	TemplateDetailActivity.class);
 							startActivityForResult(myIntent4, 0);
-				    		break;				  	
-				    	case 5:
+						}
+						if (searchManager.item(arg2) instanceof core.models.News){
+							searchList[arg2]=(core.models.News) searchManager.item(arg2);
 							Intent myIntent5 = new Intent(arg1.getContext(),	NewsDetailActivity.class);
 							startActivityForResult(myIntent5, 0);
-				    		break;
+						}
+				    	
+
 	
-				    	}
+				    	
 				    	
 					}  		
 			      });  
 			
-				searchManager.resetFilters();
 			}
 
 		});

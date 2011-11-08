@@ -51,7 +51,7 @@ public class ComputeActivity extends Activity {
             View itemView = super.getView(position, convertView, parent);
             ImageView imageView = (ImageView) itemView.findViewById(R.id.icon);
     		core.models.Compute selectedItem = computeManager.item(position);
-    		computeManager.details(selectedItem);      		
+    		//computeManager.details(selectedItem);      		
             if (selectedItem.state().equals("running")){
             	imageView.setImageResource(R.drawable.start48);
             }

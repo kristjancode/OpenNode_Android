@@ -16,12 +16,14 @@ import core.interfaces.NetworkManager;
 import core.interfaces.NewsManager;
 import core.models.Network;
 import core.models.News;
+import core.models.Template;
 
 public class NewsDetailActivity extends Activity {
 	public NewsDetailActivity activity;
 	private ListView newsExtraListView;
 	private String[] extraListItems;
 	private NewsManager newsManager;
+	private News selectedItem;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,11 +31,14 @@ public class NewsDetailActivity extends Activity {
 		setContentView(R.layout.extra);
 		newsManager = UI_Core.getCore().newsManager();
 		//boolean itemsLoaded = newsManager.load();;
-		
-		News selectedItem = newsManager.item((int) Activity_StreamActivity.selectedItemID);
+		if (Activity_StreamActivity.back==1){
+			selectedItem = newsManager.item((int) Activity_StreamActivity.selectedItemID);
+		}
+		else{
+			selectedItem = (News) UI_Core.core.searchManager().item((int) SearchActivity.selectedItemID);
+		}
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		computeExtraLabel.setText(selectedItem.name());
-		newsManager.details(selectedItem);
 		computeExtraLabel.setText(selectedItem.name());
 		TextView smallId = (TextView) findViewById(R.id.smallId);
 		smallId.setText("ID : " + selectedItem.id());

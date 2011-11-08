@@ -15,12 +15,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import core.interfaces.NetworkManager;
 import core.models.Network;
+import core.models.Template;
 
 public class NetworkDetailActivity extends Activity {
 	public NetworkDetailActivity activity;
 	private ListView networkExtraListView;
 	private String[] extraListItems;
 	private NetworkManager networkManager;
+	private Network selectedItem;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,8 +31,12 @@ public class NetworkDetailActivity extends Activity {
 		networkManager = UI_Core.getCore().networkManager();
 		//boolean itemsLoaded = networkManager.load();;
 		
-		Network selectedItem = networkManager.item((int) NetworkActivity.selectedItemID);
-		networkManager.details(selectedItem);
+		if (NetworkActivity.back==1){
+			selectedItem = networkManager.item((int) NetworkActivity.selectedItemID);
+		}
+		else{
+			selectedItem = (Network) UI_Core.core.searchManager().item((int) SearchActivity.selectedItemID);
+		}
 		
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		computeExtraLabel.setText(selectedItem.name());

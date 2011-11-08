@@ -62,13 +62,17 @@ public class TemplateDetailActivity  extends Activity {
 		}
 	}
 	private void CreateTemplateManager() {
+
 		templateManager = UI_Core.getCore().templateManager();
 		boolean itemsLoaded = templateManager.load();
-		
-		selectedItem = templateManager.item((int) TemplateActivity.selectedItemID);
-		templateManager.details(selectedItem);
-		
+		if (TemplateActivity.back==1){
+			selectedItem = templateManager.item((int) TemplateActivity.selectedItemID);
+		}
+		else{
+			selectedItem = (Template) UI_Core.core.searchManager().item((int) SearchActivity.selectedItemID);
+		}	
 	}
+	
 	public boolean onCreateOptionsMenu(Menu menu2) {
 
 			MenuInflater inflater = getMenuInflater();

@@ -2,6 +2,7 @@ package activity.pack;
 
 import core.interfaces.StorageManager;
 import core.models.Storage;
+import core.models.Template;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -57,8 +58,12 @@ public class StorageDetailActivity extends Activity {
 		storageManager = UI_Core.getCore().storageManager();
 		//boolean itemsLoaded = storageManager.load();
 		
-		selectedItem = storageManager.item((int) StorageActivity.selectedItemID);
-		storageManager.details(selectedItem);
+		if (StorageActivity.back==1){
+			selectedItem = storageManager.item((int) StorageActivity.selectedItemID);
+		}
+		else{
+			selectedItem = (Storage) UI_Core.core.searchManager().item((int) SearchActivity.selectedItemID);
+		}
 		
 	}
 	public boolean onCreateOptionsMenu(Menu menu2) {

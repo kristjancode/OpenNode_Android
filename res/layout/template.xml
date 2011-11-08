@@ -11,7 +11,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
       		android:id="@+id/activity_label" 
       		android:background="@color/actionbar_background_end" 
       		android:typeface="serif" android:padding="12px" 
-      		android:text="Machines" android:textSize="24sp" 
+      		android:text="Templates" android:textSize="24sp" 
       		android:layout_width="272dp" 
       		android:gravity="center" 
       		android:layout_height="wrap_content">

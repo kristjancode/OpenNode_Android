@@ -15,12 +15,14 @@ import android.widget.Toast;
 import core.interfaces.ComputeManager;
 import core.models.Compute;
 import core.models.Compute;
+import core.models.Template;
 
 public class ComputeDetailActivity extends Activity {
 	public ComputeDetailActivity activity;
 	private ListView computeExtraListView;
 	private String[] extraListItems;
 	private ComputeManager computeManager;
+	private Compute selectedItem;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,12 @@ public class ComputeDetailActivity extends Activity {
 			//boolean itemsLoaded = computeManager.load();;
 			TextView smallId = (TextView) findViewById(R.id.smallId);
 			TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
-			Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
+			if (ComputeActivity.back==1){
+				selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
+			}
+			else{
+				selectedItem = (Compute) UI_Core.core.searchManager().item((int) SearchActivity.selectedItemID);
+			}
 			computeManager.details(selectedItem);
 			computeExtraLabel.setText(selectedItem.name());
 			smallId.setText("ID : " + selectedItem.id());
