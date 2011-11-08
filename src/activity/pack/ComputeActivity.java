@@ -158,13 +158,9 @@ public class ComputeActivity extends Activity {
 
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
-
 		MenuInflater inflater = getMenuInflater();
-
 		inflater.inflate(R.menu.compute_list_actionbar, menu2);
-
 		return true;
-
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {

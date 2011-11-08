@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -98,8 +99,17 @@ public class SearchActivity extends Activity {
 				if(storageCheck.isChecked()){searchManager.filterStorages(true);}
 				if(templateCheck.isChecked()){searchManager.filterTemplates(true);}
 				if(newsCheck.isChecked()){searchManager.filterNews(true);}
-				
+				long start, end, elapsed;
+
+				start = System.currentTimeMillis();
 				boolean itemsLoaded = searchManager.search(array);
+				end = System.currentTimeMillis();
+				Context context = getApplicationContext();
+				CharSequence text = "Time length : " + (end-start);
+				int duration = Toast.LENGTH_LONG;
+
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();
 				int ItemsInsearchList = searchManager.count();	
 				listItems = new String[ItemsInsearchList];
 				searchList = new core.models.Item[ItemsInsearchList];
@@ -109,7 +119,7 @@ public class SearchActivity extends Activity {
 				}
 				searchListView = (ListView) findViewById(R.id.search_list);
 				searchListView.setAdapter(new MyArrayAdapter<String>(searchActivity,R.layout.row , R.id.computeRow, listItems));
-				//registerForContextMenu(searchListView);
+				registerForContextMenu(searchListView);
 				searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {  				
 					public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				    	selectedItemID = arg2;
@@ -119,27 +129,22 @@ public class SearchActivity extends Activity {
 				    	TemplateActivity.selectedItemID = arg2;
 				    	Activity_StreamActivity.selectedItemID = arg2;
 						if (searchManager.item(arg2) instanceof core.models.Compute){
-							searchList[arg2]=(core.models.Compute) searchManager.item(arg2);
 							Intent myIntent = new Intent(arg1.getContext(),	ComputeDetailActivity.class);
 							startActivityForResult(myIntent, 0);
 						}
 						if (searchManager.item(arg2) instanceof core.models.Network){
-							searchList[arg2]=(core.models.Network) searchManager.item(arg2);
 							Intent myIntent2 = new Intent(arg1.getContext(),	NetworkDetailActivity.class);
 							startActivityForResult(myIntent2, 0);
 						}
 						if (searchManager.item(arg2) instanceof core.models.Storage){
-							searchList[arg2]=(core.models.Storage) searchManager.item(arg2);
 							Intent myIntent3 = new Intent(arg1.getContext(),	StorageDetailActivity.class);
 							startActivityForResult(myIntent3, 0);
 						}
 						if (searchManager.item(arg2) instanceof core.models.Template){
-							searchList[arg2]=(core.models.Template) searchManager.item(arg2);
 							Intent myIntent4 = new Intent(arg1.getContext(),	TemplateDetailActivity.class);
 							startActivityForResult(myIntent4, 0);
 						}
 						if (searchManager.item(arg2) instanceof core.models.News){
-							searchList[arg2]=(core.models.News) searchManager.item(arg2);
 							Intent myIntent5 = new Intent(arg1.getContext(),	NewsDetailActivity.class);
 							startActivityForResult(myIntent5, 0);
 						}
@@ -167,9 +172,9 @@ public class SearchActivity extends Activity {
 	}
 	public boolean onCreateOptionsMenu(Menu menu2) {
 
-		MenuInflater inflater = getMenuInflater();
+		//MenuInflater inflater = getMenuInflater();
 
-		inflater.inflate(R.menu.actionbar, menu2);
+		//inflater.inflate(R.menu.actionbar, menu2);
 
 		return true;
 
@@ -177,7 +182,7 @@ public class SearchActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.actionbar_item_home:
+		case R.id.log_out:
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
 			break;
@@ -192,5 +197,20 @@ public class SearchActivity extends Activity {
 		}
 		return true;
 	}
-
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_SEARCH){
+			Intent intent = new Intent(this, SearchActivity.class);
+			this.startActivity(intent);
+                return false;
+        }else{
+        	 if(keyCode == KeyEvent.KEYCODE_BACK){
+     			Intent intent = new Intent(this, MainActivity.class);
+    			this.startActivity(intent);
+                    return false;
+        	 }
+        	 else{
+                return super.onKeyUp(keyCode, event); 
+        	 }
+        }
+}
 }

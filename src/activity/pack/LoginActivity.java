@@ -7,6 +7,7 @@ import core.config.Config;
 
 import activity.pack.R;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -44,21 +45,32 @@ public class LoginActivity extends Activity {
 		username2.setText(username);
 		password2.setText(password);
 		url2.setText(url);
-		Config config = UI_Core.core.config();
-		config.serverHostname("10.0.2.2");
-		config.serverPort(8080);
-		config.serverUsername("opennode");
-		config.serverPassword("demo");
+		//Config config = UI_Core.core.config();
+		//config.serverHostname("10.0.2.2");
+		//config.serverPort(8080);
+		//config.serverUsername("opennode");
+		//config.serverPassword("demo");
 
 
 		Button login = (Button) findViewById(R.id.btn_login_login);
 		login.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				//try {
-					//URL urlReal = new URL(url2.getText().toString());
-				//} catch (MalformedURLException e) {
-				//	e.printStackTrace();
-				//}
+				try {
+					String http = "http://";
+					URL urlReal;
+					if (url2.getText().toString().indexOf(http)==-1){
+						urlReal = new URL(http+url2.getText().toString());
+					}
+					else{
+						urlReal = new URL(url2.getText().toString());
+					}
+					
+				Config config = UI_Core.core.config();
+				config.serverHostname(urlReal.getHost());
+				config.serverPort(urlReal.getPort());
+				config.serverUsername(username2.getText().toString());
+				config.serverPassword(password2.getText().toString());
+				
 				
 				CheckBox password_remembered = (CheckBox) findViewById(R.id.password_remembered);
 				password_remembered.hasSelection();
@@ -82,11 +94,19 @@ public class LoginActivity extends Activity {
 				        .commit();
 					}
 				}			
-
 				
 				Intent myIntent = new Intent(view.getContext(),
 						MainActivity.class);
 				startActivityForResult(myIntent, 0);
+				}
+				catch (Exception e){
+					Context context = getApplicationContext();
+					CharSequence text = "Authentication failed";
+					int duration = Toast.LENGTH_LONG;
+
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+				}
 			}
 		});
 	}
@@ -103,7 +123,7 @@ public class LoginActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.actionbar_item_home:
+		case R.id.log_out:
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
 			break;

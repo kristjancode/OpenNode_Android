@@ -74,9 +74,9 @@ public class MainActivity extends Activity {
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
 
-		//MenuInflater inflater = getMenuInflater();
+		MenuInflater inflater = getMenuInflater();
 
-		//inflater.inflate(R.menu.actionbar, menu2);
+		inflater.inflate(R.menu.actionbar, menu2);
 
 		return true;
 
@@ -84,17 +84,9 @@ public class MainActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.actionbar_item_home:
-			Intent intent = new Intent(this, MainActivity.class);
+		case R.id.log_out:
+			Intent intent = new Intent(this, LoginActivity.class);
 			this.startActivity(intent);
-			break;
-		case R.id.actionbar_item_create:
-			Toast.makeText(this, "You pressed the text!", Toast.LENGTH_LONG)
-					.show();
-			break;
-		case R.id.actionbar_item_search:
-			Toast.makeText(this, "You pressed the icon and text!",
-					Toast.LENGTH_LONG).show();
 			break;
 		}
 		return true;
@@ -106,9 +98,8 @@ public class MainActivity extends Activity {
                 return false;
         }else{
        	 if(keyCode == KeyEvent.KEYCODE_BACK){
- 			Intent intent = new Intent(this, LoginActivity.class);
- 			this.startActivity(intent);  
-       		 	   return false;
+ 	        moveTaskToBack(true);
+       		return false;
        	 }
        	 else{
                return super.onKeyUp(keyCode, event); 
