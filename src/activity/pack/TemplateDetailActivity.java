@@ -1,6 +1,7 @@
 package activity.pack;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import core.interfaces.ComputeManager;
 import core.interfaces.TemplateManager;
 import core.models.Compute;
@@ -97,6 +99,7 @@ public class TemplateDetailActivity  extends Activity {
 		return true;
 	}
 	private void create_compute() {
+
 		setContentView(R.layout.create_vm);
 		CreateTemplateManager();
 		final core.models.Template selectedItem = templateManager.item((int) TemplateActivity.selectedItemID);
@@ -125,11 +128,20 @@ public class TemplateDetailActivity  extends Activity {
 		createCompute.setText("Create");
 		createCompute.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-
+				if (selectedItem.minMemorySize()<=Integer.parseInt(memoryEdit.getText().toString())){
 				Compute newCompute = new Compute(0,nameEdit.getText().toString(), archEditSpinner.getSelectedItem().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEditSpinner.getSelectedItem().toString(), selectedItem.name());
 				computeManager.create(newCompute);
 				Intent myIntent = new Intent(view.getContext(), ComputeActivity.class);
 				startActivityForResult(myIntent, 0);
+				}
+				else{
+					Context context = getApplicationContext();
+					CharSequence text = "Memory size have to be at least size of template minimum : "+selectedItem.minMemorySize();
+					int duration = Toast.LENGTH_LONG;
+
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+				}
 			}
 		});
 		
