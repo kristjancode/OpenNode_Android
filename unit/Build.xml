@@ -2,6 +2,7 @@
 <project name="OpenNode_Android_Unit" default="run-tests">
 	
 	<property name="core_source.dir" value="../src/core"/>
+	<property name="external_source.dir" value="../src/external"/>
     <property name="source.dir" value="src"/>
     <property name="libs.dir" value="libs"/>
 
@@ -36,10 +37,17 @@
     <target name="-compile-tested">
         <subant target="compile" buildpath="${tested.dir}"/>
     </target>
-
-    <target name="compile" depends="-init,-compile-tested">
+	
+	<target name="-compile-core">
         <javac target="1.5" debug="true" destdir="${classes.dir}">
         	<src path="${core_source.dir}"/>
+        	<src path="${external_source.dir}"/>
+            <classpath refid="compile.classpath"/>
+        </javac>
+	</target>
+		
+    <target name="compile" depends="-init,-compile-core">
+        <javac target="1.5" debug="true" destdir="${classes.dir}">
             <src path="${source.dir}"/>
             <classpath refid="compile.classpath"/>
         </javac>
