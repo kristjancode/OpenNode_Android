@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -91,6 +92,8 @@ public class SearchActivity extends Activity {
 				EditText searchEditText = (EditText) findViewById(R.id.editText123);
 				String searchText = searchEditText.getText().toString();
 		        String[] array = searchText.split(" ");
+				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
 
 				searchManager = UI_Core.getCore().searchManager();
 				searchManager.resetFilters();
@@ -101,15 +104,8 @@ public class SearchActivity extends Activity {
 				if(newsCheck.isChecked()){searchManager.filterNews(true);}
 				long start, end, elapsed;
 
-				start = System.currentTimeMillis();
 				boolean itemsLoaded = searchManager.search(array);
-				end = System.currentTimeMillis();
-				Context context = getApplicationContext();
-				CharSequence text = "Time length : " + (end-start);
-				int duration = Toast.LENGTH_LONG;
 
-				Toast toast = Toast.makeText(context, text, duration);
-				toast.show();
 				int ItemsInsearchList = searchManager.count();	
 				listItems = new String[ItemsInsearchList];
 				searchList = new core.models.Item[ItemsInsearchList];
