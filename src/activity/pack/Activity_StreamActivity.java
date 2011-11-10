@@ -206,12 +206,14 @@ public class Activity_StreamActivity extends Activity {
 
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_SEARCH){
+        	back=0;
         	SearchActivity.newCheck = true;
 			Intent intent = new Intent(this, SearchActivity.class);
 			this.startActivity(intent);
                 return false;
         }else{
         	 if(keyCode == KeyEvent.KEYCODE_BACK){
+        		back=0;
      			Intent intent = new Intent(this, MainActivity.class);
     			this.startActivity(intent);
                     return false;

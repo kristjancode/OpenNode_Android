@@ -94,7 +94,6 @@ public class SearchActivity extends Activity {
 		        String[] array = searchText.split(" ");
 				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
-
 				searchManager = UI_Core.getCore().searchManager();
 				searchManager.resetFilters();
 				if(computeCheck.isChecked()){searchManager.filterComputes(true);}

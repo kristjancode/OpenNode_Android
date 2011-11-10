@@ -66,22 +66,20 @@ public class NetworkActivity extends Activity {
 		      });  
 	}
 	public boolean onCreateOptionsMenu(Menu menu2) {
-		menu = menu2;
-		if (selectedItemID == -1){
-		//	MenuInflater inflater = getMenuInflater();
-	
-			//inflater.inflate(R.menu.network_list_actionbar, menu2);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.compute_list_actionbar, menu2);
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.home:
+			Intent intent = new Intent(this, MainActivity.class);
+			this.startActivity(intent);
+			break;
+
 		}
 		return true;
-
-	}
-	public void invalidateOptionsMenu (){
-
-	//	MenuInflater inflater = getMenuInflater();
-
-	//	inflater.inflate(R.menu.network_list_actionbar, menu);
-	//	menu.clear();
-	
 	}
 	
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
@@ -113,9 +111,6 @@ public class NetworkActivity extends Activity {
 
 	private void extra_info() {
 		setContentView(R.layout.extra);
-		if (menu != null){
-			invalidateOptionsMenu ();
-		}
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		core.models.Network selectedItem = networkList[(int) selectedItemID];
 		networkManager.details(selectedItem);
@@ -136,24 +131,16 @@ public class NetworkActivity extends Activity {
 	}
 
 
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.home:
-			Intent intent = new Intent(this, MainActivity.class);
-			this.startActivity(intent);
-			break;
-
-		}
-		return true;
-	}
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_SEARCH){
+        	back=0;
         	SearchActivity.netwCheck = true;
 			Intent intent = new Intent(this, SearchActivity.class);
 			this.startActivity(intent);
                 return false;
         }else{
         	 if(keyCode == KeyEvent.KEYCODE_BACK){
+        		back=0;
      			Intent intent = new Intent(this, MainActivity.class);
     			this.startActivity(intent);
                     return false;

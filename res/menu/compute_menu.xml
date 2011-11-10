@@ -5,21 +5,17 @@
 		android:menuCategory="container" android:visible="true"
 		android:enabled="true" android:id="@+id/extra_info_compute"></item>
 	<item android:id="@+id/start_machine" 
-		android:title="Start machine"
 		android:menuCategory="container" 
 		android:visible="true"
-		android:enabled="true"></item>
-	<item android:id="@+id/stop_machine" android:title="Stop machine"
-		android:menuCategory="container" android:visible="true"
-		android:enabled="true"></item>
-	<item android:id="@+id/suspend_machine" android:title="Suspend machine"
-		android:menuCategory="container" android:visible="true"
-		android:enabled="true"></item>
-	<item android:id="@+id/migrate_machine" android:title="Migrate machine"
-		android:menuCategory="container" android:enabled="true"
-		android:visible="true"></item>
-	<item android:title="Delete machine" android:id="@+id/delete_machine" android:menuCategory="container"></item>
-	<item android:title="Edit" android:id="@+id/compute_edit"></item>
+		android:enabled="true" android:title="Start"></item>
+	<item android:id="@+id/stop_machine" android:menuCategory="container" android:visible="true"
+		android:enabled="true" android:title="Stop"></item>
+	<item android:id="@+id/suspend_machine" android:menuCategory="container" android:visible="true"
+		android:enabled="true" android:title="Suspend"></item>
+	<item android:id="@+id/migrate_machine" android:menuCategory="container" android:enabled="true"
+		android:visible="true" android:title="Migrate"></item><item android:id="@+id/compute_edit" android:menuCategory="container" android:title="Edit"></item>
+	<item android:id="@+id/delete_machine" android:menuCategory="container" android:title="Delete"></item>
+	
 	
 
 </menu>

@@ -77,8 +77,6 @@ public class ComputeDetailActivity extends Activity {
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
 			break;
-		case R.id.settings:
-			break;
 		case R.id.start_machine:
 			start_machine();
 			break;
