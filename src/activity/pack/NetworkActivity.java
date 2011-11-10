@@ -74,6 +74,7 @@ public class NetworkActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.home:
+			back=0;
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
 			break;
