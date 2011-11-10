@@ -4,6 +4,7 @@ import core.interfaces.StorageManager;
 import core.models.Storage;
 import core.models.Template;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -15,7 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StorageDetailActivity extends Activity {
 	public static StorageDetailActivity activity;
@@ -24,6 +27,7 @@ public class StorageDetailActivity extends Activity {
 	private static StorageManager storageManager;
 	private Storage selectedItem;
 	private int actionValue = StorageActivity.actionValue;
+	private ArrayAdapter<CharSequence> mAdapter;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -109,21 +113,36 @@ public class StorageDetailActivity extends Activity {
 
 		TextView idText = (TextView) findViewById(R.id.textView1);
 		final EditText sizeEdit = (EditText) findViewById(R.id.editText2);
-		final EditText typeEdit = (EditText) findViewById(R.id.editText3);
+		final Spinner typeEditSpinner = (Spinner) findViewById(R.id.storageSpinner);
 		final EditText nameEdit = (EditText) findViewById(R.id.editText4);
 		
-		idText.setText("ID : " + selectedItem.id());
+		this.mAdapter = ArrayAdapter.createFromResource(this, R.array.type2_array,
+                android.R.layout.simple_spinner_item);
+        typeEditSpinner.setAdapter(this.mAdapter);
+        int i = mAdapter.getPosition(selectedItem.type());
+        typeEditSpinner.setSelection(i);
+        
 		sizeEdit.setText("" + selectedItem.size());
-		typeEdit.setText("" + selectedItem.type());
 		nameEdit.setText("" + selectedItem.name());
 		
 		Button updateStorage = (Button) findViewById(R.id.btn_update_storage);
 		updateStorage.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				Storage newStorage = new Storage(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(sizeEdit.getText().toString()), typeEdit.getText().toString());
+				if ((!nameEdit.getText().toString().equals("")) && (!sizeEdit.getText().toString().equals(""))){
+					
+				Storage newStorage = new Storage(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(sizeEdit.getText().toString()), typeEditSpinner.getSelectedItem().toString());
 				storageManager.update(selectedItem, newStorage);
 				Intent myIntent = new Intent(view.getContext(), StorageActivity.class);
 				startActivityForResult(myIntent, 0);
+			}
+			else{
+				Context context = getApplicationContext();
+				CharSequence text = "All fields must be filled";
+				int duration = Toast.LENGTH_LONG;
+
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();
+			}
 			}
 		});			
 		

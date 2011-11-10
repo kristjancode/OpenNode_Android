@@ -22,7 +22,7 @@ android:fillViewport="true">
         <Spinner android:layout_alignTop="@+id/textView7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spinnerState" android:layout_toRightOf="@+id/textView6" android:layout_alignParentRight="true"></Spinner>
         <TextView android:text="State:" android:layout_height="wrap_content" android:id="@+id/textView7" android:layout_marginTop="15dp" android:layout_alignParentLeft="true" android:layout_below="@+id/textView9" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
         <TextView android:text="Template :" android:layout_height="wrap_content" android:id="@+id/textView9" android:layout_alignParentLeft="true" android:layout_below="@+id/editText5" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
-        <Button android:text="Create" android:layout_alignRight="@+id/textView2" android:layout_height="wrap_content" android:layout_below="@+id/spinnerState" android:layout_width="wrap_content" android:id="@+id/btn_create_vm"></Button>
+        <Button android:text="Create" android:layout_height="wrap_content" android:layout_below="@+id/spinnerState" android:layout_width="wrap_content" android:id="@+id/btn_create_vm" android:layout_toLeftOf="@+id/spinnerState" android:layout_alignParentLeft="true"></Button>
         <TextView android:text="Name:" android:layout_height="wrap_content" android:id="@+id/textView2" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_below="@+id/create_vm_label" android:layout_alignParentLeft="true" android:layout_marginTop="16dp"></TextView>
     </RelativeLayout>
 

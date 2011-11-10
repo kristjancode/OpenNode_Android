@@ -132,6 +132,8 @@ public class TemplateDetailActivity  extends Activity {
 		createCompute.setText("Create");
 		createCompute.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
+				if ((!nameEdit.getText().toString().equals("")) && (!coresEdit.getText().toString().equals("")) && (!cpuEdit.getText().toString().equals("")) && (!memoryEdit.getText().toString().equals(""))){
+
 				if (selectedItem.minMemorySize()<=Integer.parseInt(memoryEdit.getText().toString())){
 				Compute newCompute = new Compute(0,nameEdit.getText().toString(), archEditSpinner.getSelectedItem().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEditSpinner.getSelectedItem().toString(), selectedItem.name());
 				computeManager.create(newCompute);
@@ -146,6 +148,16 @@ public class TemplateDetailActivity  extends Activity {
 					Toast toast = Toast.makeText(context, text, duration);
 					toast.show();
 				}
+			}
+				else{
+					Context context = getApplicationContext();
+					CharSequence text = "All fields must be filled";
+					int duration = Toast.LENGTH_LONG;
+
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+				}
+				
 			}
 		});
 		
@@ -177,11 +189,20 @@ public class TemplateDetailActivity  extends Activity {
 		Button updateTemplate = (Button) findViewById(R.id.btn_update_template);
 		updateTemplate.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-
+				if ((!sizeEdit.getText().toString().equals("")) && (!typeEdit.getText().toString().equals("") && (!nameEdit.getText().toString().equals("")))){
 				Template newTemplate = new Template(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(sizeEdit.getText().toString()), Integer.parseInt(typeEdit.getText().toString()));
 				templateManager.update(selectedItem, newTemplate);
 				Intent myIntent = new Intent(view.getContext(), TemplateActivity.class);
 				startActivityForResult(myIntent, 0);
+				}
+				else{
+					Context context = getApplicationContext();
+					CharSequence text = "All fields must be filled";
+					int duration = Toast.LENGTH_LONG;
+
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+				}
 			}
 		});	
 		

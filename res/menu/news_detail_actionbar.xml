@@ -4,7 +4,8 @@
   	<item android:id="@+id/comment" android:title="Comment"
 		android:menuCategory="container" android:enabled="true"
 		android:visible="true" android:icon="@drawable/comment48"></item>
-	<item android:id="@+id/delete" android:title="Delete"
+	<item android:id="@+id/newsEdit" android:menuCategory="container" android:title="Edit" android:icon="@drawable/update48"></item><item android:id="@+id/delete" android:title="Delete"
 		android:menuCategory="container" android:enabled="true"
-		android:visible="true" android:icon="@drawable/suspend48"></item>  
+		android:visible="true" android:icon="@drawable/suspend48"></item>
+	  
 </menu>

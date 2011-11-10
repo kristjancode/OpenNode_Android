@@ -9,28 +9,38 @@
 
 	<!-- Compute Activity -->
     <string name="action_new_compute" >New Compute</string>
-    <string-array name="state_array">
-        <item>running</item>
-        <item>stopped</item>
-        <item>suspended</item>
-    </string-array>
+	    <string-array name="state_array">
+	        <item>running</item>
+	        <item>stopped</item>
+	        <item>suspended</item>
+	    </string-array>
         <string-array name="arch_array">
-        <item>macosx</item>
-        <item>win32</item>
-        <item>win64</item>        
-        <item>x64</item>
-        <item>x86</item>
-    </string-array>
+	        <item>macosx</item>
+	        <item>win32</item>
+	        <item>win64</item>        
+	        <item>x64</item>
+	        <item>x86</item>
+	    </string-array>
 	<!-- Network Activity -->
 
 	<!-- Storage Activity -->
-
+	    <string-array name="type2_array">
+	        <item>local</item>
+	        <item>iscsi</item>
+	        <item>lvm</item>        
+	        <item>nfs</item>
+	    </string-array>
     <!-- Template Activity -->
 
 	<!-- Search Activity -->
 
-	<!-- Issues Activity -->
-
+	<!-- News Activity -->
+	    <string-array name="type_array">
+	        <item>info</item>
+	        <item>warning</item>
+	        <item>error</item>        
+	        <item>system_message</item>
+	    </string-array>
     <!-- Miscellaneous -->
     <string name="bar">|</string>
 

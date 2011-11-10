@@ -86,6 +86,7 @@ public class StorageActivity extends Activity {
 			break;
 		case R.id.update_storage:
 			actionValue = 1;
+			back =1;
 			Intent intent1 = new Intent(this, StorageDetailActivity.class);
 			this.startActivity(intent1);
 			//update_storage();

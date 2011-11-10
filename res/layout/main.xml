@@ -1,47 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-	
+
 <LinearLayout android:id="@+id/ll_dashboard_buttons"
-	android:gravity="center" android:orientation="vertical"
-	android:layout_gravity="center|bottom" android:weightSum="1"
+	android:weightSum="1"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent" android:layout_height="match_parent">
-	<FrameLayout android:layout_weight="1.03"
-		android:layout_width="fill_parent" android:layout_height="wrap_content"
-		>
-		<ImageButton android:layout_width="48dp"
-			android:layout_height="46dp" android:layout_gravity="right"
-			android:id="@+id/btn_Search" android:clickable="true" android:onClick="btnSearchClicked"
-			android:src="@drawable/search48" android:background="@color/actionbar_background_start"></ImageButton>
-		<ImageView android:layout_width="168dp" 
-		android:layout_height="51dp" android:id="@+id/imageView1" 
-		android:src="@drawable/logo_opennode_lowres" 
-		 android:layout_gravity="center|center_vertical|top"></ImageView>
-	</FrameLayout>
+	android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:layout_gravity="center|center_horizontal|top" android:gravity="center_horizontal">
+    <FrameLayout android:layout_width="fill_parent" android:layout_gravity="fill_vertical|top" android:layout_height="wrap_content">
+        <ImageButton android:src="@drawable/search48" android:background="@color/actionbar_background_start" android:clickable="true" android:layout_height="wrap_content" android:onClick="btnSearchClicked" android:layout_width="wrap_content" android:id="@+id/btn_Search" android:layout_gravity="right"></ImageButton>
+        <ImageView android:src="@drawable/logo_opennode_lowres" android:layout_marginLeft="33dip" android:layout_height="wrap_content" android:id="@+id/imageView1" android:layout_width="222dip" android:layout_gravity="top"></ImageView>
+    </FrameLayout>
 	<LinearLayout android:layout_width="wrap_content"
 		android:layout_height="wrap_content">
 		<Button android:text="Compute" android:id="@+id/btn_Compute"
 			android:layout_width="120dip" android:background="#00ffffff"
-			android:layout_height="110dp" android:drawableTop="@drawable/compute48"></Button>
+			android:drawableTop="@drawable/compute48" android:layout_height="105dip"></Button>
 		<Button android:id="@+id/btn_Network" android:layout_width="120dip"
 			android:background="#00ffffff" android:text="Network"
-			android:layout_height="110dp" android:drawableTop="@drawable/network48"/>
+			android:drawableTop="@drawable/network48" android:layout_height="105dip"/>
 	</LinearLayout>
 	<LinearLayout android:layout_width="wrap_content"
 		android:layout_height="wrap_content">
 		<Button android:id="@+id/btn_Storage" android:layout_width="120dip"
 			android:background="#00ffffff" android:text="Storage"
-			android:layout_height="110dp" android:drawableTop="@drawable/storage48"/>
+			android:drawableTop="@drawable/storage48" android:layout_height="105dip"/>
 		<Button android:id="@+id/btn_Template" android:layout_width="120dip"
 			android:background="#00ffffff" android:text="Template"
-			android:layout_height="110dp" android:drawableTop="@drawable/template" />
+			android:drawableTop="@drawable/template" android:layout_height="105dip"/>
 	</LinearLayout>
 	<LinearLayout android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_marginBottom="30dp">
+		android:layout_height="wrap_content">
 		<Button android:id="@+id/btn_Activity_Stream"
 			android:layout_width="120dip" android:background="#00ffffff"
 			android:text="Activity stream" android:clickable="true" 
-			android:layout_marginBottom="50dp" 
-			android:layout_height="110dp" android:drawableTop="@drawable/logs48"/>
+			android:drawableTop="@drawable/logs48" android:layout_height="100dip"/>
 
 	</LinearLayout>
 </LinearLayout>

@@ -8,8 +8,12 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import core.interfaces.ComputeManager;
@@ -23,6 +27,8 @@ public class ComputeDetailActivity extends Activity {
 	private String[] extraListItems;
 	private ComputeManager computeManager;
 	private Compute selectedItem;
+	protected ArrayAdapter<CharSequence> mAdapter;
+	protected ArrayAdapter<CharSequence> m2Adapter;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -88,12 +94,73 @@ public class ComputeDetailActivity extends Activity {
 		case R.id.delete_machine:
 			delete_machine();
 			break;
+		case R.id.compute_edit2:
+			edit_compute();
+			break;
 		default:
 			
 		}
 		return true;
 	}
 	
+	private void edit_compute() {
+		setContentView(R.layout.create_vm);
+		final core.models.Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
+		computeManager.details(selectedItem);
+
+		TextView nameText = (TextView) findViewById(R.id.create_vm_label);
+		nameText.setText("Edit Compute");
+		TextView tempText = (TextView) findViewById(R.id.textView9);
+		final EditText nameEdit = (EditText) findViewById(R.id.editText1);
+		final Spinner archEditSpinner = (Spinner) findViewById(R.id.spinnerArch);
+		final EditText coresEdit = (EditText) findViewById(R.id.editText3);
+		final EditText cpuEdit = (EditText) findViewById(R.id.editText4);
+		final EditText memoryEdit = (EditText) findViewById(R.id.editText5);
+		final Spinner stateEditSpinner = (Spinner) findViewById(R.id.spinnerState);
+        nameEdit.setText(""+selectedItem.name());
+        coresEdit.setText(""+selectedItem.cores());
+        cpuEdit.setText(""+selectedItem.cpu());
+        memoryEdit.setText(""+selectedItem.memory());
+		this.mAdapter = ArrayAdapter.createFromResource(this, R.array.state_array,
+                android.R.layout.simple_spinner_item);
+        stateEditSpinner.setAdapter(this.mAdapter);
+
+        int i = mAdapter.getPosition(selectedItem.state());
+        stateEditSpinner.setSelection(i);
+        
+		this.m2Adapter = ArrayAdapter.createFromResource(this, R.array.arch_array,
+                android.R.layout.simple_spinner_item);
+        archEditSpinner.setAdapter(this.m2Adapter);
+        int j = m2Adapter.getPosition(selectedItem.arch());
+        archEditSpinner.setSelection(j);
+		tempText.setText("Template : "+selectedItem.template());
+		
+		//final int computeId = i;
+		//idText.setText("ID : "+computeId);
+		
+		Button createCompute = (Button) findViewById(R.id.btn_create_vm);
+		createCompute.setText("Edit");
+		createCompute.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				if ((!nameEdit.getText().toString().equals("")) && (!coresEdit.getText().toString().equals("")) && (!cpuEdit.getText().toString().equals("")) && (!memoryEdit.getText().toString().equals(""))){
+				Compute newCompute = new Compute(0,nameEdit.getText().toString(), archEditSpinner.getSelectedItem().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEditSpinner.getSelectedItem().toString(), selectedItem.template());
+				computeManager.update(selectedItem, newCompute);
+				Intent myIntent = new Intent(view.getContext(), ComputeActivity.class);
+				startActivityForResult(myIntent, 0);
+			}
+				else{
+					Context context = getApplicationContext();
+					CharSequence text = "All fields must be filled";
+					int duration = Toast.LENGTH_LONG;
+
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+				}
+			}
+		});	
+		
+		
+	}
 	private void migrate_machine() {
 		Context context = getApplicationContext();
 		CharSequence text = "Functionality will be added in next version.";
