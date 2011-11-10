@@ -5,8 +5,8 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:layout_gravity="center|center_horizontal|top" android:gravity="center_horizontal">
     <FrameLayout android:layout_width="fill_parent" android:layout_gravity="fill_vertical|top" android:layout_height="wrap_content">
-        <ImageButton android:src="@drawable/search48" android:background="@color/actionbar_background_start" android:clickable="true" android:layout_height="wrap_content" android:onClick="btnSearchClicked" android:layout_width="wrap_content" android:id="@+id/btn_Search" android:layout_gravity="right"></ImageButton>
-        <ImageView android:src="@drawable/logo_opennode_lowres" android:layout_marginLeft="33dip" android:layout_height="wrap_content" android:id="@+id/imageView1" android:layout_width="222dip" android:layout_gravity="top"></ImageView>
+        <ImageView android:src="@drawable/search48" android:clickable="true" android:layout_height="wrap_content" android:onClick="btnSearchClicked" android:layout_width="wrap_content" android:id="@+id/btn_Search" android:layout_gravity="right"></ImageView>
+        <ImageView android:src="@drawable/logo_opennode_lowres" android:layout_height="wrap_content" android:id="@+id/imageView1" android:layout_width="222dip" android:layout_gravity="top" android:layout_marginLeft="30dip"></ImageView>
     </FrameLayout>
 	<LinearLayout android:layout_width="wrap_content"
 		android:layout_height="wrap_content">

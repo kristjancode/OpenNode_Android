@@ -234,8 +234,7 @@ public class ComputeActivity extends Activity {
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
 			break;
-		case R.id.settings:
-			break;
+
 		}
 		return true;
 	}
@@ -283,12 +282,14 @@ public class ComputeActivity extends Activity {
 
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_SEARCH){
+        	back=0;
         	SearchActivity.compCheck = true;
 			Intent intent = new Intent(this, SearchActivity.class);
 			this.startActivity(intent);
                 return false;
         }else{
         	 if(keyCode == KeyEvent.KEYCODE_BACK){
+        		back=0;
      			Intent intent = new Intent(this, MainActivity.class);
     			this.startActivity(intent);
                     return false;
