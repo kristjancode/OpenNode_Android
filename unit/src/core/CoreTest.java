@@ -11,6 +11,12 @@ public class CoreTest
 	public void setUp() throws Exception {
 		//Needs to run in emulator, thus 10.0.2.2
 		core = new Core();
+		//OOH new feature, we need to actually authenticate
+		core.config().serverHostname("0.0.0.0");
+		core.config().serverPort(8080);
+		core.config().serverUsername("opennode");
+		core.config().serverPassword("demo");
+		core.serverConnector().authenticate();
 	}
 
 	@Test
