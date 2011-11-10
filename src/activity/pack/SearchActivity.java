@@ -63,7 +63,7 @@ public class SearchActivity extends Activity {
 	            }            
     		}
     		else{
-    			imageView.setEnabled(false);
+    			//imageView.setEnabled(false);
     			imageView.setImageResource(R.drawable.empty);
     			//imageView.setVisibility(false);
     		}
@@ -92,8 +92,10 @@ public class SearchActivity extends Activity {
 				EditText searchEditText = (EditText) findViewById(R.id.editText123);
 				String searchText = searchEditText.getText().toString();
 		        String[] array = searchText.split(" ");
+		        
 				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
+				
 				searchManager = UI_Core.getCore().searchManager();
 				searchManager.resetFilters();
 				if(computeCheck.isChecked()){searchManager.filterComputes(true);}
@@ -166,32 +168,23 @@ public class SearchActivity extends Activity {
 		
 	}
 	public boolean onCreateOptionsMenu(Menu menu2) {
-
-		//MenuInflater inflater = getMenuInflater();
-
-		//inflater.inflate(R.menu.actionbar, menu2);
-
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.compute_list_actionbar, menu2);
 		return true;
-
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.log_out:
+		case R.id.home:
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
 			break;
-		case R.id.actionbar_item_create:
-			Toast.makeText(this, "You pressed the text!", Toast.LENGTH_LONG)
-					.show();
-			break;
-		case R.id.actionbar_item_search:
-			Toast.makeText(this, "You pressed the icon and text!",
-					Toast.LENGTH_LONG).show();
-			break;
+
 		}
 		return true;
 	}
+
+
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_SEARCH){
 			Intent intent = new Intent(this, SearchActivity.class);

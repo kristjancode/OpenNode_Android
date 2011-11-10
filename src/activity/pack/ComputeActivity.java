@@ -42,6 +42,7 @@ public class ComputeActivity extends Activity {
 	protected ArrayAdapter<CharSequence> mAdapter;
 	protected ArrayAdapter<CharSequence> m2Adapter;
 	
+
     private class MyArrayAdapter<T> extends ArrayAdapter<T>
     {
         public MyArrayAdapter(Context context, int resource, int textViewResourceId, String[] listItems) {
@@ -53,24 +54,25 @@ public class ComputeActivity extends Activity {
             View itemView = super.getView(position, convertView, parent);
             ImageView imageView = (ImageView) itemView.findViewById(R.id.icon);
     		core.models.Compute selectedItem = computeManager.item(position);
-    		//computeManager.details(selectedItem);      		
-            if (selectedItem.state().equals("running")){
-            	imageView.setImageResource(R.drawable.start48);
-            }
-            else {
-                if (selectedItem.state().equals("stopped")){
-                	imageView.setImageResource(R.drawable.stop48);
-                }
-                else{
-                	if (selectedItem.state().equals("suspended")){
-                	imageView.setImageResource(R.drawable.delete48);
-                	}
-                }
-            }            
-            return itemView;
+    		//computeManager.details(selectedItem);    
+    		if (selectedItem.state().equals("running")){
+	            	imageView.setImageResource(R.drawable.start48);
+	            }
+	            else {
+	                if (selectedItem.state().equals("stopped")){
+	                	imageView.setImageResource(R.drawable.stop48);
+	                }
+	                else{
+	                	if (selectedItem.state().equals("suspended")){
+	                	imageView.setImageResource(R.drawable.delete48);
+	                	}
+	                }
+	            }            
+
+    
+    		return itemView;
         }
     }
-	
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
@@ -96,7 +98,7 @@ public class ComputeActivity extends Activity {
 
 		});
 		computeListView = (ListView) findViewById(R.id.list_compute);
-		computeListView.setLongClickable(true);
+		//computeListView.setLongClickable(true);
 		computeListView.setAdapter(new MyArrayAdapter<String>(this,R.layout.row , R.id.computeRow, listItems));
 		
 		
