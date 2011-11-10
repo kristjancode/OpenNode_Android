@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:background="#FFF" android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_height="wrap_content" android:id="@+id/scrollView1" android:layout_width="wrap_content" android:layout_below="@+id/rl_login_login_box" android:layout_alignParentLeft="true" android:layout_marginTop="39dp">
 
+<RelativeLayout 
+	android:background="#FFF" android:layout_width="match_parent"
 	android:layout_height="match_parent" android:isScrollContainer="true">
 	<TextView android:id="@+id/tv_login_version"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -24,7 +26,6 @@
 			android:layout_below="@id/tv_login_url_label" android:background="@android:drawable/editbox_background"
 			android:singleLine="true" android:layout_width="match_parent"
 			android:id="@+id/et_login_url">
-			<requestFocus></requestFocus>
 		</EditText>
 		<TextView android:text="Username or Email:"
 			android:layout_height="wrap_content" android:layout_below="@id/et_login_url"
@@ -57,3 +58,5 @@
 			android:textSize="12.5dip" android:layout_alignRight="@+id/btn_login_login" android:layout_alignLeft="@+id/btn_login_login"></CheckBox>
 	</RelativeLayout>
 </RelativeLayout>
+</ScrollView>
+

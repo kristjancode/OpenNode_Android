@@ -19,6 +19,7 @@
 		android:menuCategory="container" android:enabled="true"
 		android:visible="true"></item>
 	<item android:title="Delete machine" android:id="@+id/delete_machine" android:menuCategory="container"></item>
+	<item android:title="Edit" android:id="@+id/compute_edit"></item>
 	
 
 </menu>

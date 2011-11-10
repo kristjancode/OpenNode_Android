@@ -89,11 +89,13 @@ public class TemplateActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.extra_info_template:
 			actionValue = 0;
+			back=1;
 			Intent intent = new Intent(this, TemplateDetailActivity.class);
 			this.startActivity(intent);
 			break;
 		case R.id.update_template:
 			actionValue = 1;
+			back=1;
 			Intent intent1 = new Intent(this, TemplateDetailActivity.class);
 			this.startActivity(intent1);
 			break;
@@ -102,6 +104,7 @@ public class TemplateActivity extends Activity {
 			break;
 		case R.id.create_vm2:
 			actionValue = 2;
+			back=1;
 			Intent intent2 = new Intent(this, TemplateDetailActivity.class);
 			this.startActivity(intent2);
 			break;

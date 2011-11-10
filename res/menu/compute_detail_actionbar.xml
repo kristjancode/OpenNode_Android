@@ -14,7 +14,8 @@
 	<item android:id="@+id/migrate_machine" android:title="Migrate"
 		android:menuCategory="container" android:enabled="true"
 		android:visible="true" android:icon="@drawable/migrate48"></item>
-	<item android:id="@+id/delete_machine" android:title="Delete"
+	<item android:title="Edit" android:id="@+id/compute_edit2" android:icon="@drawable/update48" android:menuCategory="container"></item><item android:id="@+id/delete_machine" android:title="Delete"
 		android:menuCategory="container" android:enabled="true"
 		android:visible="true" android:icon="@drawable/suspend48"></item>
+	
 </menu>

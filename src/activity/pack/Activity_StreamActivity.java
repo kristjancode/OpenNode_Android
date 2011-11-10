@@ -15,8 +15,11 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +32,7 @@ public class Activity_StreamActivity extends Activity {
 	private NewsManager newsManager;
 	private core.models.News newsList[];
 	private Menu menu;
+	private ArrayAdapter<CharSequence> mAdapter;
 	static int back = 0;
 	@Override
 	public void onCreate(final Bundle icicle) {
@@ -88,10 +92,54 @@ public class Activity_StreamActivity extends Activity {
 		case R.id.delete_news:
 			delete_news();
 			break;
+		case R.id.newsEdit2:
+			edit_news();
+			break;
 		}
 		return true;
 	}
 
+
+	private void edit_news() {
+		setContentView(R.layout.edit_news);
+		final core.models.News selectedItem = newsManager.item((int) selectedItemID);
+
+		final Spinner typeSpinner = (Spinner) findViewById(R.id.newsTypeSpinner);
+		final EditText titleEdit = (EditText) findViewById(R.id.newsTitleText);
+		final EditText contentEdit = (EditText) findViewById(R.id.newsContentText);
+		
+		this.mAdapter = ArrayAdapter.createFromResource(this, R.array.type_array,
+                android.R.layout.simple_spinner_item);
+        typeSpinner.setAdapter(this.mAdapter);
+
+        int i = mAdapter.getPosition(selectedItem.type());
+        typeSpinner.setSelection(i);
+
+		titleEdit.setText("" + selectedItem.name());
+		contentEdit.setText("" + selectedItem.content());
+		
+		Button updateNews = (Button) findViewById(R.id.btn_news_edit);
+		updateNews.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				if ((!titleEdit.getText().toString().equals("")) && (!contentEdit.getText().toString().equals(""))){
+					News newNew = new News(selectedItem.id(), titleEdit.getText().toString(),typeSpinner.getSelectedItem().toString(), contentEdit.getText().toString());
+					newsManager.update(selectedItem, newNew);
+					Intent myIntent = new Intent(view.getContext(), Activity_StreamActivity.class);
+					startActivityForResult(myIntent, 0);
+			}
+				else{
+					Context context = getApplicationContext();
+					CharSequence text = "All fields must be filled";
+					int duration = Toast.LENGTH_LONG;
+
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+				}
+				
+			}
+		});	
+		
+	}
 
 	private void make_comment() {
 		Context context = getApplicationContext();

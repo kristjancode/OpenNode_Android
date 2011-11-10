@@ -11,18 +11,8 @@ android:id="@+id/widget44"
 android:layout_width="fill_parent"
 android:layout_height="51dp"
 >
-<ImageButton
-android:id="@+id/btn_Search"
-android:layout_width="48dp"
-android:layout_height="46dp"
-android:layout_gravity="right"
-android:src="@drawable/search48" android:background="@color/actionbar_background_start">
-</ImageButton>
-<ImageView
-android:id="@+id/imageView1"
-android:layout_width="168dp"
-android:layout_height="51dp" android:src="@drawable/logo_opennode_lowres" android:layout_gravity="center">
-</ImageView>
+ <TextView android:id="@+id/activity_label" android:background="@color/actionbar_background_end" android:typeface="serif" android:padding="12px" android:text="Search" android:textSize="24sp" android:gravity="center" android:layout_height="wrap_content" android:layout_width="match_parent"></TextView>
+          
 </FrameLayout>
 <EditText
 android:id="@+id/editText123"

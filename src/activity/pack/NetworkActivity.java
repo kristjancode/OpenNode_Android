@@ -2,6 +2,7 @@ package activity.pack;
 
 import core.interfaces.NetworkManager;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -67,19 +68,19 @@ public class NetworkActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu2) {
 		menu = menu2;
 		if (selectedItemID == -1){
-			MenuInflater inflater = getMenuInflater();
+		//	MenuInflater inflater = getMenuInflater();
 	
-			inflater.inflate(R.menu.network_list_actionbar, menu2);
+			//inflater.inflate(R.menu.network_list_actionbar, menu2);
 		}
 		return true;
 
 	}
 	public void invalidateOptionsMenu (){
 
-		MenuInflater inflater = getMenuInflater();
+	//	MenuInflater inflater = getMenuInflater();
 
-		inflater.inflate(R.menu.network_list_actionbar, menu);
-		menu.clear();
+	//	inflater.inflate(R.menu.network_list_actionbar, menu);
+	//	menu.clear();
 	
 	}
 	
@@ -97,6 +98,14 @@ public class NetworkActivity extends Activity {
 		case R.id.extra_info_network:
 			Intent intent = new Intent(this, NetworkDetailActivity.class);
 			this.startActivity(intent);
+			break;
+		case R.id.editNetwork:
+			Context context = getApplicationContext();
+			CharSequence text = "Functionality will be added in next version.";
+			int duration = Toast.LENGTH_LONG;
+
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
 			break;
 		}
 		return true;

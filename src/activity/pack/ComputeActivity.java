@@ -39,7 +39,9 @@ public class ComputeActivity extends Activity {
 	private core.models.Compute computeList[];
 	static int actionValue=0;
 	static int back = 0;
-
+	protected ArrayAdapter<CharSequence> mAdapter;
+	protected ArrayAdapter<CharSequence> m2Adapter;
+	
     private class MyArrayAdapter<T> extends ArrayAdapter<T>
     {
         public MyArrayAdapter(Context context, int resource, int textViewResourceId, String[] listItems) {
@@ -130,6 +132,9 @@ public class ComputeActivity extends Activity {
 		case R.id.start_machine:
 			start_machine();
 			break;
+		case R.id.compute_edit:
+			edit_compute();
+			break;
 		case R.id.stop_machine:
 			stop_machine();
 			break;
@@ -146,6 +151,66 @@ public class ComputeActivity extends Activity {
 		return true;
 	}
     
+	private void edit_compute() {
+		setContentView(R.layout.create_vm);
+		final core.models.Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
+
+		TextView nameText = (TextView) findViewById(R.id.create_vm_label);
+		nameText.setText("Edit Compute");
+		TextView tempText = (TextView) findViewById(R.id.textView9);
+		final EditText nameEdit = (EditText) findViewById(R.id.editText1);
+		final Spinner archEditSpinner = (Spinner) findViewById(R.id.spinnerArch);
+		final EditText coresEdit = (EditText) findViewById(R.id.editText3);
+		final EditText cpuEdit = (EditText) findViewById(R.id.editText4);
+		final EditText memoryEdit = (EditText) findViewById(R.id.editText5);
+		final Spinner stateEditSpinner = (Spinner) findViewById(R.id.spinnerState);
+        nameEdit.setText(""+selectedItem.name());
+        coresEdit.setText(""+selectedItem.cores());
+        cpuEdit.setText(""+selectedItem.cpu());
+        memoryEdit.setText(""+selectedItem.memory());
+		this.mAdapter = ArrayAdapter.createFromResource(this, R.array.state_array,
+                android.R.layout.simple_spinner_item);
+        stateEditSpinner.setAdapter(this.mAdapter);
+
+        int i = mAdapter.getPosition(selectedItem.state());
+        stateEditSpinner.setSelection(i);
+        
+		this.m2Adapter = ArrayAdapter.createFromResource(this, R.array.arch_array,
+                android.R.layout.simple_spinner_item);
+        archEditSpinner.setAdapter(this.m2Adapter);
+        int j = m2Adapter.getPosition(selectedItem.arch());
+        archEditSpinner.setSelection(j);
+		tempText.setText("Template : "+selectedItem.template());
+		
+		tempText.setText("Template : "+selectedItem.template());
+		
+		//final int computeId = i;
+		//idText.setText("ID : "+computeId);
+		
+		Button createCompute = (Button) findViewById(R.id.btn_create_vm);
+		createCompute.setText("Edit");
+		createCompute.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				if ((!nameEdit.getText().toString().equals("")) && (!coresEdit.getText().toString().equals("")) && (!cpuEdit.getText().toString().equals("")) && (!memoryEdit.getText().toString().equals(""))){
+				Compute newCompute = new Compute(0,nameEdit.getText().toString(), archEditSpinner.getSelectedItem().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEditSpinner.getSelectedItem().toString(), selectedItem.template());
+				computeManager.update(selectedItem, newCompute);
+				Intent myIntent = new Intent(view.getContext(), ComputeActivity.class);
+				startActivityForResult(myIntent, 0);
+			}
+				else{
+					Context context = getApplicationContext();
+					CharSequence text = "All fields must be filled";
+					int duration = Toast.LENGTH_LONG;
+
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+				}
+			}
+			
+		});	
+	}
+
+
 	private void migrate_machine() {
 		Context context = getApplicationContext();
 		CharSequence text = "Functionality will be added in next version.";
@@ -175,42 +240,7 @@ public class ComputeActivity extends Activity {
 		return true;
 	}
 	
-	private void create_compute() {
-		setContentView(R.layout.create_vm);
 
-		int i=0;
-		while (i<computeManager.count()){
-			if (computeManager.item(i)==null){
-				break;
-			}
-			i++;
-		}
-		TextView nameText = (TextView) findViewById(R.id.create_vm_label);
-		nameText.setText("Create Compute");
-		TextView idText = (TextView) findViewById(R.id.textView1);
-		final EditText nameEdit = (EditText) findViewById(R.id.editText1);
-		final EditText archEdit = (EditText) findViewById(R.id.editText2);
-		final EditText coresEdit = (EditText) findViewById(R.id.editText3);
-		final EditText cpuEdit = (EditText) findViewById(R.id.editText4);
-		final EditText memoryEdit = (EditText) findViewById(R.id.editText5);
-		final Spinner stateEditSpinner = (Spinner) findViewById(R.id.spinnerState);
-		final String stateEdit = stateEditSpinner.getSelectedItem().toString();
-		final int computeId = i;
-		idText.setText("ID : "+computeId);
-		
-		Button createCompute = (Button) findViewById(R.id.btn_create_vm);
-		createCompute.setText("Create");
-		createCompute.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-
-				Compute newCompute = new Compute(computeId,nameEdit.getText().toString(), archEdit.getText().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEdit, "Suva");
-				computeManager.create(newCompute);
-				Intent myIntent = new Intent(view.getContext(), ComputeActivity.class);
-				startActivityForResult(myIntent, 0);
-			}
-		});			
-		
-	}
 	private void delete_machine() {
 		core.models.Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
 		computeManager.details(selectedItem);
@@ -226,8 +256,8 @@ public class ComputeActivity extends Activity {
 		computeManager.details(selectedItem);
 		Compute newItem = new Compute(selectedItem.id(),selectedItem.name(),selectedItem.arch(), selectedItem.cores(), selectedItem.cpu(), selectedItem.memory(), "suspended", selectedItem.template());
 		computeManager.update(selectedItem, newItem);
-
-		
+		Intent intent = new Intent(this, ComputeActivity.class);
+		this.startActivity(intent);
 	}
 
 	private void stop_machine() {
@@ -236,7 +266,8 @@ public class ComputeActivity extends Activity {
 		computeManager.details(selectedItem);
 		Compute newItem = new Compute(selectedItem.id(),selectedItem.name(),selectedItem.arch(), selectedItem.cores(), selectedItem.cpu(), selectedItem.memory(), "stopped", selectedItem.template());
 		computeManager.update(selectedItem, newItem);
-
+		Intent intent = new Intent(this, ComputeActivity.class);
+		this.startActivity(intent);
 		
 	}
 
@@ -245,7 +276,8 @@ public class ComputeActivity extends Activity {
 		computeManager.details(selectedItem);
 		Compute newItem = new Compute(selectedItem.id(),selectedItem.name(),selectedItem.arch(), selectedItem.cores(), selectedItem.cpu(), selectedItem.memory(), "running", selectedItem.template());
 		computeManager.update(selectedItem, newItem);
-
+		Intent intent = new Intent(this, ComputeActivity.class);
+		this.startActivity(intent);
 	}
 
 
