@@ -65,50 +65,50 @@ public class LoginActivity extends Activity {
 					else{
 						urlReal = new URL(url2.getText().toString());
 					}
-				Core core = UI_Core.core;	
-				Config config = core.config();
-				config.serverHostname(urlReal.getHost());
-				config.serverPort(urlReal.getPort());
-				config.serverUsername(username2.getText().toString());
-				config.serverPassword(password2.getText().toString());
-				
-				if (core.serverConnector().authenticate()){
-				
-				CheckBox password_remembered = (CheckBox) findViewById(R.id.password_remembered);
-				password_remembered.hasSelection();
-				if (username == null || password == null || url == null || username2.getText().toString() != username) {
-					if (password_remembered.isChecked()){
-						getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
-				        .edit()
-				        .putString(PREF_URL, url2.getText().toString())
-				        .putString(PREF_USERNAME, username2.getText().toString())
-				        .putString(PREF_PASSWORD, password2.getText().toString())
-				        .putString(PREF_Checkbox, (""+password_remembered.isChecked()))
-				        .commit();
+					Core core = UI_Core.core;	
+					Config config = core.config();
+					config.serverHostname(urlReal.getHost());
+					config.serverPort(urlReal.getPort());
+					config.serverUsername(username2.getText().toString());
+					config.serverPassword(password2.getText().toString());
+
+					if (core.serverConnector().authenticate()){
+
+						CheckBox password_remembered = (CheckBox) findViewById(R.id.password_remembered);
+						password_remembered.hasSelection();
+						if (username == null || password == null || url == null || username2.getText().toString() != username) {
+							if (password_remembered.isChecked()){
+								getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
+								.edit()
+								.putString(PREF_URL, url2.getText().toString())
+								.putString(PREF_USERNAME, username2.getText().toString())
+								.putString(PREF_PASSWORD, password2.getText().toString())
+								.putString(PREF_Checkbox, (""+password_remembered.isChecked()))
+								.commit();
+							}
+							else{
+								getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
+								.edit()//
+								.putString(PREF_URL, url2.getText().toString())
+								.putString(PREF_USERNAME, username2.getText().toString())
+								.putString(PREF_PASSWORD, null)
+								.putString(PREF_Checkbox, (""+password_remembered.isChecked()))
+								.commit();
+							}
+						}			
+
+						Intent myIntent = new Intent(view.getContext(),
+								MainActivity.class);
+						startActivityForResult(myIntent, 0);
 					}
 					else{
-						getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
-				        .edit()//
-				        .putString(PREF_URL, url2.getText().toString())
-				        .putString(PREF_USERNAME, username2.getText().toString())
-				        .putString(PREF_PASSWORD, null)
-				        .putString(PREF_Checkbox, (""+password_remembered.isChecked()))
-				        .commit();
-					}
-				}			
-				
-				Intent myIntent = new Intent(view.getContext(),
-						MainActivity.class);
-				startActivityForResult(myIntent, 0);
-				}
-				else{
-					Context context = getApplicationContext();
-					CharSequence text = "Authentication failed";
-					int duration = Toast.LENGTH_LONG;
+						Context context = getApplicationContext();
+						CharSequence text = "Authentication failed";
+						int duration = Toast.LENGTH_LONG;
 
-					Toast toast = Toast.makeText(context, text, duration);
-					toast.show();
-				}
+						Toast toast = Toast.makeText(context, text, duration);
+						toast.show();
+					}
 				}
 				catch (Exception e){
 					Context context = getApplicationContext();
@@ -140,7 +140,7 @@ public class LoginActivity extends Activity {
 			break;
 		case R.id.actionbar_item_create:
 			Toast.makeText(this, "You pressed the text!", Toast.LENGTH_LONG)
-					.show();
+			.show();
 			break;
 		case R.id.actionbar_item_search:
 			Toast.makeText(this, "You pressed the icon and text!",
@@ -150,11 +150,11 @@ public class LoginActivity extends Activity {
 		return true;
 	}
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-	    if (keyCode == KeyEvent.KEYCODE_BACK) {
-	        moveTaskToBack(true);
-	        return true;
-	    }
-	    return super.onKeyDown(keyCode, event);
-       }
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			moveTaskToBack(true);
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 
 }
