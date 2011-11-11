@@ -43,6 +43,7 @@ public class NetworkActivity extends Activity {
 		search.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 	        	SearchActivity.netwCheck = true;
+        		back=0;
 				Intent myIntent = new Intent(view.getContext(),
 						SearchActivity.class);
 				startActivityForResult(myIntent, 0);
@@ -74,6 +75,7 @@ public class NetworkActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.home:
+			back=0;
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
 			break;
@@ -94,6 +96,7 @@ public class NetworkActivity extends Activity {
     public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_network:
+			back = 1;
 			Intent intent = new Intent(this, NetworkDetailActivity.class);
 			this.startActivity(intent);
 			break;

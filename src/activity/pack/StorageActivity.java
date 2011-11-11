@@ -44,6 +44,7 @@ public class StorageActivity extends Activity {
 		search.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 	        	SearchActivity.storCheck = true;
+        		back=0;
 				Intent myIntent = new Intent(view.getContext(),
 						SearchActivity.class);
 				startActivityForResult(myIntent, 0);
@@ -81,6 +82,7 @@ public class StorageActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.extra_info_storage:
 			actionValue = 0;
+			back = 1;
 			Intent intent = new Intent(this, StorageDetailActivity.class);
 			this.startActivity(intent);
 			break;
@@ -121,6 +123,7 @@ public class StorageActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.home:
+			back=0;
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
 			break;

@@ -34,6 +34,7 @@ public class Activity_StreamActivity extends Activity {
 	private Menu menu;
 	private ArrayAdapter<CharSequence> mAdapter;
 	static int back = 0;
+	private int editPage=0;
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
@@ -48,6 +49,7 @@ public class Activity_StreamActivity extends Activity {
 		search.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 	        	SearchActivity.newCheck = true;
+        		back=0;
 				Intent myIntent = new Intent(view.getContext(),
 						SearchActivity.class);
 				startActivityForResult(myIntent, 0);
@@ -83,6 +85,7 @@ public class Activity_StreamActivity extends Activity {
     public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_news:
+			back = 1;
 			Intent intent = new Intent(this, NewsDetailActivity.class);
 			this.startActivity(intent);
 			break;
@@ -103,7 +106,7 @@ public class Activity_StreamActivity extends Activity {
 	private void edit_news() {
 		setContentView(R.layout.edit_news);
 		final core.models.News selectedItem = newsManager.item((int) selectedItemID);
-
+		editPage=1;
 		final Spinner typeSpinner = (Spinner) findViewById(R.id.newsTypeSpinner);
 		final EditText titleEdit = (EditText) findViewById(R.id.newsTitleText);
 		final EditText contentEdit = (EditText) findViewById(R.id.newsContentText);
@@ -183,6 +186,7 @@ public class Activity_StreamActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.home:
+			back=0;
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
 			break;
@@ -213,10 +217,17 @@ public class Activity_StreamActivity extends Activity {
                 return false;
         }else{
         	 if(keyCode == KeyEvent.KEYCODE_BACK){
-        		back=0;
-     			Intent intent = new Intent(this, MainActivity.class);
-    			this.startActivity(intent);
-                    return false;
+        		 if (editPage==1){
+        			 editPage=0;
+ 	     			Intent intent = new Intent(this, Activity_StreamActivity.class);
+ 	    			this.startActivity(intent);
+        		 }
+        		 else{
+	        		back=0;
+	     			Intent intent = new Intent(this, MainActivity.class);
+	    			this.startActivity(intent);
+        		 }
+        		 return false;
         	 }
         	 else{
                 return super.onKeyUp(keyCode, event); 

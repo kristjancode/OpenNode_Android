@@ -41,7 +41,9 @@ public class ComputeActivity extends Activity {
 	static int back = 0;
 	protected ArrayAdapter<CharSequence> mAdapter;
 	protected ArrayAdapter<CharSequence> m2Adapter;
+	private int editPage=0;
 	
+
     private class MyArrayAdapter<T> extends ArrayAdapter<T>
     {
         public MyArrayAdapter(Context context, int resource, int textViewResourceId, String[] listItems) {
@@ -53,24 +55,25 @@ public class ComputeActivity extends Activity {
             View itemView = super.getView(position, convertView, parent);
             ImageView imageView = (ImageView) itemView.findViewById(R.id.icon);
     		core.models.Compute selectedItem = computeManager.item(position);
-    		//computeManager.details(selectedItem);      		
-            if (selectedItem.state().equals("running")){
-            	imageView.setImageResource(R.drawable.start48);
-            }
-            else {
-                if (selectedItem.state().equals("stopped")){
-                	imageView.setImageResource(R.drawable.stop48);
-                }
-                else{
-                	if (selectedItem.state().equals("suspended")){
-                	imageView.setImageResource(R.drawable.delete48);
-                	}
-                }
-            }            
-            return itemView;
+    		//computeManager.details(selectedItem);    
+    		if (selectedItem.state().equals("running")){
+	            	imageView.setImageResource(R.drawable.start48);
+	            }
+	            else {
+	                if (selectedItem.state().equals("stopped")){
+	                	imageView.setImageResource(R.drawable.stop48);
+	                }
+	                else{
+	                	if (selectedItem.state().equals("suspended")){
+	                	imageView.setImageResource(R.drawable.delete48);
+	                	}
+	                }
+	            }            
+
+    
+    		return itemView;
         }
     }
-	
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
@@ -89,14 +92,14 @@ public class ComputeActivity extends Activity {
 		search.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 	        	SearchActivity.compCheck = true;
-				Intent myIntent = new Intent(view.getContext(),
-						SearchActivity.class);
+        		back=0;
+				Intent myIntent = new Intent(view.getContext(),	SearchActivity.class);
 				startActivityForResult(myIntent, 0);
 			}
 
 		});
 		computeListView = (ListView) findViewById(R.id.list_compute);
-		computeListView.setLongClickable(true);
+		//computeListView.setLongClickable(true);
 		computeListView.setAdapter(new MyArrayAdapter<String>(this,R.layout.row , R.id.computeRow, listItems));
 		
 		
@@ -126,6 +129,7 @@ public class ComputeActivity extends Activity {
     public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_compute:
+			back = 1;
 			Intent intent = new Intent(this, ComputeDetailActivity.class);
 			this.startActivity(intent);
 			break;
@@ -154,7 +158,7 @@ public class ComputeActivity extends Activity {
 	private void edit_compute() {
 		setContentView(R.layout.create_vm);
 		final core.models.Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
-
+		editPage=1;
 		TextView nameText = (TextView) findViewById(R.id.create_vm_label);
 		nameText.setText("Edit Compute");
 		TextView tempText = (TextView) findViewById(R.id.textView9);
@@ -231,6 +235,7 @@ public class ComputeActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.home:
+			back=0;
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
 			break;
@@ -289,10 +294,17 @@ public class ComputeActivity extends Activity {
                 return false;
         }else{
         	 if(keyCode == KeyEvent.KEYCODE_BACK){
-        		back=0;
-     			Intent intent = new Intent(this, MainActivity.class);
-    			this.startActivity(intent);
-                    return false;
+        		 if (editPage==1){
+        			 editPage=0;
+ 	     			Intent intent = new Intent(this, ComputeActivity.class);
+ 	    			this.startActivity(intent);
+        		 }
+        		 else{
+	        		back=0;
+	     			Intent intent = new Intent(this, MainActivity.class);
+	    			this.startActivity(intent);
+        		 }
+        		 return false;
         	 }
         	 else{
                 return super.onKeyUp(keyCode, event); 

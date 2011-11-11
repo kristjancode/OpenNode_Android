@@ -142,7 +142,7 @@ public class TemplateDetailActivity  extends Activity {
 				}
 				else{
 					Context context = getApplicationContext();
-					CharSequence text = "Memory size have to be at least size of template minimum : "+selectedItem.minMemorySize();
+					CharSequence text = "Memory size has to be at least size of template minimum : "+selectedItem.minMemorySize();
 					int duration = Toast.LENGTH_LONG;
 
 					Toast toast = Toast.makeText(context, text, duration);
@@ -176,12 +176,10 @@ public class TemplateDetailActivity  extends Activity {
 		setContentView(R.layout.update_template);
 		CreateTemplateManager();
 
-		TextView idText = (TextView) findViewById(R.id.textView1);
 		final EditText sizeEdit = (EditText) findViewById(R.id.editText2);
 		final EditText typeEdit = (EditText) findViewById(R.id.editText3);
 		final EditText nameEdit = (EditText) findViewById(R.id.editText4);
 		
-		idText.setText("ID : " + selectedItem.id());
 		sizeEdit.setText("" + selectedItem.minDiskSize());
 		typeEdit.setText("" + selectedItem.minMemorySize());
 		nameEdit.setText("" + selectedItem.name());
