@@ -81,6 +81,7 @@ public class StorageActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.extra_info_storage:
 			actionValue = 0;
+			back = 1;
 			Intent intent = new Intent(this, StorageDetailActivity.class);
 			this.startActivity(intent);
 			break;

@@ -95,6 +95,7 @@ public class NetworkActivity extends Activity {
     public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_network:
+			back = 1;
 			Intent intent = new Intent(this, NetworkDetailActivity.class);
 			this.startActivity(intent);
 			break;

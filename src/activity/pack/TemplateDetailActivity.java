@@ -142,7 +142,7 @@ public class TemplateDetailActivity  extends Activity {
 				}
 				else{
 					Context context = getApplicationContext();
-					CharSequence text = "Memory size have to be at least size of template minimum : "+selectedItem.minMemorySize();
+					CharSequence text = "Memory size has to be at least size of template minimum : "+selectedItem.minMemorySize();
 					int duration = Toast.LENGTH_LONG;
 
 					Toast toast = Toast.makeText(context, text, duration);

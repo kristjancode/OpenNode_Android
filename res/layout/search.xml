@@ -17,7 +17,7 @@ android:layout_height="51dp"
 <EditText
 android:id="@+id/editText123"
 android:layout_width="fill_parent"
-android:layout_height="wrap_content" android:maxLines="1" android:lines="1">
+android:layout_height="wrap_content" android:maxLines="1" android:lines="1" android:imeOptions="actionNext">
 </EditText>
 <TableRow android:id="@+id/tableRow1" android:layout_height="wrap_content" android:layout_width="match_parent">
     <TableRow android:id="@+id/tableRow4" android:layout_height="wrap_content" android:layout_weight="10" android:layout_width="0dp" android:layout_marginLeft="7dp">
