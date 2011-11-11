@@ -92,8 +92,8 @@ public class ComputeActivity extends Activity {
 		search.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 	        	SearchActivity.compCheck = true;
-				Intent myIntent = new Intent(view.getContext(),
-						SearchActivity.class);
+        		back=0;
+				Intent myIntent = new Intent(view.getContext(),	SearchActivity.class);
 				startActivityForResult(myIntent, 0);
 			}
 
