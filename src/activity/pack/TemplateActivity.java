@@ -232,7 +232,7 @@ public class TemplateActivity extends Activity {
 				sizeEdit.getText();
 				typeEdit.getText();
 				nameEdit.getText();
-				Template newtemplate = new Template(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(sizeEdit.getText().toString()), Integer.parseInt(typeEdit.getText().toString()));
+				Template newtemplate = new Template(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(sizeEdit.getText().toString()), Integer.parseInt(typeEdit.getText().toString()), 0, 0, 0, 0);
 				templateManager.update(selectedItem, newtemplate);
 				Intent myIntent = new Intent(view.getContext(), TemplateActivity.class);
 				startActivityForResult(myIntent, 0);

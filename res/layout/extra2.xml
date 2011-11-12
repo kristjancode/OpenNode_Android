@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/widget107"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
+	<TextView android:id="@+id/extra_label" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:padding="10px"
+		android:text="" android:textSize="20sp" android:typeface="serif"
+		android:gravity="center" android:background="@color/actionbar_background_end">
+	</TextView>
+	<TextView android:id="@+id/smallId" android:text="TextView"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:layout_height="wrap_content" android:background="@color/actionbar_background_end"
+		android:layout_width="match_parent" android:layout_gravity="center"
+		android:gravity="center"></TextView>
+	<ProgressBar android:id="@+id/progressBarStorage" android:layout_height="wrap_content" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:progress="50"></ProgressBar>
+	<ListView android:id="@+id/list_extra" android:layout_width="wrap_content"
+		android:isScrollContainer="true" android:clickable="true" android:layout_height="403dp">
+	</ListView>
+</LinearLayout>

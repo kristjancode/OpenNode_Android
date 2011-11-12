@@ -64,7 +64,7 @@ public class SearchActivity extends Activity {
 			}
 			else{
 				//imageView.setEnabled(false);
-				imageView.setImageResource(R.drawable.empty);
+				imageView.setImageResource(R.drawable.empty48);
 				//imageView.setVisibility(false);
 			}
 			return itemView;
@@ -119,6 +119,7 @@ public class SearchActivity extends Activity {
 				registerForContextMenu(searchListView);
 				searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {  				
 					public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+						StorageActivity.back=0;
 						selectedItemID = arg2;
 						ComputeActivity.selectedItemID = arg2;
 						NetworkActivity.selectedItemID = arg2;

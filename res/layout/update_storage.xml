@@ -17,34 +17,6 @@
 			android:focusableInTouchMode="true" android:layout_height="484dp"
 			android:isScrollContainer="true" android:layout_gravity="top"
 			android:scrollbars="vertical" android:layout_width="match_parent">
-			<EditText android:layout_alignParentRight="true"
-				android:singleLine="true" android:layout_alignBottom="@+id/textView3"
-				android:id="@+id/editText2" android:layout_height="wrap_content"
-				android:layout_width="wrap_content" android:inputType="number"
-				android:layout_alignBaseline="@+id/textView3"
-				android:layout_toRightOf="@+id/textView4"></EditText>
-			<EditText android:singleLine="true" android:id="@+id/editText4"
-				android:layout_height="wrap_content" android:layout_width="wrap_content"
-				android:layout_alignBaseline="@+id/textView4"
-				android:layout_alignBottom="@+id/textView4"
-				android:layout_alignParentRight="true" android:layout_toRightOf="@+id/textView4"></EditText>
-			<TextView android:text="Size: " android:id="@+id/textView3"
-				android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"
-				android:layout_below="@+id/editText4"
-				android:layout_alignParentLeft="true" android:layout_marginTop="23dp"
-				android:layout_width="wrap_content"></TextView>
-			<Spinner android:fadeScrollbars="true" android:editable="true"
-				android:singleLine="true" android:fitsSystemWindows="true"
-				android:id="@+id/storageSpinner" android:layout_height="wrap_content"
-				android:focusableInTouchMode="true" android:layout_width="wrap_content"
-				android:keepScreenOn="true" android:focusable="true"
-				android:layout_below="@+id/editText2" android:layout_marginTop="16dp"
-				android:layout_alignParentRight="true" android:layout_alignLeft="@+id/editText2"></Spinner>
-			<TextView android:text="Name: " android:id="@+id/textView4"
-				android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"
-				android:layout_below="@+id/textView1"
-				android:layout_alignParentLeft="true" android:layout_marginTop="16dp"
-				android:layout_width="wrap_content"></TextView>
 			<Button android:layout_width="wrap_content" android:text="Edit"
 				android:id="@+id/btn_update_storage" android:layout_height="wrap_content"
 				android:layout_below="@+id/storageSpinner"
@@ -53,6 +25,13 @@
 				android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"
 				android:layout_alignTop="@+id/storageSpinner"
 				android:layout_alignParentLeft="true" android:layout_width="wrap_content"></TextView>
+			<EditText android:layout_width="wrap_content" android:id="@+id/editText1" android:inputType="number" android:layout_height="wrap_content" android:layout_below="@+id/editText4" android:layout_alignLeft="@+id/editText4" android:layout_alignParentRight="true"></EditText>
+			<EditText android:layout_width="wrap_content" android:singleLine="true" android:id="@+id/editText2" android:inputType="number" android:layout_height="wrap_content" android:layout_below="@+id/editText1" android:layout_alignParentRight="true" android:layout_alignLeft="@+id/editText1"></EditText>
+			<Spinner android:fitsSystemWindows="true" android:keepScreenOn="true" android:layout_width="wrap_content" android:focusable="true" android:fadeScrollbars="true" android:focusableInTouchMode="true" android:layout_height="wrap_content" android:id="@+id/storageSpinner" android:layout_below="@+id/editText2" android:layout_alignParentRight="true" android:layout_alignLeft="@+id/editText2"></Spinner>
+			<TextView android:layout_width="wrap_content" android:id="@+id/textView3" android:text="Capacity: " android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:layout_alignTop="@+id/editText2" android:layout_alignParentLeft="true"></TextView>
+			<EditText android:layout_width="wrap_content" android:singleLine="true" android:id="@+id/editText4" android:layout_height="wrap_content" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_toRightOf="@+id/textView3" android:layout_marginTop="10dp"></EditText>
+			<TextView android:layout_width="wrap_content" android:id="@+id/textView4" android:text="Name: " android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:layout_alignTop="@+id/editText4" android:layout_alignParentLeft="true"></TextView>
+			<TextView android:layout_width="wrap_content" android:id="@+id/textView1" android:text="Available:" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:layout_below="@+id/editText4" android:layout_alignParentLeft="true"></TextView>
 		</RelativeLayout>
 	</LinearLayout>
 </ScrollView>

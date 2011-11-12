@@ -13,48 +13,83 @@
 			android:background="@color/actionbar_background_end"
 			android:layout_height="0dp" android:layout_weight="0.50">
 		</TextView>
-		<RelativeLayout android:layout_gravity="top"
-			android:isScrollContainer="true" android:keepScreenOn="true"
-			android:focusable="true" android:focusableInTouchMode="true"
-			android:scrollbars="vertical" android:id="@+id/relativeLayout1"
-			android:layout_width="match_parent" android:layout_height="484dp">
-			<EditText android:layout_alignLeft="@+id/textView2"
+		<RelativeLayout android:focusable="true"
+			android:id="@+id/relativeLayout1" android:keepScreenOn="true"
+			android:layout_gravity="top" android:focusableInTouchMode="true"
+			android:scrollbars="vertical" android:layout_width="match_parent"
+			android:isScrollContainer="true" android:layout_weight="1.58"
+			android:layout_height="600dp">
+			<EditText android:layout_width="wrap_content"
+				android:layout_alignLeft="@+id/textView2" android:singleLine="true"
+				android:id="@+id/editText2" android:inputType="number"
 				android:layout_alignParentRight="true" android:layout_height="wrap_content"
-				android:layout_below="@+id/textView3" android:inputType="number"
-				android:singleLine="true" android:layout_width="wrap_content"
-				android:id="@+id/editText2"></EditText>
-			<TextView android:layout_alignLeft="@+id/textView3"
-				android:text="Min memory size 	: " android:layout_height="wrap_content"
-				android:layout_below="@+id/editText2" android:layout_width="118dp"
+				android:layout_below="@+id/textView3"></EditText>
+			<TextView android:layout_width="118dp"
+				android:layout_alignLeft="@+id/textView3" android:id="@+id/textView2"
+				android:text="Min memory size: " android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_alignParentRight="true" android:layout_height="wrap_content"
+				android:layout_below="@+id/editText2"></TextView>
+			<EditText android:layout_width="wrap_content"
+				android:layout_alignLeft="@+id/textView4" android:singleLine="true"
+				android:id="@+id/editText4" android:layout_alignParentRight="true"
+				android:layout_height="wrap_content" android:layout_below="@+id/textView4"></EditText>
+			<TextView android:layout_width="107dp" android:id="@+id/textView3"
+				android:text="Min disk size: " android:layout_alignParentLeft="true"
 				android:textAppearance="?android:attr/textAppearanceLarge"
-				android:id="@+id/textView2" android:layout_alignParentRight="true"></TextView>
-			<EditText android:layout_alignLeft="@+id/textView2"
 				android:layout_alignParentRight="true" android:layout_height="wrap_content"
-				android:editable="true" android:layout_below="@+id/textView2"
-				android:focusable="true" android:fadeScrollbars="true"
-				android:inputType="number" android:fitsSystemWindows="true"
-				android:keepScreenOn="true" android:singleLine="true"
-				android:focusableInTouchMode="true" android:layout_width="wrap_content"
-				android:id="@+id/editText3"></EditText>
-			<EditText android:layout_alignLeft="@+id/textView4"
-				android:layout_alignParentRight="true" android:layout_height="wrap_content"
-				android:layout_below="@+id/textView4" android:singleLine="true"
-				android:layout_width="wrap_content" android:id="@+id/editText4"></EditText>
-			<Button android:layout_alignLeft="@+id/editText3"
-				android:layout_height="wrap_content" android:layout_below="@+id/editText3"
-				android:layout_marginTop="19dp" android:layout_width="wrap_content"
-				android:text="Edit" android:layout_alignRight="@+id/textView4"
-				android:id="@+id/btn_update_template"></Button>
-			<TextView android:text="Min disk size 	: "
-				android:layout_height="wrap_content" android:layout_width="107dp"
+				android:layout_below="@+id/editText4"></TextView>
+			<TextView android:layout_width="96dp" android:id="@+id/textView4"
+				android:text="Name: " android:layout_alignParentLeft="true"
 				android:textAppearance="?android:attr/textAppearanceLarge"
-				android:id="@+id/textView3" android:layout_below="@+id/editText4"
-				android:layout_alignParentLeft="true"
-				android:layout_alignParentRight="true"></TextView>
-			<TextView android:text="Name	: " android:layout_height="wrap_content"
-				android:layout_width="96dp" android:textAppearance="?android:attr/textAppearanceLarge"
-				android:id="@+id/textView4" android:layout_below="@+id/textView1"
+				android:layout_height="wrap_content" android:layout_below="@+id/textView1"></TextView>
+			<EditText android:layout_width="wrap_content"
+				android:focusable="true" android:fitsSystemWindows="true"
+				android:singleLine="true" android:id="@+id/editText3"
+				android:inputType="number" android:layout_alignParentLeft="true"
+				android:fadeScrollbars="true" android:layout_alignParentRight="true"
+				android:layout_height="wrap_content" android:keepScreenOn="true"
+				android:focusableInTouchMode="true" android:editable="true"
+				android:layout_below="@+id/textView2"></EditText>
+			<TextView android:layout_width="wrap_content" android:id="@+id/textView5"
+				android:text="Min cpu size: " android:layout_alignParentLeft="true"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_height="wrap_content" android:layout_below="@+id/editText3"></TextView>
+			<EditText android:layout_width="wrap_content" android:id="@+id/editText1"
+				android:inputType="number" android:layout_alignParentLeft="true"
+				android:layout_alignParentRight="true" android:layout_height="wrap_content"
+				android:layout_below="@+id/textView5"></EditText>
+			<TextView android:layout_width="wrap_content" android:id="@+id/TextView01"
+				android:text="Max disk size: " android:layout_alignParentLeft="true"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_height="wrap_content" android:layout_below="@+id/editText1"></TextView>
+			<EditText android:layout_width="wrap_content" android:id="@+id/editText5"
+				android:inputType="number" android:layout_alignParentLeft="true"
+				android:layout_alignParentRight="true" android:layout_height="wrap_content"
+				android:layout_below="@+id/TextView01"></EditText>
+			<TextView android:layout_width="wrap_content" android:id="@+id/TextView02"
+				android:text="Max memory size: " android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_height="wrap_content" android:layout_below="@+id/editText5"
 				android:layout_alignParentLeft="true"></TextView>
+			<EditText android:layout_width="wrap_content" android:id="@+id/editText6"
+				android:inputType="number" android:layout_height="wrap_content"
+				android:layout_below="@+id/TextView02"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentRight="true">
+				<requestFocus></requestFocus>
+			</EditText>
+			<TextView android:layout_width="wrap_content" android:id="@+id/TextView03"
+				android:text="Max cpu size: " android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_height="wrap_content" android:layout_below="@+id/editText6"
+				android:layout_alignParentLeft="true"></TextView>
+			<EditText android:layout_width="wrap_content" android:id="@+id/editText7"
+				android:inputType="number" android:layout_height="wrap_content"
+				android:layout_below="@+id/TextView03"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentRight="true"></EditText>
+			<Button android:layout_width="wrap_content" android:id="@+id/btn_update_template"
+				android:text="Edit" android:layout_height="wrap_content"
+				android:layout_below="@+id/editText7"
+				android:layout_alignParentLeft="true" android:layout_alignRight="@+id/textView5"></Button>
 		</RelativeLayout>
 	</LinearLayout>
 </ScrollView>

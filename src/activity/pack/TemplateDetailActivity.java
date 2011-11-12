@@ -51,10 +51,13 @@ public class TemplateDetailActivity  extends Activity {
 				TextView smallId = (TextView) findViewById(R.id.smallId);
 				smallId.setText("ID : " + selectedItem.id());
 
-				extraListItems = new String[2];
-				extraListItems[0] = ("Min disk size : " + selectedItem.minDiskSize());
-				extraListItems[1] = ("Min memory size : " + selectedItem.minMemorySize());
-
+				extraListItems = new String[6];
+				extraListItems[0] = ("Min disk size: " + selectedItem.minDiskSize());
+				extraListItems[1] = ("Min memory size: " + selectedItem.minMemorySize());
+				extraListItems[2] = ("Min cpu size: " + selectedItem.minCpu());
+				extraListItems[3] = ("Max disk size: " + selectedItem.maxDiskSize());
+				extraListItems[4] = ("Max memory size: " + selectedItem.maxMemorySize());
+				extraListItems[5] = ("Max cpu size: " + selectedItem.maxCpu());
 
 				templateExtraListView = (ListView) findViewById(R.id.list_extra);
 				templateExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
@@ -110,7 +113,6 @@ public class TemplateDetailActivity  extends Activity {
 		templateManager.details(selectedItem);
 
 		TextView nameText = (TextView) findViewById(R.id.create_vm_label);
-		nameText.setText("Create Compute");
 		TextView tempText = (TextView) findViewById(R.id.textView9);
 		final EditText nameEdit = (EditText) findViewById(R.id.editText1);
 		final Spinner archEditSpinner = (Spinner) findViewById(R.id.spinnerArch);
@@ -134,15 +136,27 @@ public class TemplateDetailActivity  extends Activity {
 			public void onClick(View view) {
 				if ((!nameEdit.getText().toString().equals("")) && (!coresEdit.getText().toString().equals("")) && (!cpuEdit.getText().toString().equals("")) && (!memoryEdit.getText().toString().equals(""))){
 
-					if (selectedItem.minMemorySize()<=Integer.parseInt(memoryEdit.getText().toString())){
-						Compute newCompute = new Compute(0,nameEdit.getText().toString(), archEditSpinner.getSelectedItem().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEditSpinner.getSelectedItem().toString(), selectedItem.name());
-						computeManager.create(newCompute);
-						Intent myIntent = new Intent(view.getContext(), ComputeActivity.class);
-						startActivityForResult(myIntent, 0);
+					if (selectedItem.minCpu()<=Integer.parseInt(cpuEdit.getText().toString())  && selectedItem.maxCpu()>=Integer.parseInt(cpuEdit.getText().toString())){
+						if (selectedItem.minMemorySize()<=Integer.parseInt(memoryEdit.getText().toString())  && selectedItem.maxMemorySize()>=Integer.parseInt(memoryEdit.getText().toString())){
+							Compute newCompute = new Compute(0,nameEdit.getText().toString(), archEditSpinner.getSelectedItem().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEditSpinner.getSelectedItem().toString(), selectedItem.name());
+							computeManager.create(newCompute);
+							Intent myIntent = new Intent(view.getContext(), ComputeActivity.class);
+							startActivityForResult(myIntent, 0);
+
+
+						}
+						else{
+							Context context = getApplicationContext();
+							CharSequence text = "Memory size has to be between template minimum ("+selectedItem.minMemorySize()+") and maximum ("+selectedItem.maxMemorySize()+") size.";
+							int duration = Toast.LENGTH_LONG;
+
+							Toast toast = Toast.makeText(context, text, duration);
+							toast.show();
+						}
 					}
 					else{
 						Context context = getApplicationContext();
-						CharSequence text = "Memory size has to be at least size of template minimum : "+selectedItem.minMemorySize();
+						CharSequence text = "Cpu has to be between template minimum ("+selectedItem.minCpu()+") and maximum ("+selectedItem.maxCpu()+") size.";
 						int duration = Toast.LENGTH_LONG;
 
 						Toast toast = Toast.makeText(context, text, duration);
@@ -176,19 +190,28 @@ public class TemplateDetailActivity  extends Activity {
 		setContentView(R.layout.update_template);
 		CreateTemplateManager();
 
-		final EditText sizeEdit = (EditText) findViewById(R.id.editText2);
-		final EditText typeEdit = (EditText) findViewById(R.id.editText3);
+		final EditText minSizeEdit = (EditText) findViewById(R.id.editText2);
+		final EditText minMemoryEdit = (EditText) findViewById(R.id.editText3);
 		final EditText nameEdit = (EditText) findViewById(R.id.editText4);
+		final EditText maxSizeEdit = (EditText) findViewById(R.id.editText5);
+		final EditText maxMemoryEdit = (EditText) findViewById(R.id.editText6);
+		final EditText minCpuEdit = (EditText) findViewById(R.id.editText1);
+		final EditText maxCpuEdit = (EditText) findViewById(R.id.editText7);
 
-		sizeEdit.setText("" + selectedItem.minDiskSize());
-		typeEdit.setText("" + selectedItem.minMemorySize());
+
+		minSizeEdit.setText("" + selectedItem.minDiskSize());
+		minMemoryEdit.setText("" + selectedItem.minMemorySize());
 		nameEdit.setText("" + selectedItem.name());
+		minCpuEdit.setText("" + selectedItem.minCpu());
+		maxMemoryEdit.setText("" + selectedItem.maxMemorySize());
+		maxCpuEdit.setText("" + selectedItem.maxCpu());
+		maxSizeEdit.setText("" + selectedItem.maxDiskSize());
 
 		Button updateTemplate = (Button) findViewById(R.id.btn_update_template);
 		updateTemplate.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				if ((!sizeEdit.getText().toString().equals("")) && (!typeEdit.getText().toString().equals("") && (!nameEdit.getText().toString().equals("")))){
-					Template newTemplate = new Template(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(sizeEdit.getText().toString()), Integer.parseInt(typeEdit.getText().toString()));
+				if ((!minSizeEdit.getText().toString().equals("")) && (!minMemoryEdit.getText().toString().equals("") && (!nameEdit.getText().toString().equals("")))){
+					Template newTemplate = new Template(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(minSizeEdit.getText().toString()), Integer.parseInt(minMemoryEdit.getText().toString()), Integer.parseInt(minCpuEdit.getText().toString()), Integer.parseInt(maxSizeEdit.getText().toString()), Integer.parseInt(maxMemoryEdit.getText().toString()), Integer.parseInt(maxMemoryEdit.getText().toString()));
 					templateManager.update(selectedItem, newTemplate);
 					Intent myIntent = new Intent(view.getContext(), TemplateActivity.class);
 					startActivityForResult(myIntent, 0);

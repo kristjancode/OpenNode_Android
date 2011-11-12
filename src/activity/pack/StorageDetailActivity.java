@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,22 +33,25 @@ public class StorageDetailActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		CreateStorageManager();
 		if (actionValue ==1){
 			update_storage();
 		}
 
 		else{
-			setContentView(R.layout.extra);
-			CreateStorageManager();
+			setContentView(R.layout.extra2);
+			ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBarStorage);
 
 			TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 			computeExtraLabel.setText(selectedItem.name());
 			TextView smallId = (TextView) findViewById(R.id.smallId);
 			smallId.setText("ID : " + selectedItem.id());
 
-			extraListItems = new String[2];
-			extraListItems[0] = ("Size : " + selectedItem.size());
-			extraListItems[1] = ("Type : " + selectedItem.type());
+			progressBar.setProgress(100*(selectedItem.capacity()-selectedItem.available())/selectedItem.capacity());
+			extraListItems = new String[3];
+			extraListItems[0] = ("Available: " + selectedItem.available());
+			extraListItems[1] = ("Capacity: " + selectedItem.capacity());
+			extraListItems[2] = ("Type: " + selectedItem.type());
 
 
 
@@ -97,7 +101,6 @@ public class StorageDetailActivity extends Activity {
 	}
 	public void delete_storage() {
 
-		final core.models.Storage selectedItem = storageManager.item((int) StorageActivity.selectedItemID);
 		storageManager.details(selectedItem);
 		storageManager.delete(selectedItem);
 		Intent intent = new Intent(this , StorageActivity.class);
@@ -107,12 +110,11 @@ public class StorageDetailActivity extends Activity {
 
 	public void update_storage() {
 		setContentView(R.layout.update_storage);
-		CreateStorageManager();
-		final core.models.Storage selectedItem = storageManager.item((int) StorageActivity.selectedItemID);
-		storageManager.details(selectedItem);
+		//CreateStorageManager();
 
-		TextView idText = (TextView) findViewById(R.id.textView1);
+
 		final EditText sizeEdit = (EditText) findViewById(R.id.editText2);
+		final EditText availableEdit = (EditText) findViewById(R.id.editText1);
 		final Spinner typeEditSpinner = (Spinner) findViewById(R.id.storageSpinner);
 		final EditText nameEdit = (EditText) findViewById(R.id.editText4);
 
@@ -122,18 +124,28 @@ public class StorageDetailActivity extends Activity {
 		int i = mAdapter.getPosition(selectedItem.type());
 		typeEditSpinner.setSelection(i);
 
-		sizeEdit.setText("" + selectedItem.size());
+		availableEdit.setText("" + selectedItem.available());
+		sizeEdit.setText("" + selectedItem.capacity());
 		nameEdit.setText("" + selectedItem.name());
 
 		Button updateStorage = (Button) findViewById(R.id.btn_update_storage);
 		updateStorage.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				if ((!nameEdit.getText().toString().equals("")) && (!sizeEdit.getText().toString().equals(""))){
+					if (Integer.parseInt(availableEdit.getText().toString())<selectedItem.capacity()){
+						Storage newStorage = new Storage(selectedItem.id(),nameEdit.getText().toString(), typeEditSpinner.getSelectedItem().toString(), Integer.parseInt(sizeEdit.getText().toString()), Integer.parseInt(availableEdit.getText().toString()));
+						storageManager.update(selectedItem, newStorage);
+						Intent myIntent = new Intent(view.getContext(), StorageActivity.class);
+						startActivityForResult(myIntent, 0);
+					}
+					else{
+						Context context = getApplicationContext();
+						CharSequence text = "The value of available can not be larger than the value of capacity";
+						int duration = Toast.LENGTH_LONG;
 
-					Storage newStorage = new Storage(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(sizeEdit.getText().toString()), typeEditSpinner.getSelectedItem().toString());
-					storageManager.update(selectedItem, newStorage);
-					Intent myIntent = new Intent(view.getContext(), StorageActivity.class);
-					startActivityForResult(myIntent, 0);
+						Toast toast = Toast.makeText(context, text, duration);
+						toast.show();
+					}
 				}
 				else{
 					Context context = getApplicationContext();

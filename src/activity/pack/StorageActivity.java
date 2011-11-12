@@ -139,37 +139,6 @@ public class StorageActivity extends Activity {
 		this.startActivity(intent);
 
 	}
-	private void create_storage() {
-		setContentView(R.layout.update_storage);
-		if (menu != null){
-			invalidateOptionsMenu ();
-		}
-		int i=0;
-		while (i<storageManager.count()){
-			if (storageManager.item(i)==null){
-				break;
-			}
-			i++;
-		}
-		TextView nameText = (TextView) findViewById(R.id.update_storage_label);
-		nameText.setText("Create Storage");
-		final EditText sizeEdit = (EditText) findViewById(R.id.editText2);
-		final EditText typeEdit = (EditText) findViewById(R.id.editText3);
-		final EditText nameEdit = (EditText) findViewById(R.id.editText4);
-		final int storageId = i;
-
-		Button updateStorage = (Button) findViewById(R.id.btn_update_storage);
-		updateStorage.setText("Create");
-		updateStorage.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				Storage newStorage = new Storage(storageId,nameEdit.getText().toString(), Integer.parseInt(sizeEdit.getText().toString()), typeEdit.getText().toString());
-				storageManager.create(newStorage);
-				Intent myIntent = new Intent(view.getContext(), StorageActivity.class);
-				startActivityForResult(myIntent, 0);
-			}
-		});			
-
-	}
 
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_SEARCH){
