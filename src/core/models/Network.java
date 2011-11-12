@@ -123,8 +123,8 @@ public class Network extends Item
 	{
 		String stringRepresentation = "Network(";
 		stringRepresentation += m_id + ", ";
-		stringRepresentation += m_name;
-		stringRepresentation += ", " + m_ip + ", ";
+		stringRepresentation += m_name + ", ";
+		stringRepresentation += m_ip + ", ";
 		stringRepresentation += m_mask + ", ";
 		stringRepresentation += m_addressAllocation + ", ";
 		stringRepresentation += m_gateway;		

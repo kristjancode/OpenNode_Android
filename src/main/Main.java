@@ -83,8 +83,8 @@ public class Main
 		
 		Compute compute = new Compute(0, "c1", "c2", 20, 30, 40, "c3", "c4");
 		Network network = new Network(1, "n1", "n2", "n3", "n4", "n5");
-		Storage storage = new Storage(2, "s1", 20, "s2");
-		Template template = new Template(3, "t1", 20, 30);
+		Storage storage = new Storage(2, "s1", "s2", 20, 20);
+		Template template = new Template(3, "t1", 20, 30, 40, 50, 60, 70);
 		News news = new News(4, "n1", "n2", "n3");
 		
 		System.out.println("Compute toJSON() -> " + compute.toJSON());

@@ -139,8 +139,8 @@ public final class Compute extends Item
 	{
 		String stringRepresentation = "Compute (";
 		stringRepresentation += m_id + ", ";
-		stringRepresentation += m_name;
-		stringRepresentation += ", " + m_arch + ", ";
+		stringRepresentation += m_name + ", ";
+		stringRepresentation += m_arch + ", ";
 		stringRepresentation += m_cores + ", ";
 		stringRepresentation += m_cpu + ", ";
 		stringRepresentation += m_memory + ", ";
