@@ -1,7 +1,9 @@
 package activity.pack;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -31,6 +33,7 @@ public class TemplateDetailActivity  extends Activity {
 	private TemplateManager templateManager;
 	protected ArrayAdapter<CharSequence> mAdapter;
 	protected ArrayAdapter<CharSequence> m2Adapter;
+	private Activity templateActivity = this;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -177,12 +180,25 @@ public class TemplateDetailActivity  extends Activity {
 
 	}
 	private void delete_template() {
+	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    builder.setMessage("Are you sure you want to delete this item?")
+	           .setCancelable(false)
+	           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	           		final Template selectedItem = templateManager.item((int) TemplateActivity.selectedItemID);
+	        		templateManager.delete(selectedItem);
+	        		Intent intent = new Intent(templateActivity, TemplateActivity.class);
+	        		templateActivity.startActivity(intent);
+	               }
+	           })
+	           .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           });
+	    AlertDialog alert = builder.create();
+	    alert.show();
 
-		final Template selectedItem = templateManager.item((int) TemplateActivity.selectedItemID);
-		templateManager.details(selectedItem);
-		templateManager.delete(selectedItem);
-		Intent intent = new Intent(this, TemplateActivity.class);
-		this.startActivity(intent);
 
 	}
 

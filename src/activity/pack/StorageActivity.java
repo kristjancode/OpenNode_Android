@@ -4,6 +4,8 @@ import core.interfaces.NetworkManager;
 import core.interfaces.StorageManager;
 import core.models.Storage;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -31,6 +33,7 @@ public class StorageActivity extends Activity {
 	private Menu menu;
 	static int actionValue = 0;
 	static int back = 0; //It shows if detailed view is visited from here or from search to know where to go back.
+	private Activity storageActivity = this;
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
@@ -131,12 +134,24 @@ public class StorageActivity extends Activity {
 		return true;
 	}
 	public void delete_storage() {
-
-		final core.models.Storage selectedItem = storageManager.item((int) StorageActivity.selectedItemID);
-		storageManager.details(selectedItem);
-		storageManager.delete(selectedItem);
-		Intent intent = new Intent(this , StorageActivity.class);
-		this.startActivity(intent);
+	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    builder.setMessage("Are you sure you want to delete this item?")
+	           .setCancelable(false)
+	           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	           		final core.models.Storage selectedItem = storageManager.item((int) StorageActivity.selectedItemID);
+	        		storageManager.delete(selectedItem);
+	        		Intent intent = new Intent(storageActivity, StorageActivity.class);
+	        		storageActivity.startActivity(intent);
+	               }
+	           })
+	           .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           });
+	    AlertDialog alert = builder.create();
+	    alert.show();
 
 	}
 

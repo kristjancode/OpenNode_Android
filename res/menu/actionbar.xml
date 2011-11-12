@@ -1,12 +1,9 @@
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="Log out" android:id="@+id/log_out"/>
+        android:title="Log out" android:id="@+id/log_out" android:menuCategory="container"/>
     <item
-        android:id="@+id/actionbar_item_create"
-        android:icon="@drawable/ic_action_create"
-        android:enabled="false"
-        android:visible="false" />
+        android:enabled="true" android:visible="true" android:title="About" android:id="@+id/about"/>
     <item
         android:id="@+id/actionbar_item_search"
         android:icon="@drawable/ic_action_search"

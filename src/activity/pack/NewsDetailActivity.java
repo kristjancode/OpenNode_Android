@@ -1,7 +1,9 @@
 package activity.pack;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import core.interfaces.NetworkManager;
 import core.interfaces.NewsManager;
+import core.models.Compute;
 import core.models.Network;
 import core.models.News;
 import core.models.Template;
@@ -29,6 +32,7 @@ public class NewsDetailActivity extends Activity {
 	private NewsManager newsManager;
 	private News selectedItem;
 	private ArrayAdapter<CharSequence> mAdapter;
+	private Activity newsActivity = this;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,9 +53,9 @@ public class NewsDetailActivity extends Activity {
 		smallId.setText("ID : " + selectedItem.id());
 
 		extraListItems = new String[3];
-		extraListItems[0] = ("Type : " + selectedItem.type());
-		extraListItems[1] = ("Title : " + selectedItem.name());
-		extraListItems[2] = ("Content : " + selectedItem.content());
+		extraListItems[0] = ("Type: " + selectedItem.type());
+		extraListItems[1] = ("Title: " + selectedItem.name());
+		extraListItems[2] = ("Content: " + selectedItem.content());
 
 		newsExtraListView = (ListView) findViewById(R.id.list_extra);
 		newsExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
@@ -78,54 +82,13 @@ public class NewsDetailActivity extends Activity {
 		case R.id.comment:
 			comment_news();
 			break;
-		case R.id.newsEdit:
-			edit_news();
-			break;
 		}
 		return true;
 	}
-	private void edit_news() {
-		setContentView(R.layout.edit_news);
 
-		final Spinner typeSpinner = (Spinner) findViewById(R.id.newsTypeSpinner);
-		final EditText titleEdit = (EditText) findViewById(R.id.newsTitleText);
-		final EditText contentEdit = (EditText) findViewById(R.id.newsContentText);
-
-		this.mAdapter = ArrayAdapter.createFromResource(this, R.array.type_array,
-				android.R.layout.simple_spinner_item);
-		typeSpinner.setAdapter(this.mAdapter);
-
-		int i = mAdapter.getPosition(selectedItem.type());
-		typeSpinner.setSelection(i);
-
-		titleEdit.setText("" + selectedItem.name());
-		contentEdit.setText("" + selectedItem.content());
-
-		Button updateNews = (Button) findViewById(R.id.btn_news_edit);
-		updateNews.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				if ((!titleEdit.getText().toString().equals("")) && (!contentEdit.getText().toString().equals(""))){
-					News newNew = new News(selectedItem.id(), titleEdit.getText().toString(),typeSpinner.getSelectedItem().toString(), contentEdit.getText().toString());
-					newsManager.update(selectedItem, newNew);
-					Intent myIntent = new Intent(view.getContext(), Activity_StreamActivity.class);
-					startActivityForResult(myIntent, 0);
-				}
-				else{
-					Context context = getApplicationContext();
-					CharSequence text = "All fields must be filled";
-					int duration = Toast.LENGTH_LONG;
-
-					Toast toast = Toast.makeText(context, text, duration);
-					toast.show();
-				}
-
-			}
-		});	
-
-	}
 	private void comment_news() {
 		Context context = getApplicationContext();
-		CharSequence text = "Functionality will be added in next version.";
+		CharSequence text = "Functionality will be added in the next version.";
 		int duration = Toast.LENGTH_LONG;
 
 		Toast toast = Toast.makeText(context, text, duration);
@@ -133,14 +96,29 @@ public class NewsDetailActivity extends Activity {
 
 	}
 	private void delete_news() {
+	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    builder.setMessage("Are you sure you want to delete this item?")
+	           .setCancelable(false)
+	           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	           		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
+	        		News selectedItem = newsManager.item((int) Activity_StreamActivity.selectedItemID);
+	        		newsManager.details(selectedItem);
+	        		computeExtraLabel.setText(selectedItem.name());
+	        		newsManager.delete(selectedItem);
+	        		Intent intent = new Intent(newsActivity, Activity_StreamActivity.class);
+	        		newsActivity.startActivity(intent);
+	               }
+	           })
+	           .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           });
+	    AlertDialog alert = builder.create();
+	    alert.show();
 
-		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
-		News selectedItem = newsManager.item((int) Activity_StreamActivity.selectedItemID);
-		newsManager.details(selectedItem);
-		computeExtraLabel.setText(selectedItem.name());
-		newsManager.delete(selectedItem);
-		Intent intent = new Intent(this, Activity_StreamActivity.class);
-		this.startActivity(intent);
+
 
 	}
 

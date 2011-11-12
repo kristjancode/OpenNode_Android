@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<item android:title="Extra info"
-		android:menuCategory="container" android:visible="true"
-		android:enabled="true" android:id="@+id/extra_info_compute"></item>
+	<item android:menuCategory="container" android:visible="true"
+		android:enabled="true" android:id="@+id/extra_info_compute" android:title="Details"></item>
 	<item android:id="@+id/start_machine" 
 		android:menuCategory="container" 
 		android:visible="true"

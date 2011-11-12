@@ -102,7 +102,7 @@ public class NetworkActivity extends Activity {
 			break;
 		case R.id.editNetwork:
 			Context context = getApplicationContext();
-			CharSequence text = "Functionality will be added in next version.";
+			CharSequence text = "Functionality will be added in the next version.";
 			int duration = Toast.LENGTH_LONG;
 
 			Toast toast = Toast.makeText(context, text, duration);

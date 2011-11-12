@@ -138,14 +138,7 @@ public class LoginActivity extends Activity {
 			Intent intent = new Intent(this, MainActivity.class);
 			this.startActivity(intent);
 			break;
-		case R.id.actionbar_item_create:
-			Toast.makeText(this, "You pressed the text!", Toast.LENGTH_LONG)
-			.show();
-			break;
-		case R.id.actionbar_item_search:
-			Toast.makeText(this, "You pressed the icon and text!",
-					Toast.LENGTH_LONG).show();
-			break;
+
 		}
 		return true;
 	}

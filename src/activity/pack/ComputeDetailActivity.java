@@ -1,7 +1,9 @@
 package activity.pack;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -29,6 +31,7 @@ public class ComputeDetailActivity extends Activity {
 	private Compute selectedItem;
 	protected ArrayAdapter<CharSequence> mAdapter;
 	protected ArrayAdapter<CharSequence> m2Adapter;
+	private Activity computeActivity = this;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,14 +53,13 @@ public class ComputeDetailActivity extends Activity {
 		computeExtraLabel.setText(selectedItem.name());
 		smallId.setText("ID : " + selectedItem.id());
 
-		extraListItems = new String[7];
-		extraListItems[0] = ("Hostname : " + selectedItem.name());
-		extraListItems[1] = ("Arch : " + selectedItem.arch());
-		extraListItems[2] = ("Memory : " + selectedItem.memory());
-		extraListItems[3] = ("Cpu : " + selectedItem.cpu());
-		extraListItems[4] = ("Cores : " + selectedItem.cores());
-		extraListItems[5] = ("Template : " + selectedItem.template());
-		extraListItems[6] = ("State : " + selectedItem.state());
+		extraListItems = new String[6];
+		extraListItems[0] = ("Arch: " + selectedItem.arch());
+		extraListItems[1] = ("Memory: " + selectedItem.memory());
+		extraListItems[2] = ("Cpu: " + selectedItem.cpu());
+		extraListItems[3] = ("Cores: " + selectedItem.cores());
+		extraListItems[4] = ("Template: " + selectedItem.template());
+		extraListItems[5] = ("State: " + selectedItem.state());
 
 		computeExtraListView = (ListView) findViewById(R.id.list_extra);
 		computeExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
@@ -168,11 +170,26 @@ public class ComputeDetailActivity extends Activity {
 		toast.show();		
 	}
 	private void delete_machine() {
-		Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
-		computeManager.details(selectedItem);
-		computeManager.delete(selectedItem);
-		Intent intent = new Intent(this, ComputeActivity.class);
-		this.startActivity(intent);
+	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    builder.setMessage("Are you sure you want to delete this item?")
+	           .setCancelable(false)
+	           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	           		Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
+	        		computeManager.details(selectedItem);
+	        		computeManager.delete(selectedItem);
+	        		Intent intent = new Intent(computeActivity, ComputeActivity.class);
+	        		computeActivity.startActivity(intent);
+	               }
+	           })
+	           .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           });
+	    AlertDialog alert = builder.create();
+	    alert.show();
+
 
 	}
 

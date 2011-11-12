@@ -89,6 +89,9 @@ public class MainActivity extends Activity {
 			Intent intent = new Intent(this, LoginActivity.class);
 			this.startActivity(intent);
 			break;
+		case R.id.about:
+			break;
+			
 		}
 		return true;
 	}

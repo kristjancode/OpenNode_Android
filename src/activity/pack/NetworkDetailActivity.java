@@ -46,10 +46,10 @@ public class NetworkDetailActivity extends Activity {
 		smallId.setText("ID : " + selectedItem.id());
 
 		extraListItems = new String[4];
-		extraListItems[0] = ("IP : " + selectedItem.ip());
-		extraListItems[1] = ("Mask : " + selectedItem.mask());
-		extraListItems[2] = ("Address allocation : " + selectedItem.addressAllocation());
-		extraListItems[3] = ("Gateway : " + selectedItem.gateway());
+		extraListItems[0] = ("IP: " + selectedItem.ip());
+		extraListItems[1] = ("Mask: " + selectedItem.mask());
+		extraListItems[2] = ("Address allocation: " + selectedItem.addressAllocation());
+		extraListItems[3] = ("Gateway: " + selectedItem.gateway());
 
 
 		networkExtraListView = (ListView) findViewById(R.id.list_extra);
@@ -70,7 +70,7 @@ public class NetworkDetailActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.editNetwork:
 			Context context = getApplicationContext();
-			CharSequence text = "Functionality will be added in next version.";
+			CharSequence text = "Functionality will be added in the next version.";
 			int duration = Toast.LENGTH_LONG;
 
 			Toast toast = Toast.makeText(context, text, duration);

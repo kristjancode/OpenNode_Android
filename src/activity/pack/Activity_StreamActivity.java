@@ -3,7 +3,9 @@ package activity.pack;
 import core.interfaces.NewsManager;
 import core.models.News;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -35,6 +37,8 @@ public class Activity_StreamActivity extends Activity {
 	private ArrayAdapter<CharSequence> mAdapter;
 	static int back = 0;
 	private int editPage=0;
+	private Activity newsActivity = this;
+
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
@@ -95,58 +99,14 @@ public class Activity_StreamActivity extends Activity {
 		case R.id.delete_news:
 			delete_news();
 			break;
-		case R.id.newsEdit2:
-			edit_news();
-			break;
 		}
 		return true;
 	}
 
 
-	private void edit_news() {
-		setContentView(R.layout.edit_news);
-		final core.models.News selectedItem = newsManager.item((int) selectedItemID);
-		editPage=1;
-		final Spinner typeSpinner = (Spinner) findViewById(R.id.newsTypeSpinner);
-		final EditText titleEdit = (EditText) findViewById(R.id.newsTitleText);
-		final EditText contentEdit = (EditText) findViewById(R.id.newsContentText);
-
-		this.mAdapter = ArrayAdapter.createFromResource(this, R.array.type_array,
-				android.R.layout.simple_spinner_item);
-		typeSpinner.setAdapter(this.mAdapter);
-
-		int i = mAdapter.getPosition(selectedItem.type());
-		typeSpinner.setSelection(i);
-
-		titleEdit.setText("" + selectedItem.name());
-		contentEdit.setText("" + selectedItem.content());
-
-		Button updateNews = (Button) findViewById(R.id.btn_news_edit);
-		updateNews.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				if ((!titleEdit.getText().toString().equals("")) && (!contentEdit.getText().toString().equals(""))){
-					News newNew = new News(selectedItem.id(), titleEdit.getText().toString(),typeSpinner.getSelectedItem().toString(), contentEdit.getText().toString());
-					newsManager.update(selectedItem, newNew);
-					Intent myIntent = new Intent(view.getContext(), Activity_StreamActivity.class);
-					startActivityForResult(myIntent, 0);
-				}
-				else{
-					Context context = getApplicationContext();
-					CharSequence text = "All fields must be filled";
-					int duration = Toast.LENGTH_LONG;
-
-					Toast toast = Toast.makeText(context, text, duration);
-					toast.show();
-				}
-
-			}
-		});	
-
-	}
-
 	private void make_comment() {
 		Context context = getApplicationContext();
-		CharSequence text = "Functionality will be added in next version.";
+		CharSequence text = "Functionality will be added in the next version.";
 		int duration = Toast.LENGTH_LONG;
 
 		Toast toast = Toast.makeText(context, text, duration);
@@ -199,12 +159,26 @@ public class Activity_StreamActivity extends Activity {
 		return true;
 	}
 	private void delete_news() {
+	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    builder.setMessage("Are you sure you want to delete this item?")
+	           .setCancelable(false)
+	           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	           		News selectedItem = newsList[(int) selectedItemID];
+	        		newsManager.details(selectedItem);
+	        		newsManager.delete(selectedItem);
+	        		Intent intent = new Intent(newsActivity, Activity_StreamActivity.class);
+	        		newsActivity.startActivity(intent);
+	               }
+	           })
+	           .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           });
+	    AlertDialog alert = builder.create();
+	    alert.show();
 
-		News selectedItem = newsList[(int) selectedItemID];
-		newsManager.details(selectedItem);
-		newsManager.delete(selectedItem);
-		Intent intent = new Intent(this, Activity_StreamActivity.class);
-		this.startActivity(intent);
 
 	}
 

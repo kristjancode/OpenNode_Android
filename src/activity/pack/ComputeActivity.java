@@ -5,7 +5,9 @@ import java.util.List;
 import core.interfaces.ComputeManager;
 import core.models.Compute;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -42,6 +44,7 @@ public class ComputeActivity extends Activity {
 	protected ArrayAdapter<CharSequence> mAdapter;
 	protected ArrayAdapter<CharSequence> m2Adapter;
 	private int editPage=0;
+	private Activity computeActivity = this;
 
 
 	private class MyArrayAdapter<T> extends ArrayAdapter<T>
@@ -246,11 +249,25 @@ public class ComputeActivity extends Activity {
 
 
 	private void delete_machine() {
-		core.models.Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
-		computeManager.details(selectedItem);
-		computeManager.delete(selectedItem);
-		Intent intent = new Intent(this, ComputeActivity.class);
-		this.startActivity(intent);
+	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    builder.setMessage("Are you sure you want to delete this item?")
+	           .setCancelable(false)
+	           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	           		Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
+	        		computeManager.details(selectedItem);
+	        		computeManager.delete(selectedItem);
+	        		Intent intent = new Intent(computeActivity, ComputeActivity.class);
+	        		computeActivity.startActivity(intent);
+	               }
+	           })
+	           .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           });
+	    AlertDialog alert = builder.create();
+	    alert.show();
 
 	}
 

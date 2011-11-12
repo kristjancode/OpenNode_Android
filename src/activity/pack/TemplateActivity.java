@@ -7,6 +7,8 @@ import core.models.Compute;
 import core.models.Storage;
 import core.models.Template;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -37,6 +39,7 @@ public class TemplateActivity extends Activity {
 	private ComputeManager computeManager;
 	static int actionValue = 0;
 	static int back = 0;
+	private Activity templateActivity = this;
 
 	@Override
 	public void onCreate(final Bundle icicle) {
@@ -202,12 +205,26 @@ public class TemplateActivity extends Activity {
 		return true;
 	}
 	private void delete_template() {
+	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    builder.setMessage("Are you sure you want to delete this item?")
+	           .setCancelable(false)
+	           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	           		final Template selectedItem = templateManager.item((int) TemplateActivity.selectedItemID);
+	        		templateManager.delete(selectedItem);
+	        		Intent intent = new Intent(templateActivity, TemplateActivity.class);
+	        		templateActivity.startActivity(intent);
+	               }
+	           })
+	           .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           });
+	    AlertDialog alert = builder.create();
+	    alert.show();
 
-		final Template selectedItem = templateList[(int) selectedItemID];
-		templateManager.details(selectedItem);
-		templateManager.delete(selectedItem);
-		Intent intent = new Intent(this, TemplateActivity.class);
-		this.startActivity(intent);
+
 
 	}
 

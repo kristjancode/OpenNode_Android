@@ -1,10 +1,13 @@
 package activity.pack;
 
 import core.interfaces.StorageManager;
+import core.models.News;
 import core.models.Storage;
 import core.models.Template;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -29,6 +32,7 @@ public class StorageDetailActivity extends Activity {
 	private Storage selectedItem;
 	private int actionValue = StorageActivity.actionValue;
 	private ArrayAdapter<CharSequence> mAdapter;
+	private Activity storageActivity = this;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -100,11 +104,24 @@ public class StorageDetailActivity extends Activity {
 		return true;
 	}
 	public void delete_storage() {
+	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    builder.setMessage("Are you sure you want to delete this item?")
+	           .setCancelable(false)
+	           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	           		storageManager.delete(selectedItem);
+	        		Intent intent = new Intent(storageActivity, StorageActivity.class);
+	        		storageActivity.startActivity(intent);
+	               }
+	           })
+	           .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           });
+	    AlertDialog alert = builder.create();
+	    alert.show();
 
-		storageManager.details(selectedItem);
-		storageManager.delete(selectedItem);
-		Intent intent = new Intent(this , StorageActivity.class);
-		this.startActivity(intent);
 
 	}
 
