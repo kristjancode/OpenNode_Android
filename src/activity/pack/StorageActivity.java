@@ -43,8 +43,8 @@ public class StorageActivity extends Activity {
 		ImageView search = (ImageView) findViewById(R.id.btn_computeSearch);
 		search.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-	        	SearchActivity.storCheck = true;
-        		back=0;
+				SearchActivity.storCheck = true;
+				back=0;
 				Intent myIntent = new Intent(view.getContext(),
 						SearchActivity.class);
 				startActivityForResult(myIntent, 0);
@@ -59,26 +59,26 @@ public class StorageActivity extends Activity {
 		storageListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , listItems));
 		registerForContextMenu(storageListView);
 		storageListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
-				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-					selectedItemID = arg2;
-					actionValue = 0;
-					back = 1;
-					Intent myIntent = new Intent(arg1.getContext(),	StorageDetailActivity.class);
-					startActivityForResult(myIntent, 0);
-				}  		
-		      });  
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				selectedItemID = arg2;
+				actionValue = 0;
+				back = 1;
+				Intent myIntent = new Intent(arg1.getContext(),	StorageDetailActivity.class);
+				startActivityForResult(myIntent, 0);
+			}  		
+		});  
 	}
-	
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.storage_menu, menu);
 
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-        selectedItemID = info.position;    
-        menu.setHeaderTitle(listItems[(int) selectedItemID]);
-      }
-    public boolean onContextItemSelected(MenuItem item)  {
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.storage_menu, menu);
+
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+		selectedItemID = info.position;    
+		menu.setHeaderTitle(listItems[(int) selectedItemID]);
+	}
+	public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_storage:
 			actionValue = 0;
@@ -94,13 +94,13 @@ public class StorageActivity extends Activity {
 			//update_storage();
 			break;
 		case R.id.delete_storage:
-				delete_storage();
+			delete_storage();
 			break;
 
 		}
 		return true;
-	
-    }
+
+	}
 
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
@@ -108,7 +108,7 @@ public class StorageActivity extends Activity {
 		MenuInflater inflater = getMenuInflater();
 
 		inflater.inflate(R.menu.storage_list_actionbar, menu2);
-		
+
 		return true;
 
 	}
@@ -137,7 +137,7 @@ public class StorageActivity extends Activity {
 		storageManager.delete(selectedItem);
 		Intent intent = new Intent(this , StorageActivity.class);
 		this.startActivity(intent);
-		
+
 	}
 	private void create_storage() {
 		setContentView(R.layout.update_storage);
@@ -157,7 +157,7 @@ public class StorageActivity extends Activity {
 		final EditText typeEdit = (EditText) findViewById(R.id.editText3);
 		final EditText nameEdit = (EditText) findViewById(R.id.editText4);
 		final int storageId = i;
-		
+
 		Button updateStorage = (Button) findViewById(R.id.btn_update_storage);
 		updateStorage.setText("Create");
 		updateStorage.setOnClickListener(new View.OnClickListener() {
@@ -168,29 +168,29 @@ public class StorageActivity extends Activity {
 				startActivityForResult(myIntent, 0);
 			}
 		});			
-		
+
 	}
 
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_SEARCH){
-        	back=0;
-        	SearchActivity.storCheck = true;
+		if(keyCode == KeyEvent.KEYCODE_SEARCH){
+			back=0;
+			SearchActivity.storCheck = true;
 			Intent intent = new Intent(this, SearchActivity.class);
 			this.startActivity(intent);
-                return false;
-        }else{
-        	 if(keyCode == KeyEvent.KEYCODE_BACK){
-        		back=0;
-     			Intent intent = new Intent(this, MainActivity.class);
-    			this.startActivity(intent);
-                    return false;
-        	 }
-        	 else{
-                return super.onKeyUp(keyCode, event); 
-        	 }
-        }
-}
+			return false;
+		}else{
+			if(keyCode == KeyEvent.KEYCODE_BACK){
+				back=0;
+				Intent intent = new Intent(this, MainActivity.class);
+				this.startActivity(intent);
+				return false;
+			}
+			else{
+				return super.onKeyUp(keyCode, event); 
+			}
+		}
+	}
 
 
- 
+
 }

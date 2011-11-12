@@ -93,18 +93,18 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_SEARCH){
+		if(keyCode == KeyEvent.KEYCODE_SEARCH){
 			Intent intent = new Intent(this, SearchActivity.class);
 			this.startActivity(intent);
-                return false;
-        }else{
-       	 if(keyCode == KeyEvent.KEYCODE_BACK){
- 	        moveTaskToBack(true);
-       		return false;
-       	 }
-       	 else{
-               return super.onKeyUp(keyCode, event); 
-       	 }
-       }
-}
+			return false;
+		}else{
+			if(keyCode == KeyEvent.KEYCODE_BACK){
+				moveTaskToBack(true);
+				return false;
+			}
+			else{
+				return super.onKeyUp(keyCode, event); 
+			}
+		}
+	}
 }

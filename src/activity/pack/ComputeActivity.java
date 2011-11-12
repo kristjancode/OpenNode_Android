@@ -42,38 +42,38 @@ public class ComputeActivity extends Activity {
 	protected ArrayAdapter<CharSequence> mAdapter;
 	protected ArrayAdapter<CharSequence> m2Adapter;
 	private int editPage=0;
-	
 
-    private class MyArrayAdapter<T> extends ArrayAdapter<T>
-    {
-        public MyArrayAdapter(Context context, int resource, int textViewResourceId, String[] listItems) {
-            super(context, resource, textViewResourceId, (T[]) listItems);
-        }
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View itemView = super.getView(position, convertView, parent);
-            ImageView imageView = (ImageView) itemView.findViewById(R.id.icon);
-    		core.models.Compute selectedItem = computeManager.item(position);
-    		//computeManager.details(selectedItem);    
-    		if (selectedItem.state().equals("running")){
-	            	imageView.setImageResource(R.drawable.start48);
-	            }
-	            else {
-	                if (selectedItem.state().equals("stopped")){
-	                	imageView.setImageResource(R.drawable.stop48);
-	                }
-	                else{
-	                	if (selectedItem.state().equals("suspended")){
-	                	imageView.setImageResource(R.drawable.delete48);
-	                	}
-	                }
-	            }            
+	private class MyArrayAdapter<T> extends ArrayAdapter<T>
+	{
+		public MyArrayAdapter(Context context, int resource, int textViewResourceId, String[] listItems) {
+			super(context, resource, textViewResourceId, (T[]) listItems);
+		}
 
-    
-    		return itemView;
-        }
-    }
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View itemView = super.getView(position, convertView, parent);
+			ImageView imageView = (ImageView) itemView.findViewById(R.id.icon);
+			core.models.Compute selectedItem = computeManager.item(position);
+			//computeManager.details(selectedItem);    
+			if (selectedItem.state().equals("running")){
+				imageView.setImageResource(R.drawable.start48);
+			}
+			else {
+				if (selectedItem.state().equals("stopped")){
+					imageView.setImageResource(R.drawable.stop48);
+				}
+				else{
+					if (selectedItem.state().equals("suspended")){
+						imageView.setImageResource(R.drawable.delete48);
+					}
+				}
+			}            
+
+
+			return itemView;
+		}
+	}
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
@@ -91,8 +91,8 @@ public class ComputeActivity extends Activity {
 		ImageView search = (ImageView) findViewById(R.id.btn_computeSearch);
 		search.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-	        	SearchActivity.compCheck = true;
-        		back=0;
+				SearchActivity.compCheck = true;
+				back=0;
 				Intent myIntent = new Intent(view.getContext(),	SearchActivity.class);
 				startActivityForResult(myIntent, 0);
 			}
@@ -101,32 +101,32 @@ public class ComputeActivity extends Activity {
 		computeListView = (ListView) findViewById(R.id.list_compute);
 		//computeListView.setLongClickable(true);
 		computeListView.setAdapter(new MyArrayAdapter<String>(this,R.layout.row , R.id.computeRow, listItems));
-		
-		
-		
+
+
+
 		registerForContextMenu(computeListView);		
 		computeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {  				
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				actionValue = 0;
 				back = 1;
-		    	selectedItemID = arg2;
+				selectedItemID = arg2;
 				Intent myIntent = new Intent(arg1.getContext(),	ComputeDetailActivity.class);
 				startActivityForResult(myIntent, 0);
 			}  		
-	      });  
+		});  
 	}
 
 
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.compute_menu, menu);
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-        selectedItemID = info.position;    
-        menu.setHeaderTitle(listItems[(int) selectedItemID]);
-      }
-    
-    public boolean onContextItemSelected(MenuItem item)  {
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.compute_menu, menu);
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+		selectedItemID = info.position;    
+		menu.setHeaderTitle(listItems[(int) selectedItemID]);
+	}
+
+	public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_compute:
 			back = 1;
@@ -154,7 +154,7 @@ public class ComputeActivity extends Activity {
 		}
 		return true;
 	}
-    
+
 	private void edit_compute() {
 		setContentView(R.layout.create_vm);
 		final core.models.Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
@@ -168,39 +168,39 @@ public class ComputeActivity extends Activity {
 		final EditText cpuEdit = (EditText) findViewById(R.id.editText4);
 		final EditText memoryEdit = (EditText) findViewById(R.id.editText5);
 		final Spinner stateEditSpinner = (Spinner) findViewById(R.id.spinnerState);
-        nameEdit.setText(""+selectedItem.name());
-        coresEdit.setText(""+selectedItem.cores());
-        cpuEdit.setText(""+selectedItem.cpu());
-        memoryEdit.setText(""+selectedItem.memory());
+		nameEdit.setText(""+selectedItem.name());
+		coresEdit.setText(""+selectedItem.cores());
+		cpuEdit.setText(""+selectedItem.cpu());
+		memoryEdit.setText(""+selectedItem.memory());
 		this.mAdapter = ArrayAdapter.createFromResource(this, R.array.state_array,
-                android.R.layout.simple_spinner_item);
-        stateEditSpinner.setAdapter(this.mAdapter);
+				android.R.layout.simple_spinner_item);
+		stateEditSpinner.setAdapter(this.mAdapter);
 
-        int i = mAdapter.getPosition(selectedItem.state());
-        stateEditSpinner.setSelection(i);
-        
+		int i = mAdapter.getPosition(selectedItem.state());
+		stateEditSpinner.setSelection(i);
+
 		this.m2Adapter = ArrayAdapter.createFromResource(this, R.array.arch_array,
-                android.R.layout.simple_spinner_item);
-        archEditSpinner.setAdapter(this.m2Adapter);
-        int j = m2Adapter.getPosition(selectedItem.arch());
-        archEditSpinner.setSelection(j);
+				android.R.layout.simple_spinner_item);
+		archEditSpinner.setAdapter(this.m2Adapter);
+		int j = m2Adapter.getPosition(selectedItem.arch());
+		archEditSpinner.setSelection(j);
 		tempText.setText("Template : "+selectedItem.template());
-		
+
 		tempText.setText("Template : "+selectedItem.template());
-		
+
 		//final int computeId = i;
 		//idText.setText("ID : "+computeId);
-		
+
 		Button createCompute = (Button) findViewById(R.id.btn_create_vm);
 		createCompute.setText("Edit");
 		createCompute.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				if ((!nameEdit.getText().toString().equals("")) && (!coresEdit.getText().toString().equals("")) && (!cpuEdit.getText().toString().equals("")) && (!memoryEdit.getText().toString().equals(""))){
-				Compute newCompute = new Compute(0,nameEdit.getText().toString(), archEditSpinner.getSelectedItem().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEditSpinner.getSelectedItem().toString(), selectedItem.template());
-				computeManager.update(selectedItem, newCompute);
-				Intent myIntent = new Intent(view.getContext(), ComputeActivity.class);
-				startActivityForResult(myIntent, 0);
-			}
+					Compute newCompute = new Compute(0,nameEdit.getText().toString(), archEditSpinner.getSelectedItem().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEditSpinner.getSelectedItem().toString(), selectedItem.template());
+					computeManager.update(selectedItem, newCompute);
+					Intent myIntent = new Intent(view.getContext(), ComputeActivity.class);
+					startActivityForResult(myIntent, 0);
+				}
 				else{
 					Context context = getApplicationContext();
 					CharSequence text = "All fields must be filled";
@@ -210,7 +210,7 @@ public class ComputeActivity extends Activity {
 					toast.show();
 				}
 			}
-			
+
 		});	
 	}
 
@@ -222,7 +222,7 @@ public class ComputeActivity extends Activity {
 
 		Toast toast = Toast.makeText(context, text, duration);
 		toast.show();
-		
+
 	}
 
 
@@ -243,7 +243,7 @@ public class ComputeActivity extends Activity {
 		}
 		return true;
 	}
-	
+
 
 	private void delete_machine() {
 		core.models.Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
@@ -251,7 +251,7 @@ public class ComputeActivity extends Activity {
 		computeManager.delete(selectedItem);
 		Intent intent = new Intent(this, ComputeActivity.class);
 		this.startActivity(intent);
-		
+
 	}
 
 
@@ -272,7 +272,7 @@ public class ComputeActivity extends Activity {
 		computeManager.update(selectedItem, newItem);
 		Intent intent = new Intent(this, ComputeActivity.class);
 		this.startActivity(intent);
-		
+
 	}
 
 	private void start_machine() {
@@ -286,30 +286,30 @@ public class ComputeActivity extends Activity {
 
 
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_SEARCH){
-        	back=0;
-        	SearchActivity.compCheck = true;
+		if(keyCode == KeyEvent.KEYCODE_SEARCH){
+			back=0;
+			SearchActivity.compCheck = true;
 			Intent intent = new Intent(this, SearchActivity.class);
 			this.startActivity(intent);
-                return false;
-        }else{
-        	 if(keyCode == KeyEvent.KEYCODE_BACK){
-        		 if (editPage==1){
-        			 editPage=0;
- 	     			Intent intent = new Intent(this, ComputeActivity.class);
- 	    			this.startActivity(intent);
-        		 }
-        		 else{
-	        		back=0;
-	     			Intent intent = new Intent(this, MainActivity.class);
-	    			this.startActivity(intent);
-        		 }
-        		 return false;
-        	 }
-        	 else{
-                return super.onKeyUp(keyCode, event); 
-        	 }
-        }
-}
+			return false;
+		}else{
+			if(keyCode == KeyEvent.KEYCODE_BACK){
+				if (editPage==1){
+					editPage=0;
+					Intent intent = new Intent(this, ComputeActivity.class);
+					this.startActivity(intent);
+				}
+				else{
+					back=0;
+					Intent intent = new Intent(this, MainActivity.class);
+					this.startActivity(intent);
+				}
+				return false;
+			}
+			else{
+				return super.onKeyUp(keyCode, event); 
+			}
+		}
+	}
 
 }

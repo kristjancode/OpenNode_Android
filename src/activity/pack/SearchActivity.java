@@ -28,74 +28,74 @@ public class SearchActivity extends Activity {
 	static long selectedItemID;
 	private SearchManager searchManager;
 	private core.models.Item searchList[];
-    static boolean compCheck=false;
-    static boolean netwCheck=false;
-    static boolean storCheck=false;
-    static boolean tempCheck=false;
-    static boolean newCheck=false;
-    Activity searchActivity = this;
-    
-    private class MyArrayAdapter<T> extends ArrayAdapter<T>
-    {
-        public MyArrayAdapter(Context context, int resource, int textViewResourceId, String[] listItems) {
-            super(context, resource, textViewResourceId, (T[]) listItems);
-        }
+	static boolean compCheck=false;
+	static boolean netwCheck=false;
+	static boolean storCheck=false;
+	static boolean tempCheck=false;
+	static boolean newCheck=false;
+	Activity searchActivity = this;
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View itemView = super.getView(position, convertView, parent);
-            ImageView imageView = (ImageView) itemView.findViewById(R.id.icon);
+	private class MyArrayAdapter<T> extends ArrayAdapter<T>
+	{
+		public MyArrayAdapter(Context context, int resource, int textViewResourceId, String[] listItems) {
+			super(context, resource, textViewResourceId, (T[]) listItems);
+		}
 
-    		if (searchManager.item(position) instanceof core.models.Compute){
-	        		core.models.Compute selectedItem =(core.models.Compute) searchManager.item(position);
-	            if (selectedItem.state().equals("running")){
-	            	imageView.setImageResource(R.drawable.start48);
-	            }
-	            else {
-	                if (selectedItem.state().equals("stopped")){
-	                	imageView.setImageResource(R.drawable.stop48);
-	                }
-	                else{
-	                	if (selectedItem.state().equals("suspended")){
-	                	imageView.setImageResource(R.drawable.delete48);
-	                	}
-	                }
-	            }            
-    		}
-    		else{
-    			//imageView.setEnabled(false);
-    			imageView.setImageResource(R.drawable.empty);
-    			//imageView.setVisibility(false);
-    		}
-    		return itemView;
-        }
-    }
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View itemView = super.getView(position, convertView, parent);
+			ImageView imageView = (ImageView) itemView.findViewById(R.id.icon);
+
+			if (searchManager.item(position) instanceof core.models.Compute){
+				core.models.Compute selectedItem =(core.models.Compute) searchManager.item(position);
+				if (selectedItem.state().equals("running")){
+					imageView.setImageResource(R.drawable.start48);
+				}
+				else {
+					if (selectedItem.state().equals("stopped")){
+						imageView.setImageResource(R.drawable.stop48);
+					}
+					else{
+						if (selectedItem.state().equals("suspended")){
+							imageView.setImageResource(R.drawable.delete48);
+						}
+					}
+				}            
+			}
+			else{
+				//imageView.setEnabled(false);
+				imageView.setImageResource(R.drawable.empty);
+				//imageView.setVisibility(false);
+			}
+			return itemView;
+		}
+	}
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.search);
-	    final CheckBox computeCheck = (CheckBox) findViewById(R.id.computeCheck);
-	    final CheckBox networkCheck = (CheckBox) findViewById(R.id.networkCheck);
-	    final CheckBox storageCheck = (CheckBox) findViewById(R.id.storageCheck);
-	    final CheckBox templateCheck = (CheckBox) findViewById(R.id.templateCheck);
-	    final CheckBox newsCheck = (CheckBox) findViewById(R.id.newsCheck);
+		final CheckBox computeCheck = (CheckBox) findViewById(R.id.computeCheck);
+		final CheckBox networkCheck = (CheckBox) findViewById(R.id.networkCheck);
+		final CheckBox storageCheck = (CheckBox) findViewById(R.id.storageCheck);
+		final CheckBox templateCheck = (CheckBox) findViewById(R.id.templateCheck);
+		final CheckBox newsCheck = (CheckBox) findViewById(R.id.newsCheck);
 		computeCheck.setChecked(compCheck);
 		networkCheck.setChecked(netwCheck);
 		storageCheck.setChecked(storCheck);
 		templateCheck.setChecked(tempCheck);
 		newsCheck.setChecked(newCheck);
 		backToFalse();
-		
+
 		Button search = (Button) findViewById(R.id.btn_Search_Search);
 		search.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				EditText searchEditText = (EditText) findViewById(R.id.editText123);
 				String searchText = searchEditText.getText().toString();
-		        String[] array = searchText.split(" ");
-		        
+				String[] array = searchText.split(" ");
+
 				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
-				
+
 				searchManager = UI_Core.getCore().searchManager();
 				searchManager.resetFilters();
 				if(computeCheck.isChecked()){searchManager.filterComputes(true);}
@@ -119,12 +119,12 @@ public class SearchActivity extends Activity {
 				registerForContextMenu(searchListView);
 				searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {  				
 					public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				    	selectedItemID = arg2;
-				    	ComputeActivity.selectedItemID = arg2;
-				    	NetworkActivity.selectedItemID = arg2;
-				    	StorageActivity.selectedItemID = arg2;
-				    	TemplateActivity.selectedItemID = arg2;
-				    	Activity_StreamActivity.selectedItemID = arg2;
+						selectedItemID = arg2;
+						ComputeActivity.selectedItemID = arg2;
+						NetworkActivity.selectedItemID = arg2;
+						StorageActivity.selectedItemID = arg2;
+						TemplateActivity.selectedItemID = arg2;
+						Activity_StreamActivity.selectedItemID = arg2;
 						if (searchManager.item(arg2) instanceof core.models.Compute){
 							Intent myIntent = new Intent(arg1.getContext(),	ComputeDetailActivity.class);
 							startActivityForResult(myIntent, 0);
@@ -145,27 +145,27 @@ public class SearchActivity extends Activity {
 							Intent myIntent5 = new Intent(arg1.getContext(),	NewsDetailActivity.class);
 							startActivityForResult(myIntent5, 0);
 						}
-				    	
 
-	
-				    	
-				    	
+
+
+
+
 					}  		
-			      });  
-			
+				});  
+
 			}
 
 		});
 
 	}
 	private void backToFalse() {
-	    compCheck=false;
-	    netwCheck=false;
-	    storCheck=false;
-	    tempCheck=false;
-	    newCheck=false;
+		compCheck=false;
+		netwCheck=false;
+		storCheck=false;
+		tempCheck=false;
+		newCheck=false;
 
-		
+
 	}
 	public boolean onCreateOptionsMenu(Menu menu2) {
 		MenuInflater inflater = getMenuInflater();
@@ -186,19 +186,19 @@ public class SearchActivity extends Activity {
 
 
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_SEARCH){
+		if(keyCode == KeyEvent.KEYCODE_SEARCH){
 			Intent intent = new Intent(this, SearchActivity.class);
 			this.startActivity(intent);
-                return false;
-        }else{
-        	 if(keyCode == KeyEvent.KEYCODE_BACK){
-     			Intent intent = new Intent(this, MainActivity.class);
-    			this.startActivity(intent);
-                    return false;
-        	 }
-        	 else{
-                return super.onKeyUp(keyCode, event); 
-        	 }
-        }
-}
+			return false;
+		}else{
+			if(keyCode == KeyEvent.KEYCODE_BACK){
+				Intent intent = new Intent(this, MainActivity.class);
+				this.startActivity(intent);
+				return false;
+			}
+			else{
+				return super.onKeyUp(keyCode, event); 
+			}
+		}
+	}
 }

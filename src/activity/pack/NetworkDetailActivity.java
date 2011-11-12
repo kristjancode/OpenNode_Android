@@ -25,44 +25,44 @@ public class NetworkDetailActivity extends Activity {
 	private String[] extraListItems;
 	private NetworkManager networkManager;
 	private Network selectedItem;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.extra);
 		networkManager = UI_Core.getCore().networkManager();
 		//boolean itemsLoaded = networkManager.load();;
-		
+
 		if (NetworkActivity.back==1){
 			selectedItem = networkManager.item((int) NetworkActivity.selectedItemID);
 		}
 		else{
 			selectedItem = (Network) UI_Core.core.searchManager().item((int) SearchActivity.selectedItemID);
 		}
-		
+
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		computeExtraLabel.setText(selectedItem.name());
 		TextView smallId = (TextView) findViewById(R.id.smallId);
 		smallId.setText("ID : " + selectedItem.id());
-		
+
 		extraListItems = new String[4];
 		extraListItems[0] = ("IP : " + selectedItem.ip());
 		extraListItems[1] = ("Mask : " + selectedItem.mask());
 		extraListItems[2] = ("Address allocation : " + selectedItem.addressAllocation());
 		extraListItems[3] = ("Gateway : " + selectedItem.gateway());
 
-		
+
 		networkExtraListView = (ListView) findViewById(R.id.list_extra);
 		networkExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
-		
-			}
+
+	}
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
 
-			MenuInflater inflater = getMenuInflater();
-	
-			inflater.inflate(R.menu.network_list_actionbar, menu2);
-			return true;
+		MenuInflater inflater = getMenuInflater();
+
+		inflater.inflate(R.menu.network_list_actionbar, menu2);
+		return true;
 
 	}
 
@@ -81,26 +81,26 @@ public class NetworkDetailActivity extends Activity {
 	}
 
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_SEARCH){
-        	SearchActivity.netwCheck = true;
+		if(keyCode == KeyEvent.KEYCODE_SEARCH){
+			SearchActivity.netwCheck = true;
 			Intent intent = new Intent(this, SearchActivity.class);
 			this.startActivity(intent);
-                return false;
-        }else{
-        	 if(keyCode == KeyEvent.KEYCODE_BACK){
-         		if (NetworkActivity.back==1){
- 	     			Intent intent = new Intent(this, NetworkActivity.class);
- 	    			this.startActivity(intent);
-         		}
-         		else{
-         			Intent intent = new Intent(this, SearchActivity.class);
-         			this.startActivity(intent);
-         		}
-                    return false;
-        	 }
-        	 else{
-                return super.onKeyUp(keyCode, event); 
-        	 }
-        }
-}
+			return false;
+		}else{
+			if(keyCode == KeyEvent.KEYCODE_BACK){
+				if (NetworkActivity.back==1){
+					Intent intent = new Intent(this, NetworkActivity.class);
+					this.startActivity(intent);
+				}
+				else{
+					Intent intent = new Intent(this, SearchActivity.class);
+					this.startActivity(intent);
+				}
+				return false;
+			}
+			else{
+				return super.onKeyUp(keyCode, event); 
+			}
+		}
+	}
 }

@@ -28,54 +28,54 @@ public class StorageDetailActivity extends Activity {
 	private Storage selectedItem;
 	private int actionValue = StorageActivity.actionValue;
 	private ArrayAdapter<CharSequence> mAdapter;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (actionValue ==1){
 			update_storage();
 		}
-		
+
 		else{
-				setContentView(R.layout.extra);
-				CreateStorageManager();
-				
-				TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
-				computeExtraLabel.setText(selectedItem.name());
-				TextView smallId = (TextView) findViewById(R.id.smallId);
-				smallId.setText("ID : " + selectedItem.id());
-			
-				extraListItems = new String[2];
-				extraListItems[0] = ("Size : " + selectedItem.size());
-				extraListItems[1] = ("Type : " + selectedItem.type());
-		
-		
-				
-				storageExtraListView = (ListView) findViewById(R.id.list_extra);
-				storageExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
-		
-		
-			
+			setContentView(R.layout.extra);
+			CreateStorageManager();
+
+			TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
+			computeExtraLabel.setText(selectedItem.name());
+			TextView smallId = (TextView) findViewById(R.id.smallId);
+			smallId.setText("ID : " + selectedItem.id());
+
+			extraListItems = new String[2];
+			extraListItems[0] = ("Size : " + selectedItem.size());
+			extraListItems[1] = ("Type : " + selectedItem.type());
+
+
+
+			storageExtraListView = (ListView) findViewById(R.id.list_extra);
+			storageExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
+
+
+
 		}
 	}
 	private void CreateStorageManager() {
 		storageManager = UI_Core.getCore().storageManager();
 		//boolean itemsLoaded = storageManager.load();
-		
+
 		if (StorageActivity.back==1){
 			selectedItem = storageManager.item((int) StorageActivity.selectedItemID);
 		}
 		else{
 			selectedItem = (Storage) UI_Core.core.searchManager().item((int) SearchActivity.selectedItemID);
 		}
-		
+
 	}
 	public boolean onCreateOptionsMenu(Menu menu2) {
 
-			MenuInflater inflater = getMenuInflater();
+		MenuInflater inflater = getMenuInflater();
 
-			inflater.inflate(R.menu.detail_actionbar, menu2);
-			return true;
+		inflater.inflate(R.menu.detail_actionbar, menu2);
+		return true;
 
 	}
 
@@ -102,7 +102,7 @@ public class StorageDetailActivity extends Activity {
 		storageManager.delete(selectedItem);
 		Intent intent = new Intent(this , StorageActivity.class);
 		this.startActivity(intent);
-		
+
 	}
 
 	public void update_storage() {
@@ -115,60 +115,60 @@ public class StorageDetailActivity extends Activity {
 		final EditText sizeEdit = (EditText) findViewById(R.id.editText2);
 		final Spinner typeEditSpinner = (Spinner) findViewById(R.id.storageSpinner);
 		final EditText nameEdit = (EditText) findViewById(R.id.editText4);
-		
+
 		this.mAdapter = ArrayAdapter.createFromResource(this, R.array.type2_array,
-                android.R.layout.simple_spinner_item);
-        typeEditSpinner.setAdapter(this.mAdapter);
-        int i = mAdapter.getPosition(selectedItem.type());
-        typeEditSpinner.setSelection(i);
-        
+				android.R.layout.simple_spinner_item);
+		typeEditSpinner.setAdapter(this.mAdapter);
+		int i = mAdapter.getPosition(selectedItem.type());
+		typeEditSpinner.setSelection(i);
+
 		sizeEdit.setText("" + selectedItem.size());
 		nameEdit.setText("" + selectedItem.name());
-		
+
 		Button updateStorage = (Button) findViewById(R.id.btn_update_storage);
 		updateStorage.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				if ((!nameEdit.getText().toString().equals("")) && (!sizeEdit.getText().toString().equals(""))){
-					
-				Storage newStorage = new Storage(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(sizeEdit.getText().toString()), typeEditSpinner.getSelectedItem().toString());
-				storageManager.update(selectedItem, newStorage);
-				Intent myIntent = new Intent(view.getContext(), StorageActivity.class);
-				startActivityForResult(myIntent, 0);
-			}
-			else{
-				Context context = getApplicationContext();
-				CharSequence text = "All fields must be filled";
-				int duration = Toast.LENGTH_LONG;
 
-				Toast toast = Toast.makeText(context, text, duration);
-				toast.show();
-			}
+					Storage newStorage = new Storage(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(sizeEdit.getText().toString()), typeEditSpinner.getSelectedItem().toString());
+					storageManager.update(selectedItem, newStorage);
+					Intent myIntent = new Intent(view.getContext(), StorageActivity.class);
+					startActivityForResult(myIntent, 0);
+				}
+				else{
+					Context context = getApplicationContext();
+					CharSequence text = "All fields must be filled";
+					int duration = Toast.LENGTH_LONG;
+
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+				}
 			}
 		});			
-		
+
 	}
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_SEARCH){
-        	SearchActivity.storCheck = true;
+		if(keyCode == KeyEvent.KEYCODE_SEARCH){
+			SearchActivity.storCheck = true;
 			Intent intent = new Intent(this, SearchActivity.class);
 			this.startActivity(intent);
-                return false;
-        }else{
-        	 if(keyCode == KeyEvent.KEYCODE_BACK){
-        		if (StorageActivity.back==1){
-	     			Intent intent = new Intent(this, StorageActivity.class);
-	    			this.startActivity(intent);
-        		}
-        		else{
-        			Intent intent = new Intent(this, SearchActivity.class);
-        			this.startActivity(intent);
-        		}
-                    return false;
-                    
-        	 }
-        	 else{
-                return super.onKeyUp(keyCode, event); 
-        	 }
-        }
-}
+			return false;
+		}else{
+			if(keyCode == KeyEvent.KEYCODE_BACK){
+				if (StorageActivity.back==1){
+					Intent intent = new Intent(this, StorageActivity.class);
+					this.startActivity(intent);
+				}
+				else{
+					Intent intent = new Intent(this, SearchActivity.class);
+					this.startActivity(intent);
+				}
+				return false;
+
+			}
+			else{
+				return super.onKeyUp(keyCode, event); 
+			}
+		}
+	}
 }

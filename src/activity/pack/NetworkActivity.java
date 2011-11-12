@@ -29,7 +29,7 @@ public class NetworkActivity extends Activity {
 	private core.models.Network networkList[];
 	private Menu menu;
 	static int back = 0;
-	
+
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.network);
@@ -42,8 +42,8 @@ public class NetworkActivity extends Activity {
 		ImageView search = (ImageView) findViewById(R.id.btn_computeSearch);
 		search.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-	        	SearchActivity.netwCheck = true;
-        		back=0;
+				SearchActivity.netwCheck = true;
+				back=0;
 				Intent myIntent = new Intent(view.getContext(),
 						SearchActivity.class);
 				startActivityForResult(myIntent, 0);
@@ -58,13 +58,13 @@ public class NetworkActivity extends Activity {
 		networkListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , listItems));
 		registerForContextMenu(networkListView);
 		networkListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
-				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-			    	selectedItemID = arg2;
-			    	back = 1;
-					Intent myIntent = new Intent(arg1.getContext(),	NetworkDetailActivity.class);
-					startActivityForResult(myIntent, 0);
-				}  		
-		      });  
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				selectedItemID = arg2;
+				back = 1;
+				Intent myIntent = new Intent(arg1.getContext(),	NetworkDetailActivity.class);
+				startActivityForResult(myIntent, 0);
+			}  		
+		});  
 	}
 	public boolean onCreateOptionsMenu(Menu menu2) {
 		MenuInflater inflater = getMenuInflater();
@@ -83,17 +83,17 @@ public class NetworkActivity extends Activity {
 		}
 		return true;
 	}
-	
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.network_menu, menu);
 
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-        selectedItemID = info.position;    
-        menu.setHeaderTitle(listItems[(int) selectedItemID]);
-      }
-    public boolean onContextItemSelected(MenuItem item)  {
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.network_menu, menu);
+
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+		selectedItemID = info.position;    
+		menu.setHeaderTitle(listItems[(int) selectedItemID]);
+	}
+	public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_network:
 			back = 1;
@@ -118,7 +118,7 @@ public class NetworkActivity extends Activity {
 		core.models.Network selectedItem = networkList[(int) selectedItemID];
 		networkManager.details(selectedItem);
 		computeExtraLabel.setText(selectedItem.name());
-		
+
 		extraListItems = new String[5];
 		extraListItems[0] = ("ID : " + selectedItem.id());
 		extraListItems[1] = ("IP : " + selectedItem.ip());
@@ -126,32 +126,32 @@ public class NetworkActivity extends Activity {
 		extraListItems[3] = ("Address allocation : " + selectedItem.addressAllocation());
 		extraListItems[4] = ("Gateway : " + selectedItem.gateway());
 
-		
+
 		networkExtraListView = (ListView) findViewById(R.id.list_extra);
 		networkExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
-		
-		
+
+
 	}
 
 
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_SEARCH){
-        	back=0;
-        	SearchActivity.netwCheck = true;
+		if(keyCode == KeyEvent.KEYCODE_SEARCH){
+			back=0;
+			SearchActivity.netwCheck = true;
 			Intent intent = new Intent(this, SearchActivity.class);
 			this.startActivity(intent);
-                return false;
-        }else{
-        	 if(keyCode == KeyEvent.KEYCODE_BACK){
-        		back=0;
-     			Intent intent = new Intent(this, MainActivity.class);
-    			this.startActivity(intent);
-                    return false;
-        	 }
-        	 else{
-                return super.onKeyUp(keyCode, event); 
-        	 }
-        }
-}
+			return false;
+		}else{
+			if(keyCode == KeyEvent.KEYCODE_BACK){
+				back=0;
+				Intent intent = new Intent(this, MainActivity.class);
+				this.startActivity(intent);
+				return false;
+			}
+			else{
+				return super.onKeyUp(keyCode, event); 
+			}
+		}
+	}
 
 }

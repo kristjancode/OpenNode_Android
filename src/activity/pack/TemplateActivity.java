@@ -37,7 +37,7 @@ public class TemplateActivity extends Activity {
 	private ComputeManager computeManager;
 	static int actionValue = 0;
 	static int back = 0;
-	
+
 	@Override
 	public void onCreate(final Bundle icicle) {
 		super.onCreate(icicle);
@@ -51,8 +51,8 @@ public class TemplateActivity extends Activity {
 		ImageView search = (ImageView) findViewById(R.id.btn_computeSearch);
 		search.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-	        	SearchActivity.tempCheck = true;
-        		back=0;
+				SearchActivity.tempCheck = true;
+				back=0;
 				Intent myIntent = new Intent(view.getContext(),
 						SearchActivity.class);
 				startActivityForResult(myIntent, 0);
@@ -67,26 +67,26 @@ public class TemplateActivity extends Activity {
 		templateListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , listItems));
 		registerForContextMenu(templateListView);
 		templateListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
-				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-			    	selectedItemID = arg2;
-			    	actionValue = 0;
-			    	back = 1;
-					Intent myIntent = new Intent(arg1.getContext(),	TemplateDetailActivity.class);
-					startActivityForResult(myIntent, 0);
-				}  		
-		      });  
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				selectedItemID = arg2;
+				actionValue = 0;
+				back = 1;
+				Intent myIntent = new Intent(arg1.getContext(),	TemplateDetailActivity.class);
+				startActivityForResult(myIntent, 0);
+			}  		
+		});  
 	}
-	
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.template_menu, menu);
 
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-        selectedItemID = info.position;    
-        menu.setHeaderTitle(listItems[(int) selectedItemID]);
-      }
-    public boolean onContextItemSelected(MenuItem item)  {
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.template_menu, menu);
+
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+		selectedItemID = info.position;    
+		menu.setHeaderTitle(listItems[(int) selectedItemID]);
+	}
+	public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_template:
 			actionValue = 0;
@@ -125,7 +125,7 @@ public class TemplateActivity extends Activity {
 		}
 		final core.models.Template selectedItem = templateList[(int) selectedItemID];
 		templateManager.details(selectedItem);
-		
+
 		TextView nameText = (TextView) findViewById(R.id.create_vm_label);
 		nameText.setText("Create Compute");
 		TextView tempText = (TextView) findViewById(R.id.textView9);
@@ -138,7 +138,7 @@ public class TemplateActivity extends Activity {
 		final String stateEdit = stateEditSpinner.getSelectedItem().toString();
 
 		tempText.setText("Template : "+selectedItem.name());
-		
+
 		Button createCompute = (Button) findViewById(R.id.btn_create_vm);
 		createCompute.setText("Create");
 		createCompute.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +150,7 @@ public class TemplateActivity extends Activity {
 				startActivityForResult(myIntent, 0);
 			}
 		});
-		
+
 	}
 	private void extra_info() {
 		setContentView(R.layout.extra);
@@ -159,16 +159,16 @@ public class TemplateActivity extends Activity {
 		core.models.Template selectedItem = templateList[(int) selectedItemID];
 		templateManager.details(selectedItem);
 		computeExtraLabel.setText(selectedItem.name());
-		
+
 		extraListItems = new String[3];
 		extraListItems[0] = ("ID : " + selectedItem.id());
 		extraListItems[1] = ("Min disk size : " + selectedItem.minDiskSize());
 		extraListItems[2] = ("Min memory size : " + selectedItem.minMemorySize());
 
-		
+
 		templateExtraListView = (ListView) findViewById(R.id.list_extra);
 		templateExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
-		
+
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
@@ -208,7 +208,7 @@ public class TemplateActivity extends Activity {
 		templateManager.delete(selectedItem);
 		Intent intent = new Intent(this, TemplateActivity.class);
 		this.startActivity(intent);
-		
+
 	}
 
 	private void update_template() {
@@ -220,12 +220,12 @@ public class TemplateActivity extends Activity {
 		final EditText sizeEdit = (EditText) findViewById(R.id.editText2);
 		final EditText typeEdit = (EditText) findViewById(R.id.editText3);
 		final EditText nameEdit = (EditText) findViewById(R.id.editText4);
-		
+
 		idText.setText("ID : " + selectedItem.id());
 		sizeEdit.setText("" + selectedItem.minDiskSize());
 		typeEdit.setText("" + selectedItem.minMemorySize());
 		nameEdit.setText("" + selectedItem.name());
-		
+
 		Button updatetemplate = (Button) findViewById(R.id.btn_update_storage);
 		updatetemplate.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
@@ -238,27 +238,27 @@ public class TemplateActivity extends Activity {
 				startActivityForResult(myIntent, 0);
 			}
 		});	
-		
+
 	}
 
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_SEARCH){
-        	back=0;
-        	SearchActivity.tempCheck = true;
+		if(keyCode == KeyEvent.KEYCODE_SEARCH){
+			back=0;
+			SearchActivity.tempCheck = true;
 			Intent intent = new Intent(this, SearchActivity.class);
 			this.startActivity(intent);
-                return false;
-        }else{
-        	 if(keyCode == KeyEvent.KEYCODE_BACK){
-        		back=0;
-     			Intent intent = new Intent(this, MainActivity.class);
-    			this.startActivity(intent);
-                    return false;
-        	 }
-        	 else{
-                return super.onKeyUp(keyCode, event); 
-        	 }
-        }
-}
+			return false;
+		}else{
+			if(keyCode == KeyEvent.KEYCODE_BACK){
+				back=0;
+				Intent intent = new Intent(this, MainActivity.class);
+				this.startActivity(intent);
+				return false;
+			}
+			else{
+				return super.onKeyUp(keyCode, event); 
+			}
+		}
+	}
 
 }

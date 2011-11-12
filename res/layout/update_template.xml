@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-	<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" 
-android:layout_width="match_parent" 
-android:layout_height="match_parent"
-android:fillViewport="true">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:layout_height="match_parent"
+	android:fillViewport="true">
 	<LinearLayout android:id="@+id/update_table"
 		android:weightSum="1" xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="match_parent" android:layout_height="match_parent"
@@ -14,42 +13,48 @@ android:fillViewport="true">
 			android:background="@color/actionbar_background_end"
 			android:layout_height="0dp" android:layout_weight="0.50">
 		</TextView>
-	<RelativeLayout android:layout_gravity="top"
-		android:isScrollContainer="true" android:keepScreenOn="true"
-		android:focusable="true" android:focusableInTouchMode="true"
-		android:scrollbars="vertical" android:id="@+id/relativeLayout1"
-		android:layout_width="match_parent" android:layout_height="484dp">
-		<EditText android:layout_alignLeft="@+id/textView2"
-			android:layout_alignParentRight="true" android:layout_height="wrap_content"
-			android:layout_below="@+id/textView3" android:inputType="number"
-			android:singleLine="true" android:layout_width="wrap_content"
-			android:id="@+id/editText2"></EditText>
-		<TextView android:layout_alignLeft="@+id/textView3"
-			android:text="Min memory size 	: " android:layout_height="wrap_content"
-			android:layout_below="@+id/editText2" android:layout_width="118dp"
-			android:textAppearance="?android:attr/textAppearanceLarge"
-			android:id="@+id/textView2" android:layout_alignParentRight="true"></TextView>
-		<EditText android:layout_alignLeft="@+id/textView2"
-			android:layout_alignParentRight="true" android:layout_height="wrap_content"
-			android:editable="true" android:layout_below="@+id/textView2"
-			android:focusable="true" android:fadeScrollbars="true"
-			android:inputType="number"
-			android:fitsSystemWindows="true" android:keepScreenOn="true"
-			android:singleLine="true" android:focusableInTouchMode="true"
-			android:layout_width="wrap_content" android:id="@+id/editText3"></EditText>
-		<EditText android:layout_alignLeft="@+id/textView4"
-			android:layout_alignParentRight="true" android:layout_height="wrap_content"
-			android:layout_below="@+id/textView4" android:singleLine="true"
-			android:layout_width="wrap_content" android:id="@+id/editText4"></EditText>
-		<Button android:layout_alignLeft="@+id/editText3"
-			android:layout_height="wrap_content" android:layout_below="@+id/editText3"
-			android:layout_marginTop="19dp" android:layout_width="wrap_content"
-			android:text="Edit" android:layout_alignRight="@+id/textView4" android:id="@+id/btn_update_template"></Button>
-		<TextView android:text="Min disk size 	: " android:layout_height="wrap_content"
-			android:layout_width="107dp" android:textAppearance="?android:attr/textAppearanceLarge"
-			android:id="@+id/textView3" android:layout_below="@+id/editText4"
-			android:layout_alignParentLeft="true" android:layout_alignParentRight="true"></TextView>
-		<TextView android:text="Name	: " android:layout_height="wrap_content" android:layout_width="96dp" android:textAppearance="?android:attr/textAppearanceLarge" android:id="@+id/textView4" android:layout_below="@+id/textView1" android:layout_alignParentLeft="true"></TextView>
-	</RelativeLayout>
+		<RelativeLayout android:layout_gravity="top"
+			android:isScrollContainer="true" android:keepScreenOn="true"
+			android:focusable="true" android:focusableInTouchMode="true"
+			android:scrollbars="vertical" android:id="@+id/relativeLayout1"
+			android:layout_width="match_parent" android:layout_height="484dp">
+			<EditText android:layout_alignLeft="@+id/textView2"
+				android:layout_alignParentRight="true" android:layout_height="wrap_content"
+				android:layout_below="@+id/textView3" android:inputType="number"
+				android:singleLine="true" android:layout_width="wrap_content"
+				android:id="@+id/editText2"></EditText>
+			<TextView android:layout_alignLeft="@+id/textView3"
+				android:text="Min memory size 	: " android:layout_height="wrap_content"
+				android:layout_below="@+id/editText2" android:layout_width="118dp"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:id="@+id/textView2" android:layout_alignParentRight="true"></TextView>
+			<EditText android:layout_alignLeft="@+id/textView2"
+				android:layout_alignParentRight="true" android:layout_height="wrap_content"
+				android:editable="true" android:layout_below="@+id/textView2"
+				android:focusable="true" android:fadeScrollbars="true"
+				android:inputType="number" android:fitsSystemWindows="true"
+				android:keepScreenOn="true" android:singleLine="true"
+				android:focusableInTouchMode="true" android:layout_width="wrap_content"
+				android:id="@+id/editText3"></EditText>
+			<EditText android:layout_alignLeft="@+id/textView4"
+				android:layout_alignParentRight="true" android:layout_height="wrap_content"
+				android:layout_below="@+id/textView4" android:singleLine="true"
+				android:layout_width="wrap_content" android:id="@+id/editText4"></EditText>
+			<Button android:layout_alignLeft="@+id/editText3"
+				android:layout_height="wrap_content" android:layout_below="@+id/editText3"
+				android:layout_marginTop="19dp" android:layout_width="wrap_content"
+				android:text="Edit" android:layout_alignRight="@+id/textView4"
+				android:id="@+id/btn_update_template"></Button>
+			<TextView android:text="Min disk size 	: "
+				android:layout_height="wrap_content" android:layout_width="107dp"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:id="@+id/textView3" android:layout_below="@+id/editText4"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentRight="true"></TextView>
+			<TextView android:text="Name	: " android:layout_height="wrap_content"
+				android:layout_width="96dp" android:textAppearance="?android:attr/textAppearanceLarge"
+				android:id="@+id/textView4" android:layout_below="@+id/textView1"
+				android:layout_alignParentLeft="true"></TextView>
+		</RelativeLayout>
 	</LinearLayout>
-	</ScrollView>
+</ScrollView>

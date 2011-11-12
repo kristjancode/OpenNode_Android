@@ -48,8 +48,8 @@ public class Activity_StreamActivity extends Activity {
 		ImageView search = (ImageView) findViewById(R.id.btn_computeSearch);
 		search.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-	        	SearchActivity.newCheck = true;
-        		back=0;
+				SearchActivity.newCheck = true;
+				back=0;
 				Intent myIntent = new Intent(view.getContext(),
 						SearchActivity.class);
 				startActivityForResult(myIntent, 0);
@@ -64,25 +64,25 @@ public class Activity_StreamActivity extends Activity {
 		newsListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , listItems));
 		registerForContextMenu(newsListView);
 		newsListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
-				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-			    	selectedItemID = arg2;
-			    	back = 1;
-					Intent myIntent = new Intent(arg1.getContext(),	NewsDetailActivity.class);
-					startActivityForResult(myIntent, 0);
-				}  		
-		      });  
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				selectedItemID = arg2;
+				back = 1;
+				Intent myIntent = new Intent(arg1.getContext(),	NewsDetailActivity.class);
+				startActivityForResult(myIntent, 0);
+			}  		
+		});  
 	}
-	
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.news_menu, menu);
 
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-        selectedItemID = info.position;    
-        menu.setHeaderTitle(listItems[(int) selectedItemID]);
-      }
-    public boolean onContextItemSelected(MenuItem item)  {
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.news_menu, menu);
+
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+		selectedItemID = info.position;    
+		menu.setHeaderTitle(listItems[(int) selectedItemID]);
+	}
+	public boolean onContextItemSelected(MenuItem item)  {
 		switch (item.getItemId()) {
 		case R.id.extra_info_news:
 			back = 1;
@@ -110,17 +110,17 @@ public class Activity_StreamActivity extends Activity {
 		final Spinner typeSpinner = (Spinner) findViewById(R.id.newsTypeSpinner);
 		final EditText titleEdit = (EditText) findViewById(R.id.newsTitleText);
 		final EditText contentEdit = (EditText) findViewById(R.id.newsContentText);
-		
-		this.mAdapter = ArrayAdapter.createFromResource(this, R.array.type_array,
-                android.R.layout.simple_spinner_item);
-        typeSpinner.setAdapter(this.mAdapter);
 
-        int i = mAdapter.getPosition(selectedItem.type());
-        typeSpinner.setSelection(i);
+		this.mAdapter = ArrayAdapter.createFromResource(this, R.array.type_array,
+				android.R.layout.simple_spinner_item);
+		typeSpinner.setAdapter(this.mAdapter);
+
+		int i = mAdapter.getPosition(selectedItem.type());
+		typeSpinner.setSelection(i);
 
 		titleEdit.setText("" + selectedItem.name());
 		contentEdit.setText("" + selectedItem.content());
-		
+
 		Button updateNews = (Button) findViewById(R.id.btn_news_edit);
 		updateNews.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
@@ -129,7 +129,7 @@ public class Activity_StreamActivity extends Activity {
 					newsManager.update(selectedItem, newNew);
 					Intent myIntent = new Intent(view.getContext(), Activity_StreamActivity.class);
 					startActivityForResult(myIntent, 0);
-			}
+				}
 				else{
 					Context context = getApplicationContext();
 					CharSequence text = "All fields must be filled";
@@ -138,10 +138,10 @@ public class Activity_StreamActivity extends Activity {
 					Toast toast = Toast.makeText(context, text, duration);
 					toast.show();
 				}
-				
+
 			}
 		});	
-		
+
 	}
 
 	private void make_comment() {
@@ -151,7 +151,7 @@ public class Activity_StreamActivity extends Activity {
 
 		Toast toast = Toast.makeText(context, text, duration);
 		toast.show();
-		
+
 	}
 
 	private void extra_info() {
@@ -161,16 +161,16 @@ public class Activity_StreamActivity extends Activity {
 		News selectedItem = newsList[(int) selectedItemID];
 		newsManager.details(selectedItem);
 		computeExtraLabel.setText(selectedItem.name());
-		
+
 		extraListItems = new String[4];
 		extraListItems[0] = ("ID : " + selectedItem.id());
 		extraListItems[1] = ("Type : " + selectedItem.type());
 		extraListItems[2] = ("Title : " + selectedItem.name());
 		extraListItems[3] = ("Content : " + selectedItem.content());
-		
+
 		newsExtraListView = (ListView) findViewById(R.id.list_extra);
 		newsExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
-		
+
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
@@ -205,35 +205,35 @@ public class Activity_StreamActivity extends Activity {
 		newsManager.delete(selectedItem);
 		Intent intent = new Intent(this, Activity_StreamActivity.class);
 		this.startActivity(intent);
-		
+
 	}
 
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_SEARCH){
-        	back=0;
-        	SearchActivity.newCheck = true;
+		if(keyCode == KeyEvent.KEYCODE_SEARCH){
+			back=0;
+			SearchActivity.newCheck = true;
 			Intent intent = new Intent(this, SearchActivity.class);
 			this.startActivity(intent);
-                return false;
-        }else{
-        	 if(keyCode == KeyEvent.KEYCODE_BACK){
-        		 if (editPage==1){
-        			 editPage=0;
- 	     			Intent intent = new Intent(this, Activity_StreamActivity.class);
- 	    			this.startActivity(intent);
-        		 }
-        		 else{
-	        		back=0;
-	     			Intent intent = new Intent(this, MainActivity.class);
-	    			this.startActivity(intent);
-        		 }
-        		 return false;
-        	 }
-        	 else{
-                return super.onKeyUp(keyCode, event); 
-        	 }
-        }
-}
+			return false;
+		}else{
+			if(keyCode == KeyEvent.KEYCODE_BACK){
+				if (editPage==1){
+					editPage=0;
+					Intent intent = new Intent(this, Activity_StreamActivity.class);
+					this.startActivity(intent);
+				}
+				else{
+					back=0;
+					Intent intent = new Intent(this, MainActivity.class);
+					this.startActivity(intent);
+				}
+				return false;
+			}
+			else{
+				return super.onKeyUp(keyCode, event); 
+			}
+		}
+	}
 
 
 }

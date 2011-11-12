@@ -1,27 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-	<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" 
-android:layout_width="match_parent" 
-android:layout_height="match_parent"
-android:fillViewport="true">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:layout_height="match_parent"
+	android:fillViewport="true">
 	<LinearLayout android:id="@+id/update_table"
 		android:weightSum="1" xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="match_parent" android:layout_height="match_parent"
 		android:isScrollContainer="true" android:orientation="vertical">
 		<TextView android:id="@+id/update_storage_label"
 			android:layout_width="fill_parent" android:padding="12px"
-			android:text="Edit News" android:textSize="24sp"
-			android:typeface="serif" android:gravity="center"
-			android:background="@color/actionbar_background_end"
+			android:text="Edit News" android:textSize="24sp" android:typeface="serif"
+			android:gravity="center" android:background="@color/actionbar_background_end"
 			android:layout_height="0dp" android:layout_weight="0.50">
 		</TextView>
-		<RelativeLayout android:layout_gravity="top" android:id="@+id/relativeLayout1" android:isScrollContainer="true" android:focusable="true" android:scrollbars="vertical" android:keepScreenOn="true" android:focusableInTouchMode="true" android:layout_height="484dp" android:layout_width="match_parent">
-			<TextView android:layout_width="96dp" android:id="@+id/textView4" android:text="Type: " android:layout_below="@+id/textView1" android:layout_alignParentLeft="true" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
-			<EditText android:layout_width="wrap_content" android:id="@+id/newsContentText" android:layout_below="@+id/textView2" android:layout_alignParentLeft="true" android:layout_height="wrap_content" android:inputType="textMultiLine" android:layout_alignParentRight="true" android:isScrollContainer="true" android:lines="3"></EditText>
-			<Button android:layout_width="wrap_content" android:text="Edit" android:id="@+id/btn_news_edit" android:layout_height="wrap_content" android:layout_below="@+id/newsContentText" android:layout_alignParentLeft="true" android:layout_alignRight="@+id/textView4" android:clickable="true"></Button>
-			<EditText android:layout_width="wrap_content" android:id="@+id/newsTitleText" android:singleLine="true" android:layout_height="wrap_content" android:layout_below="@+id/textView3" android:layout_alignParentLeft="true" android:layout_alignParentRight="true" android:inputType="text"></EditText>
-			<TextView android:layout_width="118dp" android:id="@+id/textView2" android:text="Content: " android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_below="@+id/newsTitleText" android:layout_alignRight="@+id/btn_update_storage"></TextView>
-			<Spinner android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/newsTypeSpinner" android:layout_below="@+id/textView4" android:layout_alignParentLeft="true" android:layout_alignParentRight="true"></Spinner>
-			<TextView android:layout_width="107dp" android:id="@+id/textView3" android:text="Title: " android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_below="@+id/newsTypeSpinner" android:layout_alignParentLeft="true"></TextView>
+		<RelativeLayout android:layout_gravity="top"
+			android:id="@+id/relativeLayout1" android:isScrollContainer="true"
+			android:focusable="true" android:scrollbars="vertical"
+			android:keepScreenOn="true" android:focusableInTouchMode="true"
+			android:layout_height="484dp" android:layout_width="match_parent">
+			<TextView android:layout_width="96dp" android:id="@+id/textView4"
+				android:text="Type: " android:layout_below="@+id/textView1"
+				android:layout_alignParentLeft="true" android:layout_height="wrap_content"
+				android:layout_marginTop="16dp" android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
+			<EditText android:layout_width="wrap_content" android:id="@+id/newsContentText"
+				android:layout_below="@+id/textView2"
+				android:layout_alignParentLeft="true" android:layout_height="wrap_content"
+				android:inputType="textMultiLine" android:layout_alignParentRight="true"
+				android:isScrollContainer="true" android:lines="3"></EditText>
+			<Button android:layout_width="wrap_content" android:text="Edit"
+				android:id="@+id/btn_news_edit" android:layout_height="wrap_content"
+				android:layout_below="@+id/newsContentText"
+				android:layout_alignParentLeft="true" android:layout_alignRight="@+id/textView4"
+				android:clickable="true"></Button>
+			<EditText android:layout_width="wrap_content" android:id="@+id/newsTitleText"
+				android:singleLine="true" android:layout_height="wrap_content"
+				android:layout_below="@+id/textView3"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentRight="true" android:inputType="text"></EditText>
+			<TextView android:layout_width="118dp" android:id="@+id/textView2"
+				android:text="Content: " android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_below="@+id/newsTitleText" android:layout_alignRight="@+id/btn_update_storage"></TextView>
+			<Spinner android:layout_height="wrap_content"
+				android:layout_width="wrap_content" android:id="@+id/newsTypeSpinner"
+				android:layout_below="@+id/textView4"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentRight="true"></Spinner>
+			<TextView android:layout_width="107dp" android:id="@+id/textView3"
+				android:text="Title: " android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_below="@+id/newsTypeSpinner"
+				android:layout_alignParentLeft="true"></TextView>
 		</RelativeLayout>
 	</LinearLayout>
-	</ScrollView>
+</ScrollView>

@@ -1,58 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	android:id="@+id/rl_search_root"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:orientation="vertical"
-	xmlns:android="http://schemas.android.com/apk/res/android"
->
-<FrameLayout
-android:id="@+id/widget44"
-android:layout_width="fill_parent"
-android:layout_height="51dp"
->
- <TextView android:id="@+id/activity_label" android:background="@color/actionbar_background_end" android:typeface="serif" android:padding="12px" android:text="Search" android:textSize="24sp" android:gravity="center" android:layout_height="wrap_content" android:layout_width="match_parent"></TextView>
-          
-</FrameLayout>
-<EditText
-android:id="@+id/editText123"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content" android:maxLines="1" android:lines="1" android:imeOptions="actionNext">
-</EditText>
-<TableRow android:id="@+id/tableRow1" android:layout_height="wrap_content" android:layout_width="match_parent">
-    <TableRow android:id="@+id/tableRow4" android:layout_height="wrap_content" android:layout_weight="10" android:layout_width="0dp" android:layout_marginLeft="7dp">
-        <ImageView android:src="@drawable/compute48" android:id="@+id/imageView2" android:layout_height="37dp" android:layout_width="37dp"></ImageView>
-        <CheckBox android:id="@+id/computeCheck" android:layout_height="37dp" android:layout_width="wrap_content" android:layout_marginLeft="0dp"></CheckBox>
-    </TableRow>
-        <TableRow android:id="@+id/tableRow10" android:layout_height="wrap_content" android:layout_weight="3" android:layout_width="0dp"></TableRow>
-    <TableRow android:id="@+id/tableRow3" android:layout_height="wrap_content" android:layout_weight="10" android:layout_width="0dp">
-        <ImageView android:src="@drawable/network48" android:id="@+id/imageView3" android:layout_height="37dp" android:layout_width="37dp"></ImageView>
-        <CheckBox android:id="@+id/networkCheck" android:layout_height="37dp" android:layout_width="wrap_content" android:layout_marginLeft="0dp"></CheckBox>
-    </TableRow>
-        <TableRow android:id="@+id/tableRow11" android:layout_height="wrap_content" android:layout_weight="3" android:layout_width="0dp"></TableRow>
-  
-    <TableRow android:id="@+id/tableRow2" android:layout_height="wrap_content" android:layout_weight="10" android:layout_width="0dp">
-        <ImageView android:src="@drawable/logs48" android:id="@+id/imageView6" android:layout_height="37dp" android:layout_width="35dp"></ImageView>
-        <CheckBox android:layout_marginRight="15dp" android:id="@+id/newsCheck" android:layout_height="37dp" android:layout_width="wrap_content" android:layout_marginLeft="0dp"></CheckBox>
-    </TableRow>
-</TableRow>
-<TableRow android:id="@+id/tableRow1" android:layout_height="wrap_content" android:layout_width="match_parent">
-    <TableRow android:id="@+id/tableRow5" android:layout_marginLeft="7dp" android:layout_height="wrap_content" android:layout_weight="10" android:layout_width="0dp">
-       <ImageView android:src="@drawable/storage48" android:id="@+id/imageView4" android:layout_height="37dp" android:layout_width="37dp"></ImageView>
-       <CheckBox android:id="@+id/storageCheck" android:layout_height="37dp" android:layout_width="wrap_content" android:layout_marginLeft="0dp"></CheckBox>
-    </TableRow>
-    <TableRow android:id="@+id/tableRow7" android:layout_height="wrap_content" android:layout_weight="3" android:layout_width="0dp"></TableRow>
-    <TableRow android:id="@+id/tableRow6" android:layout_height="wrap_content" android:layout_weight="10" android:layout_width="0dp">
-        <ImageView android:src="@drawable/template2" android:id="@+id/imageView5" android:layout_height="37dp" android:layout_width="37dp"></ImageView>
-        <CheckBox android:id="@+id/templateCheck" android:layout_height="37dp" android:layout_width="wrap_content" android:layout_marginLeft="0dp"></CheckBox>
-    </TableRow>
-    <TableRow android:id="@+id/tableRow8" android:layout_height="wrap_content" android:layout_weight="3" android:layout_width="0dp"></TableRow>
-    <TableRow android:id="@+id/tableRow9" android:layout_height="wrap_content" android:layout_weight="10" android:layout_width="0dp">
-        <Button android:id="@+id/btn_Search_Search" android:text="Search" android:layout_height="40dp" android:layout_width="75dp"></Button>
-    </TableRow>
-  
-</TableRow>
-<ListView android:layout_width="fill_parent" 
-		  android:id="@+id/search_list" 
-		  android:layout_height="match_parent" ></ListView>
+<LinearLayout android:id="@+id/rl_search_root"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
+	<FrameLayout android:id="@+id/widget44"
+		android:layout_width="fill_parent" android:layout_height="51dp">
+		<TextView android:id="@+id/activity_label"
+			android:background="@color/actionbar_background_end"
+			android:typeface="serif" android:padding="12px" android:text="Search"
+			android:textSize="24sp" android:gravity="center"
+			android:layout_height="wrap_content" android:layout_width="match_parent"></TextView>
+
+	</FrameLayout>
+	<EditText android:id="@+id/editText123" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:maxLines="1"
+		android:lines="1" android:imeOptions="actionGo|actionNone|actionNext">
+	</EditText>
+	<TableRow android:id="@+id/tableRow1" android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+		<TableRow android:id="@+id/tableRow4" android:layout_height="wrap_content"
+			android:layout_weight="10" android:layout_width="0dp"
+			android:layout_marginLeft="7dp">
+			<ImageView android:src="@drawable/compute48" android:id="@+id/imageView2"
+				android:layout_height="37dp" android:layout_width="37dp"></ImageView>
+			<CheckBox android:id="@+id/computeCheck"
+				android:layout_height="37dp" android:layout_width="wrap_content"
+				android:layout_marginLeft="0dp" android:imeOptions="actionNext"></CheckBox>
+		</TableRow>
+		<TableRow android:id="@+id/tableRow10" android:layout_height="wrap_content"
+			android:layout_weight="3" android:layout_width="0dp"></TableRow>
+		<TableRow android:id="@+id/tableRow3" android:layout_height="wrap_content"
+			android:layout_weight="10" android:layout_width="0dp">
+			<ImageView android:src="@drawable/network48" android:id="@+id/imageView3"
+				android:layout_height="37dp" android:layout_width="37dp"></ImageView>
+			<CheckBox android:id="@+id/networkCheck"
+				android:layout_height="37dp" android:layout_width="wrap_content"
+				android:layout_marginLeft="0dp" android:imeOptions="actionNext"></CheckBox>
+		</TableRow>
+		<TableRow android:id="@+id/tableRow11" android:layout_height="wrap_content"
+			android:layout_weight="3" android:layout_width="0dp"></TableRow>
+
+		<TableRow android:id="@+id/tableRow2" android:layout_height="wrap_content"
+			android:layout_weight="10" android:layout_width="0dp">
+			<ImageView android:src="@drawable/logs48" android:id="@+id/imageView6"
+				android:layout_height="37dp" android:layout_width="35dp"></ImageView>
+			<CheckBox android:layout_marginRight="15dp" android:id="@+id/newsCheck"
+				android:layout_height="37dp" android:layout_width="wrap_content"
+				android:layout_marginLeft="0dp" android:imeOptions="actionNext"></CheckBox>
+		</TableRow>
+	</TableRow>
+	<TableRow android:id="@+id/tableRow1" android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+		<TableRow android:id="@+id/tableRow5"
+			android:layout_marginLeft="7dp" android:layout_height="wrap_content"
+			android:layout_weight="10" android:layout_width="0dp">
+			<ImageView android:src="@drawable/storage48" android:id="@+id/imageView4"
+				android:layout_height="37dp" android:layout_width="37dp"></ImageView>
+			<CheckBox android:id="@+id/storageCheck"
+				android:layout_height="37dp" android:layout_width="wrap_content"
+				android:layout_marginLeft="0dp" android:imeOptions="actionNext"></CheckBox>
+		</TableRow>
+		<TableRow android:id="@+id/tableRow7" android:layout_height="wrap_content"
+			android:layout_weight="3" android:layout_width="0dp"></TableRow>
+		<TableRow android:id="@+id/tableRow6" android:layout_height="wrap_content"
+			android:layout_weight="10" android:layout_width="0dp">
+			<ImageView android:src="@drawable/template2" android:id="@+id/imageView5"
+				android:layout_height="37dp" android:layout_width="37dp"></ImageView>
+			<CheckBox android:id="@+id/templateCheck"
+				android:layout_height="37dp" android:layout_width="wrap_content"
+				android:layout_marginLeft="0dp" android:imeOptions="actionNext"></CheckBox>
+		</TableRow>
+		<TableRow android:id="@+id/tableRow8" android:layout_height="wrap_content"
+			android:layout_weight="3" android:layout_width="0dp"></TableRow>
+		<TableRow android:id="@+id/tableRow9" android:layout_height="wrap_content"
+			android:layout_weight="10" android:layout_width="0dp">
+			<Button android:id="@+id/btn_Search_Search" android:text="Search"
+				android:layout_height="40dp" android:layout_width="75dp" android:imeOptions="actionGo"></Button>
+		</TableRow>
+
+	</TableRow>
+	<ListView android:layout_width="fill_parent" android:id="@+id/search_list"
+		android:layout_height="match_parent"></ListView>
 </LinearLayout>

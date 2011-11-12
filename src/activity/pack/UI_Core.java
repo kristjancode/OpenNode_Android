@@ -6,7 +6,7 @@ import core.config.Config;
 public class UI_Core {
 
 	static Core core;
-	
+
 	public static Core getCore(){
 		return core;
 	}
@@ -15,5 +15,5 @@ public class UI_Core {
 		//Config.SERVER_PORT = 8080;
 		core = new Core();
 	}
-	
+
 }
