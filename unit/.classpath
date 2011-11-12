@@ -5,6 +5,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="libs/json_parser.jar"/>
-	<classpathentry kind="lib" path="libs/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="libs/emma/emma_ant.jar"/>
+	<classpathentry kind="lib" path="libs/emma/emma.jar"/>
+	<classpathentry kind="lib" path="libs/junit/junit-4.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
