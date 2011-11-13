@@ -18,14 +18,16 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 	public void setUp() throws Exception {
 		solo = new Solo(getInstrumentation(), getActivity());	
 	}
-	
+
 	//This is for logging in before running other tests
 	//Kind of workaround, as robotium doesn't support setting up first
 	//Disgusting
 	@Smoke
 	public void testA(){
-		solo.pressMenuItem(0);
-		solo.waitForActivity("LoginActivity",5000);
+		if (!solo.searchText("(?i).*?Url:*")) {
+			solo.pressMenuItem(1);
+			solo.waitForActivity("LoginActivity",5000);
+		}
 		solo.assertCurrentActivity("Expected LoginActivity", "LoginActivity");
 		solo.clearEditText(0);
 		solo.enterText(0,"10.0.2.2:8080");
@@ -39,7 +41,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 		solo.clickOnButton(0);
 		solo.assertCurrentActivity("Expected MainActivity","MainActivity");
 	}
-	
+
 	@Smoke
 	public void testMainNetwork(){
 		//We check if we get all the items and they are responsive
@@ -48,7 +50,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 		solo.assertCurrentActivity("Expected NetworkActivity", "NetworkActivity");
 
 	}
-	
+
 	@Smoke
 	public void testMainCompute(){
 		//We check if we get all the items and they are responsive
@@ -57,7 +59,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 		solo.assertCurrentActivity("Expected ComputeActivity", "ComputeActivity");
 
 	}
-	
+
 	@Smoke
 	public void testMainStorage(){
 		//We check if we get all the items and they are responsive
@@ -66,7 +68,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 		solo.assertCurrentActivity("Expected StorageActivity", "StorageActivity");
 
 	}
-	
+
 	@Smoke
 	public void testMainTemplate(){
 		//We check if we get all the items and they are responsive
@@ -86,7 +88,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 		solo.assertCurrentActivity("Expected Activity stream Activity", "Activity_StreamActivity");
 
 	}
-	
+
 	@Smoke public void testSearchOnMainscreen(){
 		solo.assertCurrentActivity("Expected MainActivity", "MainActivity");
 		solo.sendKey(KeyEvent.KEYCODE_SEARCH);
@@ -94,7 +96,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 		solo.assertCurrentActivity("Expected Search Activity", "SearchActivity");
 	}
 
-	
+
 	@Override
 	public void tearDown() throws Exception {
 		try {

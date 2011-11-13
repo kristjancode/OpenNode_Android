@@ -4,13 +4,14 @@ import activity.pack.MainActivity;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-public class OpenNode_Android_ActivityTest extends
+public class Activity extends
 ActivityInstrumentationTestCase2<MainActivity> {
 
-	public OpenNode_Android_ActivityTest() {
+	public Activity() {
 		super("activity.pack",MainActivity.class);
-		// TODO Auto-generated constructor stub
 	}
+	
+	//Superbasic test to check if everything works
 	public void testSanity() {
 		assertEquals(2, 1 + 1);
 	}
