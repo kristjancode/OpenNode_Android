@@ -68,7 +68,7 @@ public class NetworkTest {
 
 	@Test
 	public final void testIp() {
-		assertTrue("Bad mask",network.mask().equals(mask));
+		assertTrue("Bad mask",network.ip().equals(ip));
 	}
 
 	@Test

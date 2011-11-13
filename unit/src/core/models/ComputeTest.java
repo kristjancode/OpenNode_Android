@@ -69,5 +69,10 @@ public class ComputeTest {
 	public void testTemplate() {
 		assertEquals("template",compute.template());
 	}
+	
+	@Test
+	public final void testToString() {
+		assertTrue("Didn't get string", compute.toString() instanceof java.lang.String);
+	}
 
 }

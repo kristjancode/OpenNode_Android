@@ -9,7 +9,7 @@ public class CoreTest
 	
 	@Before
 	public void setUp() throws Exception {
-		//Needs to run in emulator, thus 10.0.2.2
+		//No longer needs to run in emulator, thus 0.0.0.0
 		core = new Core();
 		//OOH new feature, we need to actually authenticate
 		core.config().serverHostname("0.0.0.0");
