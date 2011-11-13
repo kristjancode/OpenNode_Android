@@ -4,30 +4,42 @@ public class Config
 {
 	public Config()
 	{
-		m_serverHostname = null;
+		m_serverHostname = "0.0.0.0";
 		m_serverPort = 0;
-		m_serverUsername = null;
-		m_serverPassword = null;
+		m_serverUsername = "NONE";
+		m_serverPassword = "NONE";
 	}
 	
 	public void serverHostname(String serverHostname)
 	{
-		m_serverHostname = serverHostname;
+		if (serverHostname != null)
+		{
+			m_serverHostname = serverHostname;
+		}
 	}
 	
 	public void serverPort(int serverPort)
 	{
-		m_serverPort = serverPort;
+		if (serverPort >= 0)
+		{
+			m_serverPort = serverPort;
+		}
 	}
 	
 	public void serverUsername(String serverUsername)
 	{
-		m_serverUsername = serverUsername;
+		if (serverUsername != null)
+		{
+			m_serverUsername = serverUsername;
+		}
 	}
 	
 	public void serverPassword(String serverPassword)
 	{
-		m_serverPassword = serverPassword;
+		if (serverPassword != null)
+		{
+			m_serverPassword = serverPassword;
+		}
 	}
 	
 	public String serverHostname()

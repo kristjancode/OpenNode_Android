@@ -1,0 +1,29 @@
+Testsuite: core.config.ConfigTest
+Tests run: 8, Failures: 3, Errors: 0, Time elapsed: 0,094 sec
+------------- Standard Output ---------------
+EMMA: collecting runtime coverage data ...
+------------- ---------------- ---------------
+
+Testcase: testConfig took 0,047 sec
+Testcase: testServerHostnameString took 0 sec
+Testcase: testServerHostnameNullString took 0 sec
+	FAILED
+Hostname is not String (nulls and others should not be allowed)
+junit.framework.AssertionFailedError: Hostname is not String (nulls and others should not be allowed)
+	at core.config.ConfigTest.testServerHostnameNullString(ConfigTest.java:38)
+
+Testcase: testServerPortInt took 0 sec
+Testcase: testServerUsernameString took 0 sec
+Testcase: testServerUsernameNullString took 0 sec
+	FAILED
+Username is not String (nulls and others should not be allowed)
+junit.framework.AssertionFailedError: Username is not String (nulls and others should not be allowed)
+	at core.config.ConfigTest.testServerUsernameNullString(ConfigTest.java:59)
+
+Testcase: testServerPasswordString took 0 sec
+Testcase: testServerPasswordNullString took 0 sec
+	FAILED
+Password is not String (nulls and others should not be allowed)
+junit.framework.AssertionFailedError: Password is not String (nulls and others should not be allowed)
+	at core.config.ConfigTest.testServerPasswordNullString(ConfigTest.java:73)
+

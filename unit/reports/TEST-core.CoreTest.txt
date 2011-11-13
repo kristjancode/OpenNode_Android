@@ -1,0 +1,13 @@
+Testsuite: core.CoreTest
+Tests run: 7, Failures: 0, Errors: 0, Time elapsed: 0,156 sec
+------------- Standard Output ---------------
+EMMA: collecting runtime coverage data ...
+------------- ---------------- ---------------
+
+Testcase: testCore took 0,094 sec
+Testcase: testServerConnector took 0 sec
+Testcase: testComputeManager took 0 sec
+Testcase: testNetworkManager took 0 sec
+Testcase: testStorageManager took 0 sec
+Testcase: testTemplateManager took 0,016 sec
+Testcase: testNewsManager took 0 sec
