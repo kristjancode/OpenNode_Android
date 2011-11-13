@@ -1,6 +1,7 @@
 package main;
 
 import java.util.Scanner;
+import java.lang.reflect.*;
 import core.Core;
 import core.config.Config;
 import core.interfaces.*;
@@ -11,7 +12,7 @@ public class Main
 	public static void main(String[] args)
 	{
 		Core core = new Core();
-		Config config = core.config();
+		Config config = core.config();	
 		config.serverHostname("127.0.0.1");
 		config.serverPort(8080);
 		config.serverUsername("opennode");

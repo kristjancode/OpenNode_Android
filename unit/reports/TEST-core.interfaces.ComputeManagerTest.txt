@@ -1,0 +1,14 @@
+Testsuite: core.interfaces.ComputeManagerTest
+Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 0,203 sec
+------------- Standard Output ---------------
+EMMA: collecting runtime coverage data ...
+------------- ---------------- ---------------
+
+Testcase: testComputeManager took 0,063 sec
+Testcase: testNegativeIndexItem took 0,015 sec
+Testcase: testCount took 0,016 sec
+Testcase: testDetails took 0,016 sec
+Testcase: testWithNullString took 0 sec
+Testcase: testCreateEmptyItem took 0,015 sec
+Testcase: testCreateItem took 0,031 sec
+Testcase: testDelete took 0 sec

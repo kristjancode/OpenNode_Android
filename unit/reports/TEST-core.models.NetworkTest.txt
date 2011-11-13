@@ -1,0 +1,16 @@
+Testsuite: core.models.NetworkTest
+Tests run: 10, Failures: 0, Errors: 0, Time elapsed: 0,094 sec
+------------- Standard Output ---------------
+EMMA: collecting runtime coverage data ...
+------------- ---------------- ---------------
+
+Testcase: testValid took 0,031 sec
+Testcase: testAssignItem took 0 sec
+Testcase: testAssignJSONObject took 0 sec
+Testcase: testToJSON took 0 sec
+Testcase: testToString took 0 sec
+Testcase: testNetwork took 0 sec
+Testcase: testIp took 0 sec
+Testcase: testMask took 0 sec
+Testcase: testAddressAllocation took 0 sec
+Testcase: testGateway took 0 sec

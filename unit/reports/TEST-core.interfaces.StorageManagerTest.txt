@@ -1,0 +1,9 @@
+Testsuite: core.interfaces.StorageManagerTest
+Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0,156 sec
+------------- Standard Output ---------------
+EMMA: collecting runtime coverage data ...
+------------- ---------------- ---------------
+
+Testcase: testStorageManager took 0,079 sec
+Testcase: testCreateItem took 0,031 sec
+Testcase: testLoad took 0,015 sec
