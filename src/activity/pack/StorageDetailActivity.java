@@ -33,6 +33,7 @@ public class StorageDetailActivity extends Activity {
 	private int actionValue = StorageActivity.actionValue;
 	private ArrayAdapter<CharSequence> mAdapter;
 	private Activity storageActivity = this;
+	private int editPage=0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -104,23 +105,23 @@ public class StorageDetailActivity extends Activity {
 		return true;
 	}
 	public void delete_storage() {
-	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	    builder.setMessage("Are you sure you want to delete this item?")
-	           .setCancelable(false)
-	           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-	               public void onClick(DialogInterface dialog, int id) {
-	           		storageManager.delete(selectedItem);
-	        		Intent intent = new Intent(storageActivity, StorageActivity.class);
-	        		storageActivity.startActivity(intent);
-	               }
-	           })
-	           .setNegativeButton("No", new DialogInterface.OnClickListener() {
-	               public void onClick(DialogInterface dialog, int id) {
-	                    dialog.cancel();
-	               }
-	           });
-	    AlertDialog alert = builder.create();
-	    alert.show();
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Are you sure you want to delete this item?")
+		.setCancelable(false)
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				storageManager.delete(selectedItem);
+				Intent intent = new Intent(storageActivity, StorageActivity.class);
+				storageActivity.startActivity(intent);
+			}
+		})
+		.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
 
 
 	}
@@ -134,6 +135,7 @@ public class StorageDetailActivity extends Activity {
 		final EditText availableEdit = (EditText) findViewById(R.id.editText1);
 		final Spinner typeEditSpinner = (Spinner) findViewById(R.id.storageSpinner);
 		final EditText nameEdit = (EditText) findViewById(R.id.editText4);
+		editPage=1;
 
 		this.mAdapter = ArrayAdapter.createFromResource(this, R.array.type2_array,
 				android.R.layout.simple_spinner_item);
@@ -149,20 +151,27 @@ public class StorageDetailActivity extends Activity {
 		updateStorage.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				if ((!nameEdit.getText().toString().equals("")) && (!sizeEdit.getText().toString().equals(""))){
-					if (Integer.parseInt(availableEdit.getText().toString())<selectedItem.capacity()){
-						Storage newStorage = new Storage(selectedItem.id(),nameEdit.getText().toString(), typeEditSpinner.getSelectedItem().toString(), Integer.parseInt(sizeEdit.getText().toString()), Integer.parseInt(availableEdit.getText().toString()));
-						storageManager.update(selectedItem, newStorage);
-						Intent myIntent = new Intent(view.getContext(), StorageActivity.class);
-						startActivityForResult(myIntent, 0);
-					}
-					else{
-						Context context = getApplicationContext();
-						CharSequence text = "The value of available can not be larger than the value of capacity";
-						int duration = Toast.LENGTH_LONG;
+					try{
+						Integer.parseInt(sizeEdit.getText().toString());
+						Integer.parseInt(availableEdit.getText().toString());
 
-						Toast toast = Toast.makeText(context, text, duration);
-						toast.show();
+						if (Integer.parseInt(availableEdit.getText().toString())<selectedItem.capacity()){
+							Storage newStorage = new Storage(selectedItem.id(),nameEdit.getText().toString(), typeEditSpinner.getSelectedItem().toString(), Integer.parseInt(sizeEdit.getText().toString()), Integer.parseInt(availableEdit.getText().toString()));
+							storageManager.update(selectedItem, newStorage);
+							Intent myIntent = new Intent(view.getContext(), StorageActivity.class);
+							startActivityForResult(myIntent, 0);
+
+						}
+						else{
+							Context context = getApplicationContext();
+							CharSequence text = "The value of available can not be larger than the value of capacity";
+							int duration = Toast.LENGTH_LONG;
+
+							Toast toast = Toast.makeText(context, text, duration);
+							toast.show();
+						}
 					}
+					catch (Exception e){}
 				}
 				else{
 					Context context = getApplicationContext();
@@ -195,8 +204,18 @@ public class StorageDetailActivity extends Activity {
 				return false;
 
 			}
-			else{
-				return super.onKeyUp(keyCode, event); 
+			else{if(keyCode == KeyEvent.KEYCODE_MENU) {
+				if(editPage==1) {
+					return true;
+
+
+				}
+
+				return false;
+
+			}
+
+			return super.onKeyUp(keyCode, event); 
 			}
 		}
 	}

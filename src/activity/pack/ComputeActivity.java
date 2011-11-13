@@ -45,6 +45,8 @@ public class ComputeActivity extends Activity {
 	protected ArrayAdapter<CharSequence> m2Adapter;
 	private int editPage=0;
 	private Activity computeActivity = this;
+	Menu menu;
+
 
 
 	private class MyArrayAdapter<T> extends ArrayAdapter<T>
@@ -198,11 +200,19 @@ public class ComputeActivity extends Activity {
 		createCompute.setText("Edit");
 		createCompute.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
+
 				if ((!nameEdit.getText().toString().equals("")) && (!coresEdit.getText().toString().equals("")) && (!cpuEdit.getText().toString().equals("")) && (!memoryEdit.getText().toString().equals(""))){
-					Compute newCompute = new Compute(0,nameEdit.getText().toString(), archEditSpinner.getSelectedItem().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEditSpinner.getSelectedItem().toString(), selectedItem.template());
-					computeManager.update(selectedItem, newCompute);
-					Intent myIntent = new Intent(view.getContext(), ComputeActivity.class);
-					startActivityForResult(myIntent, 0);
+					try{ if (Float.parseFloat(cpuEdit.getText().toString())<10000000){
+						Integer.parseInt(coresEdit.getText().toString());
+						Float.parseFloat(cpuEdit.getText().toString());
+						Integer.parseInt(memoryEdit.getText().toString());
+						Compute newCompute = new Compute(0,nameEdit.getText().toString(), archEditSpinner.getSelectedItem().toString(), Integer.parseInt(coresEdit.getText().toString()), Float.parseFloat(cpuEdit.getText().toString()), Integer.parseInt(memoryEdit.getText().toString()), stateEditSpinner.getSelectedItem().toString(), selectedItem.template());
+						computeManager.update(selectedItem, newCompute);
+						Intent myIntent = new Intent(view.getContext(), ComputeActivity.class);
+						startActivityForResult(myIntent, 0);
+					}
+					}
+					catch (Exception e){}
 				}
 				else{
 					Context context = getApplicationContext();
@@ -212,8 +222,8 @@ public class ComputeActivity extends Activity {
 					Toast toast = Toast.makeText(context, text, duration);
 					toast.show();
 				}
-			}
 
+			}
 		});	
 	}
 
@@ -230,6 +240,7 @@ public class ComputeActivity extends Activity {
 
 
 	public boolean onCreateOptionsMenu(Menu menu2) {
+		menu=menu2;
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.compute_list_actionbar, menu2);
 		return true;
@@ -249,25 +260,25 @@ public class ComputeActivity extends Activity {
 
 
 	private void delete_machine() {
-	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	    builder.setMessage("Are you sure you want to delete this item?")
-	           .setCancelable(false)
-	           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-	               public void onClick(DialogInterface dialog, int id) {
-	           		Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
-	        		computeManager.details(selectedItem);
-	        		computeManager.delete(selectedItem);
-	        		Intent intent = new Intent(computeActivity, ComputeActivity.class);
-	        		computeActivity.startActivity(intent);
-	               }
-	           })
-	           .setNegativeButton("No", new DialogInterface.OnClickListener() {
-	               public void onClick(DialogInterface dialog, int id) {
-	                    dialog.cancel();
-	               }
-	           });
-	    AlertDialog alert = builder.create();
-	    alert.show();
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Are you sure you want to delete this item?")
+		.setCancelable(false)
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
+				computeManager.details(selectedItem);
+				computeManager.delete(selectedItem);
+				Intent intent = new Intent(computeActivity, ComputeActivity.class);
+				computeActivity.startActivity(intent);
+			}
+		})
+		.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
 
 	}
 
@@ -323,10 +334,20 @@ public class ComputeActivity extends Activity {
 				}
 				return false;
 			}
-			else{
-				return super.onKeyUp(keyCode, event); 
+			else{if(keyCode == KeyEvent.KEYCODE_MENU) {
+				if(editPage==1) {
+					return true;
+
+
+				}
+
+				return false;
+
+			}
+			
+			return super.onKeyUp(keyCode, event); 
 			}
 		}
-	}
 
-}
+
+	}}

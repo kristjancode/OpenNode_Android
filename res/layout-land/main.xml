@@ -9,15 +9,12 @@
 	android:layout_width="match_parent" android:layout_height="match_parent">
 	<FrameLayout android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:layout_weight="1.03">
-		<ImageButton android:layout_height="46dp"
-			android:src="@drawable/ic_action_search" android:onClick="btnSearchClicked"
+		<ImageView android:layout_height="46dp"
+			android:src="@drawable/search48" android:onClick="btnSearchClicked"
 			android:layout_gravity="right" android:id="@+id/btn_Search"
-			android:layout_width="48dp" android:clickable="true"
-			android:background="@color/actionbar_background_end">
-		</ImageButton>
-		<ImageView android:layout_height="51dp"
-			android:layout_gravity="left|top" android:id="@+id/imageView1"
-			android:layout_width="168dp" android:src="@drawable/logo_opennode_lowres"></ImageView>
+			android:layout_width="48dp" android:clickable="true">
+		</ImageView>
+		<ImageView android:layout_height="51dp" android:layout_gravity="left|top" android:src="@drawable/logo_opennode_lowres" android:id="@+id/imageView1" android:layout_width="wrap_content"></ImageView>
 	</FrameLayout>
 	<LinearLayout android:layout_width="wrap_content"
 		android:layout_height="wrap_content">

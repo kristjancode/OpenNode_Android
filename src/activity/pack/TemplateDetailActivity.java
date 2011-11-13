@@ -34,6 +34,7 @@ public class TemplateDetailActivity  extends Activity {
 	protected ArrayAdapter<CharSequence> mAdapter;
 	protected ArrayAdapter<CharSequence> m2Adapter;
 	private Activity templateActivity = this;
+	private int editPage=0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -180,24 +181,24 @@ public class TemplateDetailActivity  extends Activity {
 
 	}
 	private void delete_template() {
-	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	    builder.setMessage("Are you sure you want to delete this item?")
-	           .setCancelable(false)
-	           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-	               public void onClick(DialogInterface dialog, int id) {
-	           		final Template selectedItem = templateManager.item((int) TemplateActivity.selectedItemID);
-	        		templateManager.delete(selectedItem);
-	        		Intent intent = new Intent(templateActivity, TemplateActivity.class);
-	        		templateActivity.startActivity(intent);
-	               }
-	           })
-	           .setNegativeButton("No", new DialogInterface.OnClickListener() {
-	               public void onClick(DialogInterface dialog, int id) {
-	                    dialog.cancel();
-	               }
-	           });
-	    AlertDialog alert = builder.create();
-	    alert.show();
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Are you sure you want to delete this item?")
+		.setCancelable(false)
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				final Template selectedItem = templateManager.item((int) TemplateActivity.selectedItemID);
+				templateManager.delete(selectedItem);
+				Intent intent = new Intent(templateActivity, TemplateActivity.class);
+				templateActivity.startActivity(intent);
+			}
+		})
+		.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
 
 
 	}
@@ -205,6 +206,7 @@ public class TemplateDetailActivity  extends Activity {
 	private void update_template() {
 		setContentView(R.layout.update_template);
 		CreateTemplateManager();
+		editPage=1;
 
 		final EditText minSizeEdit = (EditText) findViewById(R.id.editText2);
 		final EditText minMemoryEdit = (EditText) findViewById(R.id.editText3);
@@ -227,10 +229,20 @@ public class TemplateDetailActivity  extends Activity {
 		updateTemplate.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				if ((!minSizeEdit.getText().toString().equals("")) && (!minMemoryEdit.getText().toString().equals("") && (!nameEdit.getText().toString().equals("")))){
-					Template newTemplate = new Template(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(minSizeEdit.getText().toString()), Integer.parseInt(minMemoryEdit.getText().toString()), Integer.parseInt(minCpuEdit.getText().toString()), Integer.parseInt(maxSizeEdit.getText().toString()), Integer.parseInt(maxMemoryEdit.getText().toString()), Integer.parseInt(maxMemoryEdit.getText().toString()));
-					templateManager.update(selectedItem, newTemplate);
-					Intent myIntent = new Intent(view.getContext(), TemplateActivity.class);
-					startActivityForResult(myIntent, 0);
+					try {
+						Integer.parseInt(minSizeEdit.getText().toString());
+						Integer.parseInt(minMemoryEdit.getText().toString());
+						Integer.parseInt(minCpuEdit.getText().toString());
+						Integer.parseInt(maxSizeEdit.getText().toString());
+						Integer.parseInt(maxMemoryEdit.getText().toString());
+						Integer.parseInt(maxMemoryEdit.getText().toString());
+
+						Template newTemplate = new Template(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(minSizeEdit.getText().toString()), Integer.parseInt(minMemoryEdit.getText().toString()), Integer.parseInt(minCpuEdit.getText().toString()), Integer.parseInt(maxSizeEdit.getText().toString()), Integer.parseInt(maxMemoryEdit.getText().toString()), Integer.parseInt(maxMemoryEdit.getText().toString()));
+						templateManager.update(selectedItem, newTemplate);
+						Intent myIntent = new Intent(view.getContext(), TemplateActivity.class);
+						startActivityForResult(myIntent, 0);
+					}
+					catch (Exception e){}
 				}
 				else{
 					Context context = getApplicationContext();
@@ -262,8 +274,13 @@ public class TemplateDetailActivity  extends Activity {
 				}
 				return false;
 			}
-			else{
-				return super.onKeyUp(keyCode, event); 
+			else{if(keyCode == KeyEvent.KEYCODE_MENU) {
+				if(editPage==1) {
+					return true;
+				}
+				return false;
+			}
+			return super.onKeyUp(keyCode, event); 
 			}
 		}
 	}
