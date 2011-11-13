@@ -12,6 +12,7 @@
 	<property name="coverage" location="${reports}/coverage" />
 	<property name="instr" location="${basedir}/instr" />
 	<property name="emma" value="${basedir}/libs/emma" />
+	<property name="bin" value="${basedir}/bin"/>
 
 	<path id="compile.classpath">
 		<fileset dir="${libs}" includes="*.jar"/>
@@ -20,7 +21,11 @@
 	
 	<path id="build.classpath">  
 		<fileset dir="${libs}" includes="*.jar"/>
-	<pathelement path="${build}"/>
+		<pathelement path="${build}"/>
+	</path>
+	
+	<path id="instr.classpath">  
+		<pathelement path="${build}"/>
 	</path>
 	
 	<path id="emmalib" >
@@ -63,7 +68,7 @@
 	
 	<target name="code" >
 			<mkdir dir="${build}" />
-			<javac target="1.5" debug="true" destdir="${build}">
+			<javac target="1.6" debug="true" destdir="${build}" includeantruntime="false">
 				<src path="${src}"/>
 				<classpath refid="run.classpath"/>
 			</javac>
@@ -71,7 +76,7 @@
 	
 	<target name="compile">
 		<mkdir dir="${build}" />
- 		<javac target="1.5" debug="true" destdir="${build}">
+ 		<javac target="1.6" debug="true" destdir="${build}" includeantruntime="false">
  			<src path="${core}"/>
  			<src path="${external}"/>
  			<classpath refid="compile.classpath"/>
@@ -81,7 +86,7 @@
 	<!-- Instrument the code -->
 	<target name="instr" depends="compile,code" if="emma.enabled" >
 	<emma>
-	<instr instrpathref="build.classpath"
+	<instr instrpathref="instr.classpath"
 		destdir="${out.instr.dir}"
 		metadatafile="${coverage}/metadata.emma"
 		merge="true"
@@ -110,6 +115,7 @@
  
 	<target name="clean">
 	<delete dir="${build}"/>
+	<delete dir="${bin}"/>
 	<delete dir="${instr}"/>
 	<delete dir="${reports}"/>
 	</target>

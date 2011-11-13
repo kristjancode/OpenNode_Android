@@ -2,16 +2,22 @@ package core.models;
 
 import static org.junit.Assert.*;
 
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class StorageTest {
 	Storage storage;
+	int id = 0;
+	String name = "name";
+	String type = "type";
+	int capacity = 9;
+	int available = 1;
 
 	@Before
 	public void setUp() throws Exception {
-		storage = new Storage(0,"storagename","storagetype",0,0);
+		storage = new Storage(id,name,type,capacity,available);
 	}
 
 	@After
@@ -22,46 +28,54 @@ public class StorageTest {
 	@Test
 	public final void testValid() {
 		assertTrue("This storage item should be valid",storage.valid());
+		//also make one that is invalid
+		Storage invalid_storage = new Storage(0,null,null,0,0);
+		assertFalse("This storage item should be invalid",invalid_storage.valid());
 	}
 
 	@Test
 	public final void testAssignItem() {
-		fail("Not yet implemented"); // TODO
+		Item item = null;
+		assertFalse("Assigning null object to network should not work",storage.assign(item));
 	}
 
 	@Test
 	public final void testAssignJSONObject() {
-		fail("Not yet implemented"); // TODO
+		Storage duplicate = new Storage();
+		try {
+			String JSONRepresentation = storage.toJSON();
+			JSONObject jsonO = new JSONObject(JSONRepresentation);
+			duplicate.assign(jsonO);
+			assertTrue("Representation didn't come out the same, assign worked tho", duplicate.toJSON().equals(JSONRepresentation));
+		} catch (Exception exception) {
+			fail("Something went terribly wrong: "+exception.toString());
+		}
 	}
 
 	@Test
 	public final void testToJSON() {
-		fail("Not yet implemented"); // TODO
+		assertTrue("Didn't get JSON representation", storage.toJSON() instanceof java.lang.String);
 	}
 
 	@Test
 	public final void testToString() {
-		fail("Not yet implemented"); // TODO
+		assertTrue("Didn't get string", storage.toString() instanceof java.lang.String);
 	}
 
-	@Test
-	public final void testStorageIntStringStringIntInt() {
-		fail("Not yet implemented"); // TODO
-	}
 
 	@Test
 	public final void testType() {
-		fail("Not yet implemented"); // TODO
+		assertTrue("Bad type",storage.type().equals(type));
 	}
 
 	@Test
 	public final void testCapacity() {
-		fail("Not yet implemented"); // TODO
+		assertTrue("Bad capacity",storage.capacity()==capacity);
 	}
 
 	@Test
 	public final void testAvailable() {
-		fail("Not yet implemented"); // TODO
+		assertTrue("Bad available",storage.available()==available);
 	}
 
 }

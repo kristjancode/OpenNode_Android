@@ -49,10 +49,10 @@ public class ComputeTest {
 		assertEquals(Integer.MAX_VALUE,compute.cores());
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testCpu() {
-		assertEquals((float) 0.0,compute.cpu());
+		//Delta=1?
+		assertEquals((float) 0.0,compute.cpu(),1);
 	}
 	
 	@Test

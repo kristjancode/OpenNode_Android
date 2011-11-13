@@ -72,9 +72,12 @@ public class ComputeManagerTest {
 	@Test
 	public void testCreateItem(){
 		assertTrue("Failed to load",computeManager.load());
+		int count = computeManager.count();
 		Compute compute = new Compute(20,"computename","arch", 77, (float) 1.5, 88, "state", "template");
 		assertTrue("Invalid compute",compute.valid());
 		assertTrue("Should be able to create damn compute",computeManager.create(compute));
+		assertTrue("Failed to load second time",computeManager.load());
+		assertEquals("New item not counted",computeManager.count()+1==count);
 	}
 	
 	@Test
