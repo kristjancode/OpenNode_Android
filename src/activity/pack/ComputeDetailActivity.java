@@ -56,9 +56,9 @@ public class ComputeDetailActivity extends Activity {
 
 		extraListItems = new String[6];
 		extraListItems[0] = ("Arch: " + selectedItem.arch());
-		extraListItems[1] = ("Memory: " + selectedItem.memory());
+		extraListItems[3] = ("Memory: " + selectedItem.memory());
 		extraListItems[2] = ("Cpu: " + selectedItem.cpu());
-		extraListItems[3] = ("Cores: " + selectedItem.cores());
+		extraListItems[1] = ("Cores: " + selectedItem.cores());
 		extraListItems[4] = ("Template: " + selectedItem.template());
 		extraListItems[5] = ("State: " + selectedItem.state());
 
