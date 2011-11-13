@@ -117,62 +117,71 @@ public class SearchActivity extends Activity {
 				if(storageCheck.isChecked()){searchManager.filterStorages(true);}
 				if(templateCheck.isChecked()){searchManager.filterTemplates(true);}
 				if(newsCheck.isChecked()){searchManager.filterNews(true);}
-				long start, end, elapsed;
 
 				boolean itemsLoaded = searchManager.search(array);
+				if (itemsLoaded){
 
-				int ItemsInsearchList = searchManager.count();	
-				listItems = new String[ItemsInsearchList];
-				searchList = new core.models.Item[ItemsInsearchList];
-				for (int counter=0; counter<ItemsInsearchList; counter++){
-					searchList[counter]= searchManager.item(counter);
-					listItems[counter] = searchList[counter].name();
+					int ItemsInsearchList = searchManager.count();	
+					listItems = new String[ItemsInsearchList];
+					searchList = new core.models.Item[ItemsInsearchList];
+					for (int counter=0; counter<ItemsInsearchList; counter++){
+						searchList[counter]= searchManager.item(counter);
+						listItems[counter] = searchList[counter].name();
+					}
+					searchListView = (ListView) findViewById(R.id.search_list);
+					searchListView.setAdapter(new MyArrayAdapter<String>(searchActivity,R.layout.row , R.id.computeRow, listItems));
+					registerForContextMenu(searchListView);
+					searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {  				
+						public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+							StorageActivity.back=0;
+							selectedItemID = arg2;
+							ComputeActivity.selectedItemID = arg2;
+							NetworkActivity.selectedItemID = arg2;
+							StorageActivity.selectedItemID = arg2;
+							TemplateActivity.selectedItemID = arg2;
+							Activity_StreamActivity.selectedItemID = arg2;
+							if (searchManager.item(arg2) instanceof core.models.Compute){
+								Intent myIntent = new Intent(arg1.getContext(),	ComputeDetailActivity.class);
+								startActivityForResult(myIntent, 0);
+							}
+							if (searchManager.item(arg2) instanceof core.models.Network){
+								Intent myIntent2 = new Intent(arg1.getContext(),	NetworkDetailActivity.class);
+								startActivityForResult(myIntent2, 0);
+							}
+							if (searchManager.item(arg2) instanceof core.models.Storage){
+								Intent myIntent3 = new Intent(arg1.getContext(),	StorageDetailActivity.class);
+								startActivityForResult(myIntent3, 0);
+							}
+							if (searchManager.item(arg2) instanceof core.models.Template){
+								Intent myIntent4 = new Intent(arg1.getContext(),	TemplateDetailActivity.class);
+								startActivityForResult(myIntent4, 0);
+							}
+							if (searchManager.item(arg2) instanceof core.models.News){
+								Intent myIntent5 = new Intent(arg1.getContext(),	NewsDetailActivity.class);
+								startActivityForResult(myIntent5, 0);
+							}
+
+
+
+
+
+						}  		
+					});  
+
 				}
-				searchListView = (ListView) findViewById(R.id.search_list);
-				searchListView.setAdapter(new MyArrayAdapter<String>(searchActivity,R.layout.row , R.id.computeRow, listItems));
-				registerForContextMenu(searchListView);
-				searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {  				
-					public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-						StorageActivity.back=0;
-						selectedItemID = arg2;
-						ComputeActivity.selectedItemID = arg2;
-						NetworkActivity.selectedItemID = arg2;
-						StorageActivity.selectedItemID = arg2;
-						TemplateActivity.selectedItemID = arg2;
-						Activity_StreamActivity.selectedItemID = arg2;
-						if (searchManager.item(arg2) instanceof core.models.Compute){
-							Intent myIntent = new Intent(arg1.getContext(),	ComputeDetailActivity.class);
-							startActivityForResult(myIntent, 0);
-						}
-						if (searchManager.item(arg2) instanceof core.models.Network){
-							Intent myIntent2 = new Intent(arg1.getContext(),	NetworkDetailActivity.class);
-							startActivityForResult(myIntent2, 0);
-						}
-						if (searchManager.item(arg2) instanceof core.models.Storage){
-							Intent myIntent3 = new Intent(arg1.getContext(),	StorageDetailActivity.class);
-							startActivityForResult(myIntent3, 0);
-						}
-						if (searchManager.item(arg2) instanceof core.models.Template){
-							Intent myIntent4 = new Intent(arg1.getContext(),	TemplateDetailActivity.class);
-							startActivityForResult(myIntent4, 0);
-						}
-						if (searchManager.item(arg2) instanceof core.models.News){
-							Intent myIntent5 = new Intent(arg1.getContext(),	NewsDetailActivity.class);
-							startActivityForResult(myIntent5, 0);
-						}
+				else{
+					Context context = getApplicationContext();
+					CharSequence text = "Connection failed. Login again.";
+					int duration = Toast.LENGTH_LONG;
 
-
-
-
-
-					}  		
-				});  
-
-			}
-
-		});
-
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+				}
+			}});
 	}
+
+
+
 	private void backToFalse() {
 		compCheck=false;
 		netwCheck=false;

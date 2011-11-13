@@ -8,6 +8,7 @@ import core.models.Storage;
 import core.models.Template;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,37 +48,47 @@ public class TemplateActivity extends Activity {
 		setContentView(R.layout.template);
 		templateManager = UI_Core.getCore().templateManager();
 		computeManager = UI_Core.getCore().computeManager();
-		boolean itemsLoaded = templateManager.load();	//It seems to be unused, but it´s really for getting new data.
-		int elementsIntemplateList = templateManager.count();	
-		templateList = new core.models.Template[elementsIntemplateList];
-		listItems = new String[elementsIntemplateList];
-		ImageView search = (ImageView) findViewById(R.id.btn_computeSearch);
-		search.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				SearchActivity.tempCheck = true;
-				back=0;
-				Intent myIntent = new Intent(view.getContext(),
-						SearchActivity.class);
-				startActivityForResult(myIntent, 0);
-			}
+		boolean itemsLoaded = templateManager.load();
+		if (itemsLoaded){
+			int elementsIntemplateList = templateManager.count();	
+			templateList = new core.models.Template[elementsIntemplateList];
+			listItems = new String[elementsIntemplateList];
+			ImageView search = (ImageView) findViewById(R.id.btn_computeSearch);
+			search.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View view) {
+					SearchActivity.tempCheck = true;
+					back=0;
+					Intent myIntent = new Intent(view.getContext(),
+							SearchActivity.class);
+					startActivityForResult(myIntent, 0);
+				}
 
-		});
-		for (int counter=0; counter<elementsIntemplateList; counter++){
-			templateList[counter]=templateManager.item(counter);
-			listItems[counter] = templateList[counter].name();
+			});
+			for (int counter=0; counter<elementsIntemplateList; counter++){
+				templateList[counter]=templateManager.item(counter);
+				listItems[counter] = templateList[counter].name();
+			}
+			templateListView = (ListView) findViewById(R.id.list_templates);
+			templateListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , listItems));
+			registerForContextMenu(templateListView);
+			templateListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
+				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					selectedItemID = arg2;
+					actionValue = 0;
+					back = 1;
+					Intent myIntent = new Intent(arg1.getContext(),	TemplateDetailActivity.class);
+					startActivityForResult(myIntent, 0);
+				}  		
+			});  
 		}
-		templateListView = (ListView) findViewById(R.id.list_templates);
-		templateListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , listItems));
-		registerForContextMenu(templateListView);
-		templateListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {  				
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				selectedItemID = arg2;
-				actionValue = 0;
-				back = 1;
-				Intent myIntent = new Intent(arg1.getContext(),	TemplateDetailActivity.class);
-				startActivityForResult(myIntent, 0);
-			}  		
-		});  
+		else{
+			Context context = getApplicationContext();
+			CharSequence text = "Connection failed. Login again.";
+			int duration = Toast.LENGTH_LONG;
+
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
 	}
 
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
@@ -155,25 +166,6 @@ public class TemplateActivity extends Activity {
 		});
 
 	}
-	private void extra_info() {
-		setContentView(R.layout.extra);
-
-		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
-		core.models.Template selectedItem = templateList[(int) selectedItemID];
-		templateManager.details(selectedItem);
-		computeExtraLabel.setText(selectedItem.name());
-
-		extraListItems = new String[3];
-		extraListItems[0] = ("ID : " + selectedItem.id());
-		extraListItems[1] = ("Min disk size : " + selectedItem.minDiskSize());
-		extraListItems[2] = ("Min memory size : " + selectedItem.minMemorySize());
-
-
-		templateExtraListView = (ListView) findViewById(R.id.list_extra);
-		templateExtraListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, extraListItems));
-
-	}
-
 	public boolean onCreateOptionsMenu(Menu menu2) {
 
 		MenuInflater inflater = getMenuInflater();
@@ -205,24 +197,24 @@ public class TemplateActivity extends Activity {
 		return true;
 	}
 	private void delete_template() {
-	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	    builder.setMessage("Are you sure you want to delete this item?")
-	           .setCancelable(false)
-	           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-	               public void onClick(DialogInterface dialog, int id) {
-	           		final Template selectedItem = templateManager.item((int) TemplateActivity.selectedItemID);
-	        		templateManager.delete(selectedItem);
-	        		Intent intent = new Intent(templateActivity, TemplateActivity.class);
-	        		templateActivity.startActivity(intent);
-	               }
-	           })
-	           .setNegativeButton("No", new DialogInterface.OnClickListener() {
-	               public void onClick(DialogInterface dialog, int id) {
-	                    dialog.cancel();
-	               }
-	           });
-	    AlertDialog alert = builder.create();
-	    alert.show();
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Are you sure you want to delete this item?")
+		.setCancelable(false)
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				final Template selectedItem = templateManager.item((int) TemplateActivity.selectedItemID);
+				templateManager.delete(selectedItem);
+				Intent intent = new Intent(templateActivity, TemplateActivity.class);
+				templateActivity.startActivity(intent);
+			}
+		})
+		.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
 
 
 

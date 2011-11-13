@@ -57,8 +57,7 @@ public class ComputeActivity extends Activity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View itemView = super.getView(position, convertView, parent);
 			ImageView imageView = (ImageView) itemView.findViewById(R.id.icon);
-			core.models.Compute selectedItem = computeManager.item(position);
-			//computeManager.details(selectedItem);    
+			core.models.Compute selectedItem = computeManager.item(position); 
 			if (selectedItem.state().equals("running")){
 				imageView.setImageResource(R.drawable.start48);
 			}
@@ -82,6 +81,7 @@ public class ComputeActivity extends Activity {
 		super.onCreate(icicle);
 		setContentView(R.layout.compute);
 		computeManager = UI_Core.getCore().computeManager();
+		if (computeManager.load()){
 		boolean itemsLoaded = computeManager.load();	
 		int ItemsInComputeList = computeManager.count();	
 		computeList = new core.models.Compute[ItemsInComputeList];
@@ -117,6 +117,15 @@ public class ComputeActivity extends Activity {
 				startActivityForResult(myIntent, 0);
 			}  		
 		});  
+		}
+		else{
+			Context context = getApplicationContext();
+			CharSequence text = "Connection failed. Login again.";
+			int duration = Toast.LENGTH_LONG;
+
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
 	}
 
 

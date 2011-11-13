@@ -35,7 +35,8 @@ public class NetworkActivity extends Activity {
 		setContentView(R.layout.network);
 		selectedItemID = -1;
 		networkManager = UI_Core.getCore().networkManager();
-		boolean itemsLoaded = networkManager.load();	//It seems to be unused, but it´s really for getting new data.
+		if (networkManager.load()){
+		boolean itemsLoaded = networkManager.load();
 		int elementsInnetworkList = networkManager.count();	
 		networkList = new core.models.Network[elementsInnetworkList];
 		listItems = new String[elementsInnetworkList];
@@ -65,6 +66,15 @@ public class NetworkActivity extends Activity {
 				startActivityForResult(myIntent, 0);
 			}  		
 		});  
+		}
+		else{
+			Context context = getApplicationContext();
+			CharSequence text = "Connection failed. Login again.";
+			int duration = Toast.LENGTH_LONG;
+
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
 	}
 	public boolean onCreateOptionsMenu(Menu menu2) {
 		MenuInflater inflater = getMenuInflater();

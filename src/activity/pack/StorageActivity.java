@@ -5,6 +5,7 @@ import core.interfaces.StorageManager;
 import core.models.Storage;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ public class StorageActivity extends Activity {
 		super.onCreate(icicle);
 		setContentView(R.layout.storage);
 		storageManager = UI_Core.getCore().storageManager();
+		if (storageManager.load()){
 		boolean itemsLoaded = storageManager.load();;
 		int elementsInstorageList = storageManager.count();;	
 		storageList = new core.models.Storage[elementsInstorageList];
@@ -70,6 +72,15 @@ public class StorageActivity extends Activity {
 				startActivityForResult(myIntent, 0);
 			}  		
 		});  
+		}
+		else{
+			Context context = getApplicationContext();
+			CharSequence text = "Connection failed. Login again.";
+			int duration = Toast.LENGTH_LONG;
+
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
 	}
 
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {

@@ -24,6 +24,7 @@
 		<activity android:name=".Activity_StreamActivity"
 			android:configChanges="orientation|keyboard|keyboardHidden" />
 		<activity android:name=".NetworkActivity" />
+		<activity android:name=".AboutActivity" />
 		<activity android:name=".TemplateActivity"
 			android:configChanges="orientation|keyboard|keyboardHidden" />
 		<activity android:name=".StorageActivity"

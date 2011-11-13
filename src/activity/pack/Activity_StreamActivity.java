@@ -45,7 +45,8 @@ public class Activity_StreamActivity extends Activity {
 		setContentView(R.layout.activity_stream);
 		selectedItemID = -1;
 		newsManager = UI_Core.getCore().newsManager();
-		boolean itemsLoaded = newsManager.load();	//It seems to be unused, but it´s really for getting new data.
+		if (newsManager.load()){
+		boolean itemsLoaded = newsManager.load();
 		int elementsInnewsList = newsManager.count();	
 		newsList = new core.models.News[elementsInnewsList];
 		listItems = new String[elementsInnewsList];
@@ -75,6 +76,15 @@ public class Activity_StreamActivity extends Activity {
 				startActivityForResult(myIntent, 0);
 			}  		
 		});  
+		}
+		else{
+			Context context = getApplicationContext();
+			CharSequence text = "Connection failed. Login again.";
+			int duration = Toast.LENGTH_LONG;
+
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
 	}
 
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {

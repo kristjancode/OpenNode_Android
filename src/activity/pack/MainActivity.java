@@ -90,6 +90,8 @@ public class MainActivity extends Activity {
 			this.startActivity(intent);
 			break;
 		case R.id.about:
+			Intent intent2 = new Intent(this, AboutActivity.class);
+			this.startActivity(intent2);
 			break;
 			
 		}

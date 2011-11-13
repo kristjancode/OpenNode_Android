@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:id="@+id/scrollView1"
+	android:layout_height="wrap_content">
+
+	<LinearLayout 
+		android:orientation="vertical" android:layout_width="match_parent"
+		android:layout_height="match_parent" android:weightSum="1">
+		<TextView android:id="@+id/activity_label"
+			android:background="@color/actionbar_background_end"
+			android:typeface="serif" android:padding="12px" android:text="About"
+			android:textSize="24sp" android:gravity="center"
+			android:layout_height="wrap_content" android:layout_width="match_parent"></TextView>
+		<TextView android:layout_width="wrap_content" android:id="@+id/textView111"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_height="wrap_content"
+			android:text="You are currently using Opennode Android Client version 1.0. This version was released on 14.11.2011."
+			android:layout_margin="2dp"></TextView>
+		<TextView android:layout_width="wrap_content" android:id="@+id/textView222"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_height="wrap_content"
+			android:text="Opennode Android Client allows the user to see and manage core objects of an Opennode-based clouds: virtual machines, networks, storage pools, templates and activities."
+			android:layout_margin="2dp"></TextView>
+		<TextView android:layout_width="wrap_content" android:id="@+id/textView333"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_height="wrap_content"
+			android:text="This product was created as part of the Software Project course in University of Tartu."
+			android:layout_margin="2dp"></TextView>
+		<TextView android:layout_width="wrap_content" android:id="@+id/textView444"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_height="wrap_content" android:text="Credits:"
+			android:layout_margin="2dp"></TextView>
+		<TextView android:layout_width="wrap_content" android:id="@+id/textView1"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_height="wrap_content" android:text="Art Hallap"
+			android:layout_margin="2dp"></TextView>
+		<TextView android:layout_width="wrap_content" android:id="@+id/textView2"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_height="wrap_content" android:text="Erich Jagomägis"
+			android:layout_margin="2dp"></TextView>
+		<TextView android:layout_width="wrap_content" android:id="@+id/textView3"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_height="wrap_content" android:text="Imre Purret"
+			android:layout_margin="2dp"></TextView>
+		<TextView android:layout_width="wrap_content" android:id="@+id/textView4"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_height="wrap_content" android:text="Kristjan Jõgi"
+			android:layout_margin="2dp"></TextView>
+		<TextView android:layout_width="wrap_content" android:id="@+id/textView5"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_height="wrap_content" android:text="Taavi Tetlov"
+			android:layout_margin="2dp"></TextView>
+		<LinearLayout android:id="@+id/linearLayout1"
+			android:layout_width="match_parent" android:layout_height="match_parent"></LinearLayout>
+	</LinearLayout>
+</ScrollView>
