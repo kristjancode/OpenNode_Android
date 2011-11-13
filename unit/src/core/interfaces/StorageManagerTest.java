@@ -42,7 +42,7 @@ public class StorageManagerTest {
 		assertTrue("Invalid storage",storage.valid());
 		assertTrue("Should be able to create damn storage",storageManager.create(storage));
 		assertTrue("Failed to load second time",storageManager.load());
-		assertEquals("New item not counted",storageManager.count()+1==count);
+		assertEquals("New item not counted",storageManager.count(),count+1);
 	}
 
 	@Test

@@ -77,7 +77,7 @@ public class ComputeManagerTest {
 		assertTrue("Invalid compute",compute.valid());
 		assertTrue("Should be able to create damn compute",computeManager.create(compute));
 		assertTrue("Failed to load second time",computeManager.load());
-		assertEquals("New item not counted",computeManager.count()+1==count);
+		assertEquals("New item not counted",computeManager.count(),count+1);
 	}
 	
 	@Test

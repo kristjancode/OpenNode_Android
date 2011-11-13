@@ -5,6 +5,7 @@
 	
 	<property name="src" location="${basedir}/src"/>
 	<property name="core" location="../src/core/"/>
+	<property name="origsrc" location="../src/"/>
 	<property name="external" location="../src/external"/>
 	<property name="libs" location="${basedir}/libs/"/>
 	<property name="build" location="${basedir}/build"/>
@@ -57,7 +58,7 @@
 	<target name="report.html" >
 	<taskdef resource="emma_ant.properties" />
 		<emma>
-		<report sourcepath="${src}" >
+		<report sourcepath="${origsrc}" >
 			<fileset dir="${coverage}" >
 				<include name="*.emma" />
 			</fileset>
@@ -89,8 +90,10 @@
 	<instr instrpathref="instr.classpath"
 		destdir="${out.instr.dir}"
 		metadatafile="${coverage}/metadata.emma"
-		merge="true"
-	/>
+		merge="true">
+		<!-- <filter includes="*Test*" /> -->
+		<filter excludes="*Test*"/>
+	</instr>
 	</emma>
 	</target>
  
