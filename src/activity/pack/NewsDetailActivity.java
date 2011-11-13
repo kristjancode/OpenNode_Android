@@ -50,7 +50,7 @@ public class NewsDetailActivity extends Activity {
 		computeExtraLabel.setText(selectedItem.name());
 		computeExtraLabel.setText(selectedItem.name());
 		TextView smallId = (TextView) findViewById(R.id.smallId);
-		smallId.setText("ID : " + selectedItem.id());
+		smallId.setText("ID: " + selectedItem.id());
 
 		extraListItems = new String[3];
 		extraListItems[0] = ("Type: " + selectedItem.type());

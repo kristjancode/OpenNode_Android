@@ -43,7 +43,7 @@ public class NetworkDetailActivity extends Activity {
 		TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 		computeExtraLabel.setText(selectedItem.name());
 		TextView smallId = (TextView) findViewById(R.id.smallId);
-		smallId.setText("ID : " + selectedItem.id());
+		smallId.setText("ID: " + selectedItem.id());
 
 		extraListItems = new String[4];
 		extraListItems[0] = ("IP: " + selectedItem.ip());

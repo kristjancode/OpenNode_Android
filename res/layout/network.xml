@@ -6,7 +6,7 @@
 		android:id="@+id/linearLayout1" android:layout_height="wrap_content">
 		<TextView android:id="@+id/activity_label"
 			android:background="@color/actionbar_background_end"
-			android:typeface="serif" android:padding="12px" android:text="Network Devices"
+			android:typeface="serif" android:padding="12px" android:text="Networks"
 			android:textSize="24sp" android:layout_width="272dp" android:gravity="center"
 			android:layout_height="wrap_content"></TextView>
 		<ImageView android:id="@+id/btn_computeSearch"

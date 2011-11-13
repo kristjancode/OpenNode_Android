@@ -230,7 +230,7 @@ public class ComputeActivity extends Activity {
 
 	private void migrate_machine() {
 		Context context = getApplicationContext();
-		CharSequence text = "Functionality will be added in next version.";
+		CharSequence text = "Functionality will be added in the next version.";
 		int duration = Toast.LENGTH_LONG;
 
 		Toast toast = Toast.makeText(context, text, duration);

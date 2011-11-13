@@ -52,7 +52,7 @@ public class ComputeDetailActivity extends Activity {
 		}
 		computeManager.details(selectedItem);
 		computeExtraLabel.setText(selectedItem.name());
-		smallId.setText("ID : " + selectedItem.id());
+		smallId.setText("ID: " + selectedItem.id());
 
 		extraListItems = new String[6];
 		extraListItems[0] = ("Arch: " + selectedItem.arch());
@@ -172,7 +172,7 @@ public class ComputeDetailActivity extends Activity {
 	}
 	private void migrate_machine() {
 		Context context = getApplicationContext();
-		CharSequence text = "Functionality will be added in next version.";
+		CharSequence text = "Functionality will be added in the next version.";
 		int duration = Toast.LENGTH_LONG;
 
 		Toast toast = Toast.makeText(context, text, duration);
