@@ -86,10 +86,7 @@
 				android:layout_below="@+id/TextView03"
 				android:layout_alignParentLeft="true"
 				android:layout_alignParentRight="true"></EditText>
-			<Button android:layout_width="wrap_content" android:id="@+id/btn_update_template"
-				android:text="Edit" android:layout_height="wrap_content"
-				android:layout_below="@+id/editText7"
-				android:layout_alignParentLeft="true" android:layout_alignRight="@+id/textView5"></Button>
+			<Button android:id="@+id/btn_update_template" android:text="Edit" android:layout_height="wrap_content" android:layout_below="@+id/editText7" android:layout_centerHorizontal="true" android:layout_width="120dp"></Button>
 		</RelativeLayout>
 	</LinearLayout>
 </ScrollView>

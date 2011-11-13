@@ -53,9 +53,12 @@ public class StorageDetailActivity extends Activity {
 			smallId.setText("ID: " + selectedItem.id());
 			if (selectedItem.capacity()>0){
 				progressBar.setProgress(100*(selectedItem.capacity()-selectedItem.available())/selectedItem.capacity());
+				//progressBar.setBackgroundColor();
+				//progressBar.
 			}
 			else{
 				progressBar.setProgress(100);
+
 			}
 			extraListItems = new String[3];
 			extraListItems[0] = ("Available: " + selectedItem.available());
@@ -166,6 +169,7 @@ public class StorageDetailActivity extends Activity {
 							startActivityForResult(myIntent, 0);
 
 						}
+						
 						else{
 							Context context = getApplicationContext();
 							CharSequence text = "The value of available can not be larger than the value of capacity";
@@ -175,7 +179,30 @@ public class StorageDetailActivity extends Activity {
 							toast.show();
 						}
 					}
-					catch (Exception e){}
+					catch (Exception e){
+						try{
+							Integer.parseInt(sizeEdit.getText().toString());
+						}
+						catch(Exception e1){
+							Context context = getApplicationContext();
+							CharSequence text = "Bad input field capacity";
+							int duration = Toast.LENGTH_LONG;
+
+							Toast toast = Toast.makeText(context, text, duration);
+							toast.show();
+						}
+						try{
+							Integer.parseInt(availableEdit.getText().toString());
+						}
+						catch(Exception e1){
+							Context context = getApplicationContext();
+							CharSequence text = "Bad input field available";
+							int duration = Toast.LENGTH_LONG;
+
+							Toast toast = Toast.makeText(context, text, duration);
+							toast.show();
+						}
+					}
 				}
 				else{
 					Context context = getApplicationContext();

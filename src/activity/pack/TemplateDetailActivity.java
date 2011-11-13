@@ -236,14 +236,57 @@ public class TemplateDetailActivity  extends Activity {
 						Integer.parseInt(minCpuEdit.getText().toString());
 						Integer.parseInt(maxSizeEdit.getText().toString());
 						Integer.parseInt(maxMemoryEdit.getText().toString());
-						Integer.parseInt(maxMemoryEdit.getText().toString());
+						Integer.parseInt(maxCpuEdit.getText().toString());
+						if (Integer.parseInt(minSizeEdit.getText().toString()) <= Integer.parseInt(maxSizeEdit.getText().toString()) && Integer.parseInt(minMemoryEdit.getText().toString())<= Integer.parseInt(maxMemoryEdit.getText().toString()) && Integer.parseInt(minCpuEdit.getText().toString())<= Integer.parseInt(maxCpuEdit.getText().toString())){
+							Template newTemplate = new Template(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(minSizeEdit.getText().toString()), Integer.parseInt(minMemoryEdit.getText().toString()), Integer.parseInt(minCpuEdit.getText().toString()), Integer.parseInt(maxSizeEdit.getText().toString()), Integer.parseInt(maxMemoryEdit.getText().toString()), Integer.parseInt(maxMemoryEdit.getText().toString()));
+							templateManager.update(selectedItem, newTemplate);
+							Intent myIntent = new Intent(view.getContext(), TemplateActivity.class);
+							startActivityForResult(myIntent, 0);
+						}
+						else{
+							Context context = getApplicationContext();
+							CharSequence text = "Bad input min size has to be smaller than max size";
+							int duration = Toast.LENGTH_LONG;
 
-						Template newTemplate = new Template(selectedItem.id(),nameEdit.getText().toString(), Integer.parseInt(minSizeEdit.getText().toString()), Integer.parseInt(minMemoryEdit.getText().toString()), Integer.parseInt(minCpuEdit.getText().toString()), Integer.parseInt(maxSizeEdit.getText().toString()), Integer.parseInt(maxMemoryEdit.getText().toString()), Integer.parseInt(maxMemoryEdit.getText().toString()));
-						templateManager.update(selectedItem, newTemplate);
-						Intent myIntent = new Intent(view.getContext(), TemplateActivity.class);
-						startActivityForResult(myIntent, 0);
+							Toast toast = Toast.makeText(context, text, duration);
+							toast.show();
+						}
 					}
-					catch (Exception e){}
+					catch (Exception e){
+						try{
+							Integer.parseInt(maxSizeEdit.getText().toString());
+						}
+						catch(Exception e1){
+							Context context = getApplicationContext();
+							CharSequence text = "Bad input field max disk size";
+							int duration = Toast.LENGTH_LONG;
+
+							Toast toast = Toast.makeText(context, text, duration);
+							toast.show();
+						}
+						try{
+							Integer.parseInt(maxMemoryEdit.getText().toString());
+						}
+						catch(Exception e1){
+							Context context = getApplicationContext();
+							CharSequence text = "Bad input field max memory size";
+							int duration = Toast.LENGTH_LONG;
+
+							Toast toast = Toast.makeText(context, text, duration);
+							toast.show();
+						}
+						try{
+							Integer.parseInt(maxCpuEdit.getText().toString());
+						}
+						catch(Exception e1){
+							Context context = getApplicationContext();
+							CharSequence text = "Bad input field max cpu size";
+							int duration = Toast.LENGTH_LONG;
+
+							Toast toast = Toast.makeText(context, text, duration);
+							toast.show();
+						}
+					}
 				}
 				else{
 					Context context = getApplicationContext();
