@@ -71,6 +71,18 @@ public class ComputeDetailActivity extends Activity {
 		MenuInflater inflater = getMenuInflater();
 
 		inflater.inflate(R.menu.compute_detail_actionbar, menu2);
+		if (selectedItem.state().equals("running")){
+			menu2.getItem(0).setEnabled(false);
+			menu2.getItem(0).setVisible(false);
+		}
+		if (selectedItem.state().equals("stopped")){
+			menu2.getItem(1).setEnabled(false);
+			menu2.getItem(1).setVisible(false);
+		}
+		if (selectedItem.state().equals("suspended")){
+			menu2.getItem(2).setEnabled(false);
+			menu2.getItem(2).setVisible(false);
+		}
 		return true;
 
 	}
