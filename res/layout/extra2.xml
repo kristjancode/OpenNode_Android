@@ -12,8 +12,11 @@
 		android:layout_height="wrap_content" android:background="@color/actionbar_background_end"
 		android:layout_width="match_parent" android:layout_gravity="center"
 		android:gravity="center"></TextView>
-	<ProgressBar android:id="@+id/progressBarStorage" android:layout_height="wrap_content" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:progress="50"></ProgressBar>
+	<ProgressBar android:id="@+id/progressBarStorage"
+		android:layout_height="wrap_content" style="?android:attr/progressBarStyleHorizontal"
+		android:layout_width="match_parent" android:progress="70"
+		android:progressDrawable="@drawable/progressbar" ></ProgressBar>
 	<ListView android:id="@+id/list_extra" android:layout_width="wrap_content"
-		android:isScrollContainer="true" android:clickable="true" android:layout_height="403dp">
+		android:isScrollContainer="true" android:clickable="true" android:layout_height="wrap_content">
 	</ListView>
 </LinearLayout>

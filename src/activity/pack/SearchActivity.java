@@ -45,27 +45,41 @@ public class SearchActivity extends Activity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View itemView = super.getView(position, convertView, parent);
 			ImageView imageView = (ImageView) itemView.findViewById(R.id.icon);
+			ImageView imageView2 = (ImageView) itemView.findViewById(R.id.managerView);
 
 			if (searchManager.item(position) instanceof core.models.Compute){
 				core.models.Compute selectedItem =(core.models.Compute) searchManager.item(position);
+				imageView.setImageResource(R.drawable.compute48);
 				if (selectedItem.state().equals("running")){
-					imageView.setImageResource(R.drawable.start48);
+					imageView2.setImageResource(R.drawable.start48);
 				}
 				else {
 					if (selectedItem.state().equals("stopped")){
-						imageView.setImageResource(R.drawable.stop48);
+						imageView2.setImageResource(R.drawable.stop48);
 					}
 					else{
 						if (selectedItem.state().equals("suspended")){
-							imageView.setImageResource(R.drawable.delete48);
+							imageView2.setImageResource(R.drawable.delete48);
 						}
 					}
 				}            
 			}
 			else{
 				//imageView.setEnabled(false);
-				imageView.setImageResource(R.drawable.empty48);
+				imageView2.setImageResource(R.drawable.empty48);
 				//imageView.setVisibility(false);
+				if (searchManager.item(position) instanceof core.models.Network){
+					imageView.setImageResource(R.drawable.network48);
+				}
+				if (searchManager.item(position) instanceof core.models.Storage){
+					imageView.setImageResource(R.drawable.storage48);
+				}
+				if (searchManager.item(position) instanceof core.models.Template){
+					imageView.setImageResource(R.drawable.template2);
+				}
+				if (searchManager.item(position) instanceof core.models.News){
+					imageView.setImageResource(R.drawable.new48);
+				}
 			}
 			return itemView;
 		}

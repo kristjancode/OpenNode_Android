@@ -222,8 +222,40 @@ public class ComputeActivity extends Activity {
 						Intent myIntent = new Intent(view.getContext(), ComputeActivity.class);
 						startActivityForResult(myIntent, 0);
 					}
+					else{
+						Context context = getApplicationContext();
+						CharSequence text = "Bad input field cpu";
+						int duration = Toast.LENGTH_LONG;
+
+						Toast toast = Toast.makeText(context, text, duration);
+						toast.show();
 					}
-					catch (Exception e){}
+					}
+					catch (Exception e){
+						try{
+							Integer.parseInt(coresEdit.getText().toString());
+						}
+						catch(Exception e1){
+							Context context = getApplicationContext();
+							CharSequence text = "Bad input field core";
+							int duration = Toast.LENGTH_LONG;
+
+							Toast toast = Toast.makeText(context, text, duration);
+							toast.show();
+						}
+						try{
+							Integer.parseInt(memoryEdit.getText().toString());
+						}
+						catch(Exception e2){
+							Context context = getApplicationContext();
+							CharSequence text = "Bad input field memory";
+							int duration = Toast.LENGTH_LONG;
+
+							Toast toast = Toast.makeText(context, text, duration);
+							toast.show();
+						}
+						
+					}
 				}
 				else{
 					Context context = getApplicationContext();
