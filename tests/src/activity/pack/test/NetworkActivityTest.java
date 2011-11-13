@@ -24,7 +24,7 @@ public class NetworkActivityTest extends ActivityInstrumentationTestCase2<Networ
 	//Disgusting
 	@Smoke
 	public void testA(){
-		if (solo.searchText("(?i).*?Network Devices*")) {
+		if (solo.searchText("(?i).*?Networks*")) {
 			solo.pressMenuItem(0);
 			solo.waitForActivity("MainActivity",5000);
 			solo.pressMenuItem(1);
