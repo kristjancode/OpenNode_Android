@@ -30,7 +30,7 @@ public class NetworkTest {
 		Network invalid_network = new Network(0,"name",null,null,null,null);
 		assertFalse("This item should be invalid",invalid_network.valid());
 	}
-
+	
 	@Test
 	public final void testAssignItem() {
 		Item item = null;
