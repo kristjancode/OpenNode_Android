@@ -50,9 +50,13 @@ public class StorageDetailActivity extends Activity {
 			TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);
 			computeExtraLabel.setText(selectedItem.name());
 			TextView smallId = (TextView) findViewById(R.id.smallId);
-			smallId.setText("ID : " + selectedItem.id());
-
-			progressBar.setProgress(100*(selectedItem.capacity()-selectedItem.available())/selectedItem.capacity());
+			smallId.setText("ID: " + selectedItem.id());
+			if (selectedItem.capacity()>0){
+				progressBar.setProgress(100*(selectedItem.capacity()-selectedItem.available())/selectedItem.capacity());
+			}
+			else{
+				progressBar.setProgress(100);
+			}
 			extraListItems = new String[3];
 			extraListItems[0] = ("Available: " + selectedItem.available());
 			extraListItems[1] = ("Capacity: " + selectedItem.capacity());
@@ -155,7 +159,7 @@ public class StorageDetailActivity extends Activity {
 						Integer.parseInt(sizeEdit.getText().toString());
 						Integer.parseInt(availableEdit.getText().toString());
 
-						if (Integer.parseInt(availableEdit.getText().toString())<selectedItem.capacity()){
+						if (Integer.parseInt(availableEdit.getText().toString())<=Integer.parseInt(sizeEdit.getText().toString())){
 							Storage newStorage = new Storage(selectedItem.id(),nameEdit.getText().toString(), typeEditSpinner.getSelectedItem().toString(), Integer.parseInt(sizeEdit.getText().toString()), Integer.parseInt(availableEdit.getText().toString()));
 							storageManager.update(selectedItem, newStorage);
 							Intent myIntent = new Intent(view.getContext(), StorageActivity.class);

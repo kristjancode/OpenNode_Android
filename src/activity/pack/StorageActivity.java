@@ -134,24 +134,24 @@ public class StorageActivity extends Activity {
 		return true;
 	}
 	public void delete_storage() {
-	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	    builder.setMessage("Are you sure you want to delete this item?")
-	           .setCancelable(false)
-	           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-	               public void onClick(DialogInterface dialog, int id) {
-	           		final core.models.Storage selectedItem = storageManager.item((int) StorageActivity.selectedItemID);
-	        		storageManager.delete(selectedItem);
-	        		Intent intent = new Intent(storageActivity, StorageActivity.class);
-	        		storageActivity.startActivity(intent);
-	               }
-	           })
-	           .setNegativeButton("No", new DialogInterface.OnClickListener() {
-	               public void onClick(DialogInterface dialog, int id) {
-	                    dialog.cancel();
-	               }
-	           });
-	    AlertDialog alert = builder.create();
-	    alert.show();
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Are you sure you want to delete this item?")
+		.setCancelable(false)
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				final core.models.Storage selectedItem = storageManager.item((int) StorageActivity.selectedItemID);
+				storageManager.delete(selectedItem);
+				Intent intent = new Intent(storageActivity, StorageActivity.class);
+				storageActivity.startActivity(intent);
+			}
+		})
+		.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
 
 	}
 

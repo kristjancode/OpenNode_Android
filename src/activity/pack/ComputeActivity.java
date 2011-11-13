@@ -33,9 +33,7 @@ import android.widget.ViewSwitcher;
 
 public class ComputeActivity extends Activity {
 	private ListView computeListView;
-	private ListView computeExtraListView;
 	private String[] listItems;
-	private String[] extraListItems;
 	static long selectedItemID;
 	private ComputeManager computeManager;
 	private core.models.Compute computeList[];
@@ -127,7 +125,20 @@ public class ComputeActivity extends Activity {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.compute_menu, menu);
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-		selectedItemID = info.position;    
+		selectedItemID = info.position;
+		final core.models.Compute selectedItem = computeManager.item((int) ComputeActivity.selectedItemID);
+		if (selectedItem.state().equals("running")){
+			menu.getItem(1).setEnabled(false);
+			menu.getItem(1).setVisible(false);
+		}
+		if (selectedItem.state().equals("stopped")){
+			menu.getItem(2).setEnabled(false);
+			menu.getItem(2).setVisible(false);
+		}
+		if (selectedItem.state().equals("suspended")){
+			menu.getItem(3).setEnabled(false);
+			menu.getItem(3).setVisible(false);
+		}
 		menu.setHeaderTitle(listItems[(int) selectedItemID]);
 	}
 
@@ -230,7 +241,7 @@ public class ComputeActivity extends Activity {
 
 	private void migrate_machine() {
 		Context context = getApplicationContext();
-		CharSequence text = "Functionality will be added in next version.";
+		CharSequence text = "Functionality will be added in the next version.";
 		int duration = Toast.LENGTH_LONG;
 
 		Toast toast = Toast.makeText(context, text, duration);

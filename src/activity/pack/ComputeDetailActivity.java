@@ -52,13 +52,13 @@ public class ComputeDetailActivity extends Activity {
 		}
 		computeManager.details(selectedItem);
 		computeExtraLabel.setText(selectedItem.name());
-		smallId.setText("ID : " + selectedItem.id());
+		smallId.setText("ID: " + selectedItem.id());
 
 		extraListItems = new String[6];
 		extraListItems[0] = ("Arch: " + selectedItem.arch());
-		extraListItems[1] = ("Memory: " + selectedItem.memory());
+		extraListItems[3] = ("Memory: " + selectedItem.memory());
 		extraListItems[2] = ("Cpu: " + selectedItem.cpu());
-		extraListItems[3] = ("Cores: " + selectedItem.cores());
+		extraListItems[1] = ("Cores: " + selectedItem.cores());
 		extraListItems[4] = ("Template: " + selectedItem.template());
 		extraListItems[5] = ("State: " + selectedItem.state());
 
@@ -71,6 +71,18 @@ public class ComputeDetailActivity extends Activity {
 		MenuInflater inflater = getMenuInflater();
 
 		inflater.inflate(R.menu.compute_detail_actionbar, menu2);
+		if (selectedItem.state().equals("running")){
+			menu2.getItem(0).setEnabled(false);
+			menu2.getItem(0).setVisible(false);
+		}
+		if (selectedItem.state().equals("stopped")){
+			menu2.getItem(1).setEnabled(false);
+			menu2.getItem(1).setVisible(false);
+		}
+		if (selectedItem.state().equals("suspended")){
+			menu2.getItem(2).setEnabled(false);
+			menu2.getItem(2).setVisible(false);
+		}
 		return true;
 
 	}
@@ -172,7 +184,7 @@ public class ComputeDetailActivity extends Activity {
 	}
 	private void migrate_machine() {
 		Context context = getApplicationContext();
-		CharSequence text = "Functionality will be added in next version.";
+		CharSequence text = "Functionality will be added in the next version.";
 		int duration = Toast.LENGTH_LONG;
 
 		Toast toast = Toast.makeText(context, text, duration);

@@ -53,7 +53,7 @@ public class TemplateDetailActivity  extends Activity {
 				TextView computeExtraLabel = (TextView) findViewById(R.id.extra_label);;
 				computeExtraLabel.setText(selectedItem.name());
 				TextView smallId = (TextView) findViewById(R.id.smallId);
-				smallId.setText("ID : " + selectedItem.id());
+				smallId.setText("ID: " + selectedItem.id());
 
 				extraListItems = new String[6];
 				extraListItems[0] = ("Min disk size: " + selectedItem.minDiskSize());
@@ -112,6 +112,7 @@ public class TemplateDetailActivity  extends Activity {
 	private void create_compute() {
 
 		setContentView(R.layout.create_vm);
+		editPage=1;
 		CreateTemplateManager();
 		final core.models.Template selectedItem = templateManager.item((int) TemplateActivity.selectedItemID);
 		templateManager.details(selectedItem);
