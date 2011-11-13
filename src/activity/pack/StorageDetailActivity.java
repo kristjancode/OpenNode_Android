@@ -159,7 +159,7 @@ public class StorageDetailActivity extends Activity {
 						Integer.parseInt(sizeEdit.getText().toString());
 						Integer.parseInt(availableEdit.getText().toString());
 
-						if (Integer.parseInt(availableEdit.getText().toString())<Integer.parseInt(sizeEdit.getText().toString())){
+						if (Integer.parseInt(availableEdit.getText().toString())<=Integer.parseInt(sizeEdit.getText().toString())){
 							Storage newStorage = new Storage(selectedItem.id(),nameEdit.getText().toString(), typeEditSpinner.getSelectedItem().toString(), Integer.parseInt(sizeEdit.getText().toString()), Integer.parseInt(availableEdit.getText().toString()));
 							storageManager.update(selectedItem, newStorage);
 							Intent myIntent = new Intent(view.getContext(), StorageActivity.class);
