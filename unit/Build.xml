@@ -45,7 +45,7 @@
 	<target name="with.emma">
 		<mkdir dir="${coverage}" />
 	<property name="emma.enabled" value="true"/>
-		<taskdef resource="emma_ant.properties" />
+		<taskdef resource="emma_ant.properties" classpathref='emmalib' />
 		<property name="out.instr.dir" value="${instr}" />
 		<path id="run.classpath">
 			<pathelement location="${out.instr.dir}" />
