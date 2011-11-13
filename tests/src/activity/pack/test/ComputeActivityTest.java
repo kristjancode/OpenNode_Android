@@ -101,6 +101,25 @@ public class ComputeActivityTest extends ActivityInstrumentationTestCase2<Comput
 		solo.assertCurrentActivity("Expected ComputeDetailActivity", "ComputeDetailActivity");
 	}
 	
+	@Smoke
+	public void testEditingComputeItemMaxLongCore() {
+		solo.assertCurrentActivity("Expected ComputeActivity", "ComputeActivity");
+		solo.waitForText("(?i).*?hostname_8*", 1, 5000);
+		solo.clickOnText("(?i).*?hostname_8*");
+		//We may have to wait a second
+		solo.waitForActivity("ComputeDetailActivity",5000);
+		solo.assertCurrentActivity("Expected ComputeDetailActivity", "ComputeDetailActivity");
+		solo.pressMenuItem(4, 3);
+		solo.waitForText("(?i).*?Edit Compute*", 1, 5000);
+		long longvalue=Long.MAX_VALUE;
+		String longstring=String.valueOf(longvalue);
+		solo.clearEditText(2);
+		//Then set it
+		solo.enterText(2, longstring);
+		solo.waitForActivity("ComputeDetailActivity",5000);
+		solo.assertCurrentActivity("Expected ComputeDetailActivity", "ComputeDetailActivity");
+	}
+	
 	@Override
 	public void tearDown() throws Exception {
 		try {

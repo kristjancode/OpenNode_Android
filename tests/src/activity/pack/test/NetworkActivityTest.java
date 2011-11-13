@@ -101,6 +101,7 @@ public class NetworkActivityTest extends ActivityInstrumentationTestCase2<Networ
 		solo.waitForActivity("NetworkDetailActivity",5000);
 		solo.assertCurrentActivity("Expected NetworkDetailActivity", "NetworkDetailActivity");
 	}
+
 	
 	@Override
 	public void tearDown() throws Exception {
